@@ -1,0 +1,92 @@
+/* لوحة التحكم — تعتمد على متغيرات main.css */
+.admin { background: var(--paper); min-height: 100vh; padding-bottom: 3rem; }
+
+/* Login */
+.login { min-height: 100vh; display: grid; place-items: center; background: var(--ink); padding: 1.25rem; }
+.login-card { width: min(100%, 400px); background: var(--surface); border-radius: 24px; padding: 2rem; display: grid; gap: 1rem; }
+.login-card .logo { margin-bottom: .5rem; }
+.login-card .logo-text small { color: var(--muted); }
+.login-err { color: var(--danger); font-size: .9rem; margin: 0; min-height: 1.2em; }
+
+/* Topbar */
+.topbar { background: var(--ink); color: #fff; position: sticky; top: 0; z-index: 20; }
+.topbar-inner { display: flex; align-items: center; justify-content: space-between; height: 66px; gap: 1rem; }
+.topbar-actions { display: flex; gap: .5rem; align-items: center; }
+.icon-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,.2); background: transparent; color: #fff; font-size: 1.2rem; cursor: pointer; }
+.icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+.demo-banner { background: #FFF1CC; color: #6B4700; font-size: .9rem; padding: .7rem 0; border-bottom: 1px solid #F0DCA0; }
+.demo-banner code { background: rgba(0,0,0,.06); padding: 0 .3rem; border-radius: 4px; direction: ltr; unicode-bidi: isolate; }
+
+.dash-main { padding-top: 1.5rem; display: grid; gap: 1rem; }
+
+/* KPIs */
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 1rem 1.15rem; display: flex; flex-direction: column; }
+.kpi small { color: var(--muted); font-size: .85rem; }
+.kpi strong { font-size: 2rem; line-height: 1.2; direction: ltr; text-align: right; }
+.kpi-sub { font-size: .8rem; color: var(--muted); }
+.kpi-accent { background: var(--ink); color: #fff; border-color: var(--ink); }
+.kpi-accent strong { color: var(--accent); }
+.kpi-accent small, .kpi-accent .kpi-sub { color: var(--muted-on-dark); }
+
+/* Panels */
+.panels { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 1.25rem; }
+.panel h2 { font-size: 1.05rem; margin-bottom: 1rem; }
+.bars { display: grid; gap: .6rem; }
+.bar-row { display: grid; grid-template-columns: 90px 1fr 32px; gap: .6rem; align-items: center; font-size: .88rem; }
+.bar-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar-track { height: 10px; background: var(--paper); border-radius: 99px; overflow: hidden; }
+.bar-fill { display: block; height: 100%; border-radius: 99px; background: var(--ink); transition: width .5s var(--ease); }
+.bar-val { font-weight: 600; text-align: left; }
+.muted { color: var(--muted); font-size: .9rem; margin: 0; }
+
+/* Filters */
+.filters { display: grid; gap: .8rem; margin-bottom: .8rem; }
+.chips { display: flex; gap: .4rem; overflow-x: auto; padding-bottom: .2rem; scrollbar-width: none; }
+.chip { flex-shrink: 0; border: 1px solid var(--line); background: var(--paper); border-radius: 999px; padding: .4rem .9rem; font-size: .88rem; cursor: pointer; }
+.chip b { font-weight: 600; color: var(--muted); margin-inline-start: .2rem; }
+.chip.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.chip.active b { color: var(--accent); }
+.filter-row { display: grid; grid-template-columns: 1fr 200px; gap: .6rem; }
+.filter-row input, .filter-row select { min-height: 46px; border: 1.5px solid var(--line); border-radius: 12px; padding: .5rem .9rem; background: var(--paper); }
+.filter-row input:focus, .filter-row select:focus { outline: none; border-color: var(--ink); }
+.count { font-size: .85rem; color: var(--muted); margin: 0 0 .6rem; }
+.empty { text-align: center; color: var(--muted); padding: 2rem 0; margin: 0; }
+
+/* Lead cards */
+.leads { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; }
+.lead-card { --st: #7C6CFF; border: 1px solid var(--line); border-inline-start: 4px solid var(--st); border-radius: 16px; padding: 1rem 1.1rem; display: grid; gap: .65rem; background: #fff; }
+.lead-top { display: flex; justify-content: space-between; gap: .75rem; align-items: flex-start; }
+.lead-card h3 { font-size: 1.05rem; margin: 0; }
+.lead-meta { font-size: .8rem; color: var(--muted); margin: 0; }
+.status-select { border: 1.5px solid var(--st); color: var(--ink); background: var(--paper); border-radius: 10px; padding: .35rem .6rem; font-size: .85rem; font-weight: 600; min-height: 38px; }
+.lead-info { display: flex; flex-wrap: wrap; gap: .35rem; }
+.lead-info span { font-size: .8rem; background: var(--paper); border-radius: 8px; padding: .15rem .55rem; }
+.lead-info .src { background: var(--ink); color: var(--accent); direction: ltr; unicode-bidi: isolate; }
+.lead-msg { font-size: .9rem; color: #2B2F38; margin: 0; background: var(--paper); border-radius: 10px; padding: .55rem .75rem; }
+.lead-notes { width: 100%; border: 1.5px dashed var(--line); border-radius: 10px; padding: .5rem .7rem; font-size: .88rem; resize: vertical; background: transparent; }
+.lead-notes:focus { outline: none; border-style: solid; border-color: var(--ink); }
+.lead-actions { display: flex; align-items: center; justify-content: space-between; gap: .6rem; }
+.lead-phone { font-size: .85rem; color: var(--muted); }
+.btn-wa { background: #25D366; color: #fff; min-height: 38px; }
+.btn-wa:hover { background: #1EBE5A; }
+
+/* Toast */
+.toast { position: fixed; bottom: 1.25rem; left: 50%; transform: translate(-50%, 150%); background: var(--ink); color: #fff; padding: .7rem 1.2rem; border-radius: 12px; font-size: .9rem; transition: transform .3s var(--ease); z-index: 50; }
+.toast.show { transform: translate(-50%, 0); }
+.toast.err { background: var(--danger); }
+
+@media (max-width: 900px) {
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .panels, .leads { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .topbar .btn-sm { padding: .4rem .7rem; font-size: .82rem; min-height: 38px; }
+  .topbar .logo-text { font-size: .95rem; }
+  .filter-row { grid-template-columns: 1fr; }
+  .kpi strong { font-size: 1.6rem; }
+}
+.topbar .btn-ghost { background: transparent; }
+.toast { visibility: hidden; }
+.toast.show { visibility: visible; }

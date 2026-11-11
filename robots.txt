@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://ibra2002a.github.io/ibrahim-website/sitemap.xml

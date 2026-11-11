@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/blog/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/blog/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/blog/break-even-roas/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/blog/break-even-roas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/blog/break-even-roas/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/blog/conversions-api/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/blog/conversions-api/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/en/blog/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/blog/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/en/blog/break-even-roas/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/blog/break-even-roas/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/blog/break-even-roas/"/>
+    <priority>0.7</priority>
+  </url>
+</urlset>
