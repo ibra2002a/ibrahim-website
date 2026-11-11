@@ -1,0 +1,24 @@
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="logo" href="{{home_link}}" aria-label="{{t.name}}">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="currentColor"/><path d="M8 22 L14 15 L18 19 L24 10" stroke="#0B0D12" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="logo-text">{{t.name}}<small>{{t.role}}</small></span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="{{t.nav_label}}">
+        <a href="{{home}}#about">{{t.nav_about}}</a>
+        <a href="{{home}}#services">{{t.nav_services}}</a>
+        <a href="{{home}}#calculator">{{t.nav_calc}}</a>
+        <a href="{{home}}#pricing">{{t.nav_pricing}}</a>
+        <a href="{{blog_url}}">{{t.nav_blog}}</a>
+        <a class="lang-switch" href="{{alt_url}}" hreflang="{{alt_lang}}" lang="{{alt_lang}}">{{t.switch_label}}</a>
+        <a class="btn btn-accent btn-sm nav-cta" href="{{home}}#contact">{{t.cta}}</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-label="{{t.menu_open}}" data-label-open="{{t.menu_open}}" data-label-close="{{t.menu_close}}" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
