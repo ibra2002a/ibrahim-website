@@ -1,0 +1,14 @@
+{
+  "siteUrl": "https://ibra2002a.github.io/ibrahim-website",
+  "languages": ["ar", "en"],
+  "defaultLang": "ar",
+  "whatsapp": "9647711094000",
+  "instagram": "https://www.instagram.com/ibrahim.media.iq",
+  "whatsappGreeting": "مرحبا، أريد استشارة بخصوص الحملات الإعلانية",
+  "whatsappGreetingEn": "Hi Ibrahim, I'd like a consultation about ad campaigns",
+  "currency": "$",
+  "github": { "owner": "ibra2002a", "repo": "ibrahim-website", "branch": "website-v2" },
+  "supabaseUrl": "",
+  "supabaseAnonKey": "",
+  "tracking": { "metaPixelId": "", "tiktokPixelId": "", "ga4Id": "", "debug": false }
+}

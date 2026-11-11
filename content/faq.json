@@ -1,0 +1,16 @@
+{
+  "ar": [
+    { "q": "شكد أقل ميزانية إعلانية أبدأ بيها؟", "a": "أنصح بميزانية لا تقل عن 300$ شهريًا حتى تكون عندي بيانات كافية للاختبار والتحسين. نحدد الرقم المناسب سوية بعد الاستشارة." },
+    { "q": "متى أشوف نتائج؟", "a": "أول أسبوعين مرحلة اختبار وتعلّم للخوارزمية. عادةً تبدأ النتائج تستقر وتتحسن من الأسبوع الثالث فما بعد." },
+    { "q": "هل الحساب الإعلاني يبقى باسمي؟", "a": "نعم. أشتغل على حسابك الإعلاني وصفحاتك عن طريق صلاحيات Business Manager، وكل البيانات تبقى ملكك." },
+    { "q": "هل تسوي التصاميم والفيديوهات؟", "a": "أكتب الأفكار والسكربتات والنصوص الإعلانية وأوجّه التصوير. التصاميم والمونتاج متوفرة ضمن باقة التوسع أو كخدمة إضافية." },
+    { "q": "هل يوجد عقد طويل؟", "a": "لا. الاشتراك شهري، وتقدر توقف بأي وقت بإشعار قبل 15 يوم." }
+  ],
+  "en": [
+    { "q": "What's the minimum ad budget?", "a": "I recommend at least $300/month so there's enough data to test and optimize. We'll set the right number together after the consultation." },
+    { "q": "When will I see results?", "a": "The first two weeks are testing and the algorithm's learning phase. Results usually stabilize and improve from week three onward." },
+    { "q": "Does the ad account stay in my name?", "a": "Yes. I work on your ad account and pages through Business Manager access, and all data stays yours." },
+    { "q": "Do you make the designs and videos?", "a": "I write concepts, scripts and ad copy and direct the shoot. Design and editing are included in Scale or available as an add-on." },
+    { "q": "Is there a long contract?", "a": "No. It's month-to-month, and you can stop anytime with 15 days' notice." }
+  ]
+}

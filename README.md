@@ -1,5 +1,12 @@
 # إبراهيم المهاوش — الموقع الشخصي (v2)
 
+## 🎛 لوحة التحكم
+
+افتح **`/admin/`** على موقعك ← سجّل دخول برمز GitHub (الخطوات داخل صفحة الدخول).
+من اللوحة تعدّل بدون كود: **الباقات والأسعار، دراسات الحالة، المقالات، الأسئلة الشائعة، الإعدادات** (واتساب، Pixels، Supabase)، وتتابع **الطلبات**.
+كل حفظ ← يتسجل بالمستودع ← GitHub Actions يبني وينشر تلقائيًا خلال دقيقتين (`.github/workflows/deploy.yml`).
+
+
 موقع تسويقي عربي/إنكليزي لخدمات إدارة حملات Meta وTikTok، مع مدونة، دراسات حالة، تتبع إعلاني، ولوحة تحكم لإدارة الطلبات.
 بدون أي مكتبات أو `npm install`: يحتاج بس **Node.js 18+**.
 
@@ -8,7 +15,6 @@
 ```
 site/
 ├── build.mjs               ← مولّد الموقع (يقرأ src + content ← يطلّع dist)
-├── site.config.json        ← الدومين، الواتساب، الإنستغرام، اللغات
 ├── src/
 │   ├── layouts/base.html   ← القالب العام (head, SEO, hreflang)
 │   ├── partials/           ← header.html, footer.html (مشتركة لكل الصفحات)
@@ -17,10 +23,13 @@ site/
 ├── content/
 │   ├── blog/ar/*.md        ← مقالات عربي
 │   ├── blog/en/*.md        ← مقالات إنكليزي
-│   └── case-studies.json   ← دراسات الحالة
+│   ├── case-studies.json   ← دراسات الحالة
+│   ├── pricing.json        ← الباقات والأسعار
+│   ├── faq.json            ← الأسئلة الشائعة
+│   └── settings.json       ← الإعدادات (يولّد assets/js/config.js)
 ├── public/                 ← يُنسخ كما هو
 │   ├── assets/css          ← main.css, admin.css
-│   ├── assets/js           ← config.js ⚙️, main.js, tracking.js, admin.js
+│   ├── assets/js           ← main.js, tracking.js, admin.js
 │   ├── assets/img
 │   ├── admin/              ← لوحة التحكم
 │   └── _headers            ← هيدرز الأمان
@@ -43,7 +52,7 @@ python3 -m http.server -d dist 8000   # معاينة على http://localhost:800
 
 **الطريقة السريعة:** شغّل `node build.mjs` واسحب مجلد `dist` إلى app.netlify.com/drop.
 
-بعد ما تاخذ الدومين: غيّر `siteUrl` في `site.config.json` وابنِ من جديد.
+بعد ما تاخذ الدومين: غيّر "رابط الموقع" من لوحة التحكم ← الإعدادات.
 
 ---
 
@@ -57,12 +66,8 @@ python3 -m http.server -d dist 8000   # معاينة على http://localhost:800
    insert into public.admins (user_id) select id from auth.users where email = 'you@example.com';
    ```
 5. **Authentication ← Sign In / Providers**: طفّي **Allow new users to sign up** (حتى محد غيرك يسوي حساب).
-6. **Project Settings ← API**: انسخ `Project URL` و`anon public key` وحطهم في `public/assets/js/config.js`:
-   ```js
-   supabaseUrl: "https://xxxx.supabase.co",
-   supabaseAnonKey: "eyJ...",
-   ```
-7. ابنِ وانشر. افتح `موقعك.com/admin/` وسجّل دخول.
+6. **Project Settings ← API**: انسخ `Project URL` و`anon public key` وحطهم في **لوحة التحكم ← الإعدادات** ← حفظ ونشر.
+7. بعد دقيقتين افتح **الطلبات** باللوحة وسجّل بحساب Supabase.
 
 **ليش آمن؟** المفتاح `anon` عام بطبيعته. الحماية بقاعدة البيانات (Row Level Security): الزائر يكدر **يضيف** طلب بس، وما يكدر يقرأ أو يعدّل أي شي. القراءة والتعديل فقط للحسابات الموجودة بجدول `admins`.
 
@@ -121,7 +126,7 @@ draft: false
 
 ## 5) التتبع (Pixels + UTM)
 
-ضع الـ IDs في `public/assets/js/config.js` داخل `tracking`:
+ضع الـ IDs من **لوحة التحكم ← الإعدادات** (أو `content/settings.json`):
 
 | الحدث بالموقع | Meta | TikTok | GA4 |
 |---|---|---|---|

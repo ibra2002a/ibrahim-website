@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>لوحة التحكم | الطلبات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>لوحة التحكم | إبراهيم المهاوش</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0B0D12">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
@@ -15,79 +15,79 @@
 </head>
 <body class="admin">
 
-  <!-- ===== تسجيل الدخول ===== -->
+  <!-- ===== الدخول ===== -->
   <section class="login" id="loginView" hidden>
-    <form class="login-card" id="loginForm" novalidate>
-      <div class="logo"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="currentColor"/><path d="M8 22 L14 15 L18 19 L24 10" stroke="#0B0D12" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="logo-text">لوحة التحكم<small>إدارة الطلبات</small></span></div>
-      <div class="field">
-        <label for="l-email">الإيميل</label>
-        <input id="l-email" name="email" type="email" autocomplete="username" required dir="ltr">
-      </div>
-      <div class="field">
-        <label for="l-pass">كلمة المرور</label>
-        <input id="l-pass" name="password" type="password" autocomplete="current-password" required dir="ltr">
-      </div>
-      <p class="login-err" id="loginErr" role="alert"></p>
-      <button class="btn btn-accent btn-block" type="submit">دخول</button>
-    </form>
+    <div class="login-card">
+      <div class="logo"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="currentColor"/><path d="M8 22 L14 15 L18 19 L24 10" stroke="#0B0D12" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="logo-text">لوحة التحكم<small>إبراهيم المهاوش</small></span></div>
+
+      <form id="loginForm" class="login-form" novalidate>
+        <div class="field">
+          <label for="ghToken">رمز الدخول (GitHub Token)</label>
+          <input id="ghToken" name="token" type="password" autocomplete="off" required dir="ltr" placeholder="github_pat_…">
+        </div>
+        <label class="check"><input type="checkbox" name="remember" checked> تذكّرني على هذا الجهاز</label>
+        <p class="login-err" id="loginErr" role="alert"></p>
+        <button class="btn btn-accent btn-block" type="submit">دخول</button>
+        <button class="btn btn-outline btn-block" type="button" id="demoBtn">جرّب اللوحة (عرض تجريبي)</button>
+      </form>
+
+      <details class="help">
+        <summary>شلون أطلع رمز الدخول؟ (مرة وحدة بس)</summary>
+        <ol>
+          <li>افتح <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">صفحة إنشاء Token بـ GitHub</a></li>
+          <li><b>Token name:</b> لوحة الموقع — <b>Expiration:</b> 1 year</li>
+          <li><b>Repository access:</b> Only select repositories ← <code>ibrahim-website</code></li>
+          <li><b>Permissions:</b> Contents ← <b>Read and write</b>، و Actions ← <b>Read-only</b></li>
+          <li>اضغط <b>Generate token</b> وانسخه والصقه هنا.</li>
+        </ol>
+        <p>الرمز يبقى بجهازك فقط، وصلاحيته على مستودع الموقع بس.</p>
+      </details>
+    </div>
   </section>
 
-  <!-- ===== اللوحة ===== -->
-  <div class="app" id="appView" hidden>
-    <header class="topbar">
-      <div class="container topbar-inner">
-        <div class="logo"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="currentColor"/><path d="M8 22 L14 15 L18 19 L24 10" stroke="#0B0D12" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="logo-text">الطلبات<small id="userEmail"></small></span></div>
-        <div class="topbar-actions">
-          <button class="icon-btn" id="refreshBtn" type="button" title="تحديث" aria-label="تحديث">↻</button>
-          <button class="btn btn-ghost btn-sm" id="exportBtn" type="button">تصدير CSV</button>
-          <button class="btn btn-ghost btn-sm" id="logoutBtn" type="button">خروج</button>
-        </div>
+  <!-- ===== التطبيق ===== -->
+  <div class="shell" id="appView" hidden>
+    <aside class="sidebar" aria-label="القائمة">
+      <div class="logo side-logo"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="currentColor"/><path d="M8 22 L14 15 L18 19 L24 10" stroke="#0B0D12" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="logo-text">لوحة التحكم<small id="modeLabel"></small></span></div>
+      <nav class="side-nav" id="sideNav"></nav>
+      <div class="side-foot">
+        <a class="side-link" id="siteLink" href="../" target="_blank" rel="noopener">↗ عرض الموقع</a>
+        <button class="side-link" id="logoutBtn" type="button">⎋ خروج</button>
       </div>
-    </header>
+    </aside>
 
-    <div class="demo-banner" id="demoBanner" hidden>
-      <div class="container">
-        <strong>وضع العرض التجريبي:</strong> البيانات المعروضة وهمية للتجربة فقط، والتعديلات ما تنحفظ. حتى تشتغل على طلباتك الحقيقية اربط Supabase من <code>config.js</code> (الشرح في README).
-      </div>
+    <div class="main">
+      <header class="topbar">
+        <h1 id="viewTitle">نظرة عامة</h1>
+        <div class="topbar-actions">
+          <span class="deploy-chip" id="deployChip" hidden></span>
+          <a class="icon-btn mobile-only" href="../" target="_blank" rel="noopener" aria-label="عرض الموقع">↗</a>
+        </div>
+      </header>
+      <div class="demo-banner" id="demoBanner" hidden></div>
+      <main class="view" id="view" tabindex="-1"></main>
     </div>
 
-    <main class="container dash-main">
-      <section class="kpis" aria-label="ملخص">
-        <div class="kpi"><small>إجمالي الطلبات</small><strong id="kTotal">0</strong></div>
-        <div class="kpi"><small>طلبات جديدة</small><strong id="kNew">0</strong><span class="kpi-sub">تحتاج تواصل</span></div>
-        <div class="kpi"><small>آخر 7 أيام</small><strong id="kWeek">0</strong></div>
-        <div class="kpi kpi-accent"><small>نسبة الإغلاق</small><strong id="kRate">0%</strong><span class="kpi-sub" id="kWon"></span></div>
-      </section>
-
-      <section class="panels">
-        <div class="panel">
-          <h2>حسب المصدر</h2>
-          <div class="bars" id="bySource"></div>
-        </div>
-        <div class="panel">
-          <h2>مراحل البيع</h2>
-          <div class="bars" id="byStatus"></div>
-        </div>
-      </section>
-
-      <section class="panel leads-panel">
-        <div class="filters">
-          <div class="chips" id="statusChips" role="tablist" aria-label="تصفية حسب الحالة"></div>
-          <div class="filter-row">
-            <input type="search" id="search" placeholder="ابحث بالاسم أو الرقم…" aria-label="بحث">
-            <select id="sourceFilter" aria-label="المصدر"><option value="">كل المصادر</option></select>
-          </div>
-        </div>
-        <p class="count" id="count"></p>
-        <div class="leads" id="leads"></div>
-        <p class="empty" id="empty" hidden>ماكو طلبات تطابق الفلتر.</p>
-      </section>
-    </main>
-
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <nav class="tabbar" id="tabBar" aria-label="القائمة"></nav>
   </div>
 
+  <!-- نافذة التحرير -->
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet-backdrop" data-close></div>
+    <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <header class="sheet-head">
+        <h2 id="sheetTitle"></h2>
+        <button class="icon-btn icon-dark" type="button" data-close aria-label="إغلاق">✕</button>
+      </header>
+      <div class="sheet-body" id="sheetBody"></div>
+      <footer class="sheet-foot" id="sheetFoot"></footer>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
   <script src="../assets/js/config.js" defer></script>
+  <script src="demo-data.js" defer></script>
   <script src="../assets/js/admin.js" defer></script>
 </body>
 </html>

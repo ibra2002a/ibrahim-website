@@ -1,0 +1,23 @@
+[
+  {
+    "featured": false,
+    "ar": { "name": "البداية", "for": "للمشاريع الجديدة", "price": "$250", "period": "/ شهريًا", "cta": "ابدأ الآن",
+            "features": ["منصة واحدة (Meta أو TikTok)", "حتى 3 حملات نشطة", "إعداد البكسل الأساسي", "تقرير شهري"] },
+    "en": { "name": "Starter", "for": "For new businesses", "price": "$250", "period": "/ month", "cta": "Get started",
+            "features": ["One platform (Meta or TikTok)", "Up to 3 active campaigns", "Basic pixel setup", "Monthly report"] }
+  },
+  {
+    "featured": true,
+    "ar": { "name": "النمو", "for": "للمشاريع اللي تبيع وتريد تكبر", "price": "$500", "period": "/ شهريًا", "cta": "ابدأ الآن", "badge": "الأكثر طلبًا",
+            "features": ["Meta + TikTok", "حملات غير محدودة", "Pixel + Conversions API", "اختبار كريتيف أسبوعي", "تقرير أسبوعي + اجتماع شهري"] },
+    "en": { "name": "Growth", "for": "For businesses already selling and ready to grow", "price": "$500", "period": "/ month", "cta": "Get started", "badge": "Most popular",
+            "features": ["Meta + TikTok", "Unlimited campaigns", "Pixel + Conversions API", "Weekly creative testing", "Weekly report + monthly call"] }
+  },
+  {
+    "featured": false,
+    "ar": { "name": "التوسع", "for": "للبراندات والمتاجر الكبيرة", "price": "حسب الطلب", "period": "", "cta": "تواصل معي",
+            "features": ["كل مزايا باقة النمو", "صفحات هبوط مخصصة", "استراتيجية كريتيف كاملة", "لوحة تقارير مباشرة"] },
+    "en": { "name": "Scale", "for": "For brands and large stores", "price": "Custom", "period": "", "cta": "Contact me",
+            "features": ["Everything in Growth", "Custom landing pages", "Full creative strategy", "Live reporting dashboard"] }
+  }
+]

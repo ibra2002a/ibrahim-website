@@ -11,6 +11,7 @@
  *   src/pages/     محتوى الصفحات       src/i18n/      نصوص الواجهة لكل لغة
  *   content/       المدونة (Markdown) ودراسات الحالة (JSON)
  *   public/        ملفات تُنسخ كما هي (CSS, JS, صور, admin)
+ *   content/settings.json  الإعدادات (واتساب، Pixels، Supabase) ← يولّد assets/js/config.js
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -24,7 +25,7 @@ const DRAFTS = args.has("--drafts") || PREVIEW;
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), "utf8");
 const readJSON = (p) => JSON.parse(read(p));
-const CONFIG = readJSON("site.config.json");
+const CONFIG = readJSON("content/settings.json");
 const SITE = CONFIG.siteUrl.replace(/\/$/, "");
 const LANGS = CONFIG.languages;
 const I18N = Object.fromEntries(LANGS.map((l) => [l, readJSON(`src/i18n/${l}.json`)]));
@@ -198,6 +199,41 @@ function caseStudiesHTML(lang) {
     </section>`;
 }
 
+function pricingHTML(lang) {
+  const file = path.join(ROOT, "content/pricing.json");
+  if (!fs.existsSync(file)) return "";
+  return JSON.parse(fs.readFileSync(file, "utf8")).filter((p) => p[lang]).map((p) => {
+    const d = p[lang];
+    const numeric = /\d/.test(d.price || "");
+    return `
+          <article class="plan${p.featured ? " plan-featured" : ""}">
+            ${p.featured && d.badge ? `<span class="badge">${esc(d.badge)}</span>` : ""}
+            <h3>${esc(d.name)}</h3>
+            <p class="plan-for">${esc(d.for)}</p>
+            <p class="price${numeric ? "" : " price-text"}"><span>${esc(d.price)}</span>${d.period ? " " + esc(d.period) : ""}</p>
+            <ul>${(d.features || []).filter(Boolean).map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+            <a class="btn ${p.featured ? "btn-accent" : "btn-outline"}" href="#contact" data-plan="${esc(d.name)}">${esc(d.cta || "")}</a>
+          </article>`;
+  }).join("");
+}
+
+function planOptions(lang) {
+  const file = path.join(ROOT, "content/pricing.json");
+  if (!fs.existsSync(file)) return "";
+  return JSON.parse(fs.readFileSync(file, "utf8")).filter((p) => p[lang]).map((p) => `<option>${esc(p[lang].name)}</option>`).join("");
+}
+
+function faqHTML(lang) {
+  const file = path.join(ROOT, "content/faq.json");
+  if (!fs.existsSync(file)) return "";
+  const items = JSON.parse(fs.readFileSync(file, "utf8"))[lang] || [];
+  return items.filter((f) => f.q).map((f) => `
+          <details>
+            <summary>${esc(f.q)}</summary>
+            <p>${esc(f.a)}</p>
+          </details>`).join("");
+}
+
 const person = (lang) => ({
   "@context": "https://schema.org", "@type": "Person",
   name: I18N[lang].name, jobTitle: I18N[lang].role, url: absUrl(langPrefix(lang)),
@@ -218,7 +254,11 @@ for (const lang of LANGS) {
   const other = LANGS.find((l) => l !== lang);
 
   // الصفحة الرئيسية
-  const homeTpl = read(`src/pages/home.${lang}.html`).replace("{{case_studies}}", caseStudiesHTML(lang));
+  const homeTpl = read(`src/pages/home.${lang}.html`)
+    .replace("{{case_studies}}", caseStudiesHTML(lang))
+    .replace("{{pricing}}", pricingHTML(lang))
+    .replace("{{faq}}", faqHTML(lang))
+    .replace("{{plan_options}}", planOptions(lang));
   page({ file: `${pre}index.html`, lang, isHome: true, title: t.home_title, description: t.home_description,
     content: homeTpl, alternates: homeAlts, jsonld: [person(lang)], altUrlFile: langPrefix(other) });
   sitemap.push({ loc: pre, alts: homeAlts, priority: "1.0" });
@@ -297,6 +337,50 @@ ${p.html.replace(/href="\/([^"#]*)(#[^"]*)?"/g, (_, dir, hash) => `href="${link(
   const base = new URL(SITE + "/").pathname; // يدعم الاستضافة بمسار فرعي مثل GitHub Pages
   const nf = render(read("src/pages/404.ar.html"), { t, root: PREVIEW ? "" : base });
   write("404.html", nf);
+}
+
+// config.js للمتصفح (يتولد من content/settings.json)
+{
+  const pub = {
+    brandName: I18N[CONFIG.defaultLang].name, whatsappNumber: CONFIG.whatsapp, instagramUrl: CONFIG.instagram,
+    whatsappGreeting: CONFIG.whatsappGreeting, whatsappGreetingEn: CONFIG.whatsappGreetingEn, currency: CONFIG.currency || "$",
+    supabaseUrl: CONFIG.supabaseUrl || "", supabaseAnonKey: CONFIG.supabaseAnonKey || "",
+    github: CONFIG.github || null, siteUrl: SITE, tracking: CONFIG.tracking || {},
+  };
+  write("assets/js/config.js", `/* يتولد تلقائيًا من content/settings.json — لا تعدله هنا */\nwindow.SITE_CONFIG = ${JSON.stringify(pub, null, 2)};\n`);
+}
+
+// بيانات العرض التجريبي للوحة التحكم (بدون المسودات وبدون مفاتيح)
+{
+  const files = {}, dirs = {};
+  for (const f of ["pricing.json", "faq.json", "case-studies.json"]) {
+    const fp = path.join(ROOT, "content", f);
+    if (fs.existsSync(fp)) files[`content/${f}`] = JSON.parse(fs.readFileSync(fp, "utf8"));
+  }
+  const safeSettings = { ...CONFIG, supabaseUrl: "", supabaseAnonKey: "" };
+  files["content/settings.json"] = safeSettings;
+  for (const lang of LANGS) {
+    const dir = path.join(ROOT, "content/blog", lang);
+    const names = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith(".md")) : [];
+    dirs[`content/blog/${lang}`] = [];
+    for (const n of names) {
+      const src = fs.readFileSync(path.join(dir, n), "utf8");
+      if (frontMatter(src).data.draft) continue;
+      dirs[`content/blog/${lang}`].push(n);
+      files[`content/blog/${lang}/${n}`] = src;
+    }
+  }
+  const h = 3600000, now = Date.now();
+  const leads = [
+    ["مثال: علي حسن", "07701234567", "متجر إلكتروني", "300$ – 1,000$", "النمو", "instagram", "nov-offer", "new", "أريد أزيد طلبات المتجر", 2],
+    ["مثال: سارة محمد", "07809876543", "عيادة أو خدمات", "أقل من 300$", "البداية", "facebook", "clinic-leads", "contacted", "", 20],
+    ["مثال: مطعم البيت", "07501112233", "مطعم أو كافيه", "1,000$ – 5,000$", "التوسع", "tiktok", "food-video", "qualified", "نحتاج حملات توصيل", 50],
+    ["مثال: Ahmed K.", "+971501234567", "Clothing brand", "$1,000 – $5,000", "Growth", "direct", null, "won", "Expand to Gulf market", 96],
+    ["مثال: براند حيدر", "07712223344", "براند ملابس", "300$ – 1,000$", "غير محدد", "instagram", "nov-offer", "new", "", 5],
+    ["مثال: نور العراق", "07723334455", "أخرى", "أقل من 300$", "البداية", "referral", null, "lost", "", 200],
+  ].map((r, i) => ({ id: "demo-" + i, name: r[0], phone: r[1], business_type: r[2], budget: r[3], plan: r[4], source: r[5], campaign: r[6],
+    status: r[7], message: r[8], notes: null, lang: /[a-z]/i.test(r[2]) ? "en" : "ar", created_at: new Date(now - r[9] * h).toISOString() }));
+  write("admin/demo-data.js", `/* بيانات تجريبية للوحة (تتولد تلقائيًا) */\nwindow.ADMIN_DEMO = ${JSON.stringify({ files, dirs, leads })};\n`);
 }
 
 // sitemap.xml + robots.txt

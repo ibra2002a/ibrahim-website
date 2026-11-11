@@ -210,47 +210,7 @@
           <p class="section-sub">الأسعار لا تشمل الميزانية الإعلانية المدفوعة للمنصات.</p>
         </header>
 
-        <div class="plans">
-          <article class="plan">
-            <h3>البداية</h3>
-            <p class="plan-for">للمشاريع الجديدة</p>
-            <p class="price"><span>$250</span> / شهريًا</p>
-            <ul>
-              <li>منصة واحدة (Meta أو TikTok)</li>
-              <li>حتى 3 حملات نشطة</li>
-              <li>إعداد البكسل الأساسي</li>
-              <li>تقرير شهري</li>
-            </ul>
-            <a class="btn btn-outline" href="#contact" data-plan="البداية">ابدأ الآن</a>
-          </article>
-
-          <article class="plan plan-featured">
-            <span class="badge">الأكثر طلبًا</span>
-            <h3>النمو</h3>
-            <p class="plan-for">للمشاريع اللي تبيع وتريد تكبر</p>
-            <p class="price"><span>$500</span> / شهريًا</p>
-            <ul>
-              <li>Meta + TikTok</li>
-              <li>حملات غير محدودة</li>
-              <li>Pixel + Conversions API</li>
-              <li>اختبار كريتيف أسبوعي</li>
-              <li>تقرير أسبوعي + اجتماع شهري</li>
-            </ul>
-            <a class="btn btn-accent" href="#contact" data-plan="النمو">ابدأ الآن</a>
-          </article>
-
-          <article class="plan">
-            <h3>التوسع</h3>
-            <p class="plan-for">للبراندات والمتاجر الكبيرة</p>
-            <p class="price price-text"><span>حسب الطلب</span></p>
-            <ul>
-              <li>كل مزايا باقة النمو</li>
-              <li>صفحات هبوط مخصصة</li>
-              <li>استراتيجية كريتيف كاملة</li>
-              <li>لوحة تقارير مباشرة</li>
-            </ul>
-            <a class="btn btn-outline" href="#contact" data-plan="التوسع">تواصل معي</a>
-          </article>
+        <div class="plans">{{pricing}}
         </div>
       </div>
     </section>
@@ -262,27 +222,7 @@
           <p class="kicker">الأسئلة الشائعة</p>
           <h2>أسئلة تتكرر قبل ما نبدأ</h2>
         </header>
-        <div class="faq">
-          <details>
-            <summary>شكد أقل ميزانية إعلانية أبدأ بيها؟</summary>
-            <p>أنصح بميزانية لا تقل عن 300$ شهريًا حتى تكون عندي بيانات كافية للاختبار والتحسين. نحدد الرقم المناسب سوية بعد الاستشارة.</p>
-          </details>
-          <details>
-            <summary>متى أشوف نتائج؟</summary>
-            <p>أول أسبوعين مرحلة اختبار وتعلّم للخوارزمية. عادةً تبدأ النتائج تستقر وتتحسن من الأسبوع الثالث فما بعد.</p>
-          </details>
-          <details>
-            <summary>هل الحساب الإعلاني يبقى باسمي؟</summary>
-            <p>نعم. أشتغل على حسابك الإعلاني وصفحاتك عن طريق صلاحيات Business Manager، وكل البيانات تبقى ملكك.</p>
-          </details>
-          <details>
-            <summary>هل تسوي التصاميم والفيديوهات؟</summary>
-            <p>أكتب الأفكار والسكربتات والنصوص الإعلانية وأوجّه التصوير. التصاميم والمونتاج متوفرة ضمن باقة التوسع أو كخدمة إضافية.</p>
-          </details>
-          <details>
-            <summary>هل يوجد عقد طويل؟</summary>
-            <p>لا. الاشتراك شهري، وتقدر توقف بأي وقت بإشعار قبل 15 يوم.</p>
-          </details>
+        <div class="faq">{{faq}}
         </div>
       </div>
     </section>
@@ -347,9 +287,7 @@
             <label for="f-plan">الباقة</label>
             <select id="f-plan" name="plan">
               <option>غير محدد</option>
-              <option>البداية</option>
-              <option>النمو</option>
-              <option>التوسع</option>
+              {{plan_options}}
             </select>
           </div>
           <div class="field">
