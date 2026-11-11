@@ -294,7 +294,8 @@ ${p.html.replace(/href="\/([^"#]*)(#[^"]*)?"/g, (_, dir, hash) => `href="${link(
 // 404 (روابط من الجذر لأنها تنعرض على أي مسار)
 {
   const t = I18N.ar;
-  const nf = render(read("src/pages/404.ar.html"), { t, root: PREVIEW ? "" : "/" });
+  const base = new URL(SITE + "/").pathname; // يدعم الاستضافة بمسار فرعي مثل GitHub Pages
+  const nf = render(read("src/pages/404.ar.html"), { t, root: PREVIEW ? "" : base });
   write("404.html", nf);
 }
 
