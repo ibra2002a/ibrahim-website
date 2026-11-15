@@ -94,6 +94,10 @@ function page({ file, lang, title, description, content, alternates = {}, jsonld
     alt_lang: otherLang,
     alt_url: link(file, altUrlFile ?? langPrefix(otherLang)),
     whatsapp: CONFIG.whatsapp, instagram: CONFIG.instagram,
+    verify_meta: [
+      CONFIG.seo && CONFIG.seo.googleVerification ? `  <meta name="google-site-verification" content="${esc(CONFIG.seo.googleVerification)}">` : "",
+      CONFIG.seo && CONFIG.seo.bingVerification ? `  <meta name="msvalidate.01" content="${esc(CONFIG.seo.bingVerification)}">` : "",
+    ].filter(Boolean).join("\n"),
     alternates: Object.entries(alternates)
       .map(([l, dir]) => `  <link rel="alternate" hreflang="${l}" href="${absUrl(dir)}">`)
       .concat(alternates[CONFIG.defaultLang] != null ? [`  <link rel="alternate" hreflang="x-default" href="${absUrl(alternates[CONFIG.defaultLang])}">`] : [])

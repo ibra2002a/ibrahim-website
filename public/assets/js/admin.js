@@ -837,6 +837,14 @@
           ${field("anon public key", "supabaseAnonKey", s.supabaseAnonKey, { dir: "ltr", type: "textarea", rows: 3 })}
         </section>
         <section class="panel">
+          <h2>محركات البحث (Google و Bing)</h2>
+          <p class="muted small">الصق كود التحقق بس (النص داخل content="…") أو الوسم كامل، واللوحة تستخرجه.</p>
+          ${field("Google Search Console", "googleVerification", (s.seo || {}).googleVerification, { dir: "ltr", placeholder: "abc123XYZ…" })}
+          ${field("Bing Webmaster Tools", "bingVerification", (s.seo || {}).bingVerification, { dir: "ltr" })}
+          <div class="field"><label>رابط خريطة الموقع (Sitemap) — انسخه لـ Google</label>
+            <div class="copy-row"><input type="text" readonly dir="ltr" value="${esc((s.siteUrl || "").replace(/\/$/, "") + "/sitemap.xml")}" id="sitemapUrl"><button type="button" class="btn btn-outline btn-sm" id="copySitemap">نسخ</button></div></div>
+        </section>
+        <section class="panel">
           <h2>الموقع</h2>
           ${field("رابط الموقع", "siteUrl", s.siteUrl, { dir: "ltr", hint: "غيّره إذا ربطت دومين خاص" })}
         </section>
@@ -848,10 +856,17 @@
       if (/service_role/.test(atobSafe(v.supabaseAnonKey))) return toast("هذا مفتاح service_role! استخدم anon public بس", true);
       const next = { ...s, whatsapp: v.whatsapp.replace(/\D/g, ""), instagram: v.instagram, whatsappGreeting: v.whatsappGreeting, whatsappGreetingEn: v.whatsappGreetingEn,
         supabaseUrl: v.supabaseUrl.replace(/\/$/, ""), supabaseAnonKey: v.supabaseAnonKey.replace(/\s/g, ""), siteUrl: v.siteUrl.replace(/\/$/, ""),
+        seo: { googleVerification: verifyCode(v.googleVerification), bingVerification: verifyCode(v.bingVerification) },
         tracking: { ...s.tracking, metaPixelId: v.metaPixelId.replace(/\D/g, ""), tiktokPixelId: v.tiktokPixelId.trim(), ga4Id: v.ga4Id.trim() } };
       await writeFile("content/settings.json", next, "Update settings from control panel").catch(fail);
     });
+    $("#copySitemap").addEventListener("click", () => {
+      const v = $("#sitemapUrl").value;
+      (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject()).then(() => toast("انتسخ ✓"), () => { $("#sitemapUrl").select(); toast("حدد الرابط وانسخه"); });
+    });
   };
+  // يقبل الكود وحده أو وسم <meta> كامل
+  const verifyCode = (v) => { const m = String(v || "").match(/content=["']([^"']+)["']/); return (m ? m[1] : String(v || "")).replace(/[^\w\-]/g, "").slice(0, 120); };
   const atobSafe = (jwt) => { try { return atob(String(jwt).split(".")[1].replace(/-/g, "+").replace(/_/g, "/")); } catch (_) { return ""; } };
 
   /* =========================================================

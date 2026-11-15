@@ -221,3 +221,5 @@ html[dir="ltr"] .sheet-panel { animation-name: slideInLtr; }
 .photo-prev { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 1px solid var(--line); }
 .photo-prev.empty { display: grid; place-items: center; background: var(--paper); color: var(--muted); font-size: .8rem; }
 .photo-field label.btn { cursor: pointer; }
+.copy-row { display: grid; grid-template-columns: 1fr auto; gap: .5rem; align-items: center; }
+.copy-row input { min-height: 46px; border: 1.5px solid var(--line); border-radius: 12px; padding: .5rem .8rem; background: var(--paper); font-size: .85rem; }
