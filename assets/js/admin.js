@@ -217,6 +217,7 @@
     { id: "overview", label: "نظرة عامة", icon: "◧" },
     { id: "leads", label: "الطلبات", icon: "☰" },
     { id: "pricing", label: "الباقات", icon: "◈" },
+    { id: "services", label: "صفحات الخدمات", icon: "▦" },
     { id: "stats", label: "النتائج والأرقام", icon: "▲" },
     { id: "cases", label: "دراسات الحالة", icon: "★" },
     { id: "testis", label: "آراء العملاء", icon: "❝" },
@@ -238,7 +239,7 @@
     const item = (v) => `<button type="button" class="nav-item${state.view === v.id ? " active" : ""}" data-view="${v.id}"><span class="nav-ic" aria-hidden="true">${v.icon}</span><span>${v.label}</span></button>`;
     $("#sideNav").innerHTML = VIEWS.map(item).join("");
     $("#tabBar").innerHTML = VIEWS.filter((v) => TAB_VIEWS.includes(v.id)).map(item).join("") +
-      `<button type="button" class="nav-item${["cases", "faq", "stats", "testis"].includes(state.view) ? " active" : ""}" data-more><span class="nav-ic" aria-hidden="true">⋯</span><span>المزيد</span></button>`;
+      `<button type="button" class="nav-item${["cases", "faq", "stats", "testis", "services"].includes(state.view) ? " active" : ""}" data-more><span class="nav-ic" aria-hidden="true">⋯</span><span>المزيد</span></button>`;
   }
 
   async function go(view) {
@@ -706,6 +707,73 @@
       });
       $("#addQ").addEventListener("click", () => { collect(); items.push({ q: "", a: "" }); paint(); });
       $("#saveFaq").addEventListener("click", async () => { collect(); data[L] = items.filter((f) => f.q); await writeFile("content/faq.json", data, "Update FAQ from control panel").catch(fail); paint(); });
+    };
+    paint();
+  };
+
+  /* ---------- صفحات الخدمات ---------- */
+  RENDER.services = async (el) => {
+    const file = await load("content/services.json");
+    const items = clone(file.data || []);
+    const site = (CFG.siteUrl || "..").replace(/\/$/, "");
+    const paint = () => {
+      el.innerHTML = `
+        <p class="note-inline">كل خدمة لها صفحة خاصة تظهر بـ Google. اكتب مثل ما يبحث العميل، مثلًا "إعلانات سناب شات في العراق".</p>
+        <div class="toolbar"><span class="muted small">${items.filter((x) => !x.draft).length} صفحة منشورة</span><button type="button" class="btn btn-accent btn-sm" id="addSvc">+ صفحة خدمة</button></div>
+        <div class="list">${items.map((x, i) => `
+          <button type="button" class="list-item" data-i="${i}">
+            <span class="li-main"><b>${esc(x.icon || "")} ${esc((x.ar && x.ar.title) || x.slug)}</b><small>/services/${esc(x.slug)}/</small></span>
+            <span class="badge-st ${x.draft ? "draft" : "live"}">${x.draft ? "مسودة" : "منشورة"}</span>
+          </button>`).join("")}</div>`;
+      $$(".list-item", el).forEach((b) => b.addEventListener("click", () => edit(+b.dataset.i)));
+      $("#addSvc").addEventListener("click", () => edit(-1));
+    };
+    const faqToText = (f) => (f || []).map((x) => `${x.q}\n${x.a}`).join("\n\n");
+    const textToFaq = (t) => String(t || "").split(/\n\s*\n/).map((b) => b.trim().split("\n")).filter((l) => l[0] && l[1]).map((l) => ({ q: l[0].trim(), a: l.slice(1).join(" ").trim() }));
+    const lines = (t) => String(t || "").split("\n").map((x) => x.trim()).filter(Boolean);
+    const edit = (i) => {
+      const x = i < 0 ? { slug: "", icon: "◎", draft: true, ar: {}, en: {} } : clone(items[i]);
+      let L = "ar";
+      const body = () => {
+        const d = x[L] || {};
+        return `
+          ${toggle("مسودة (ما تظهر بالموقع)", "draft", x.draft)}
+          <div class="field-row">
+            ${field("رابط الصفحة (slug)", "slug", x.slug, { dir: "ltr", placeholder: "google-ads", hint: i < 0 ? "حروف إنكليزية وشرطات فقط" : "تغييره يغيّر رابط الصفحة" })}
+            ${field("أيقونة (رمز واحد)", "icon", x.icon, { placeholder: "◎" })}
+          </div>
+          ${x.slug && i >= 0 ? `<p class="muted small">الرابط: <a href="${esc(site)}/${L === "en" ? "en/" : ""}services/${esc(x.slug)}/" target="_blank" rel="noopener" dir="ltr">/${L === "en" ? "en/" : ""}services/${esc(x.slug)}/</a></p>` : ""}
+          <hr>${langTabs(L)}
+          ${field("عنوان الخدمة", "title", d.title)}
+          ${field("عنوان Google (SEO)", "seoTitle", d.seoTitle, { hint: "حوالي 60 حرف، فيه الكلمة اللي يبحث عنها العميل" })}
+          ${field("وصف Google", "description", d.description, { type: "textarea", rows: 2, hint: "حوالي 150 حرف" })}
+          ${field("المقدمة", "intro", d.intro, { type: "textarea", rows: 4 })}
+          ${field("شنو تحصل (كل سطر نقطة)", "benefits", (d.benefits || []).join("\n"), { type: "textarea", rows: 6 })}
+          ${field("لمن تناسب (كل سطر نقطة)", "fit", (d.fit || []).join("\n"), { type: "textarea", rows: 4 })}
+          ${field("طريقة الشغل (كل سطر خطوة)", "steps", (d.steps || []).join("\n"), { type: "textarea", rows: 4 })}
+          ${field("أسئلة الخدمة", "faq", faqToText(d.faq), { type: "textarea", rows: 8, hint: "السؤال بسطر، والجواب بالسطر اللي بعده، وسطر فارغ بين كل سؤال والثاني" })}`;
+      };
+      const collect = () => {
+        const v = formData($("#sheetBody"));
+        x.draft = v.draft; x.slug = slugify(v.slug); x.icon = (v.icon || "◎").slice(0, 2);
+        x[L] = { title: v.title, seoTitle: v.seoTitle, description: v.description, intro: v.intro,
+          benefits: lines(v.benefits), fit: lines(v.fit), steps: lines(v.steps), faq: textToFaq(v.faq) };
+      };
+      const repaint = () => { $("#sheetBody").innerHTML = body(); $$("#sheetBody [data-lang]").forEach((b) => b.addEventListener("click", () => { collect(); L = b.dataset.lang; repaint(); })); };
+      openSheet(i < 0 ? "صفحة خدمة جديدة" : "تعديل صفحة الخدمة", "", [
+        ...(i >= 0 ? [{ label: "حذف", cls: "btn-danger", run: async () => { if (!confirmInline($("#sheetFoot"), "تحذف الصفحة؟")) return; items.splice(i, 1); await writeFile("content/services.json", items, "Delete service page from control panel").catch(fail); closeSheet(); paint(); } }] : []),
+        { label: "إلغاء", run: closeSheet },
+        { label: "حفظ ونشر", cls: "btn-accent", run: async () => {
+          collect();
+          if (!x.slug) return toast("اكتب رابط الصفحة (slug) بالإنكليزي", true);
+          if (items.some((o, k) => k !== i && o.slug === x.slug)) return toast("هذا الرابط مستخدم لخدمة ثانية", true);
+          if (!(x.ar && x.ar.title) && !(x.en && x.en.title)) return toast("اكتب عنوان الخدمة", true);
+          if (i < 0) items.push(x); else items[i] = x;
+          await writeFile("content/services.json", items, `Update service page ${x.slug} from control panel`).catch(fail);
+          closeSheet(); paint();
+        } },
+      ]);
+      repaint();
     };
     paint();
   };

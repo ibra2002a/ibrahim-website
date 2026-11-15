@@ -44,4 +44,88 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/blog/break-even-roas/"/>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/services/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/services/meta-ads/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/meta-ads/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/meta-ads/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/services/tiktok-ads/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/tiktok-ads/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/tiktok-ads/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/services/snapchat-ads/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/snapchat-ads/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/snapchat-ads/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/services/ugc-ads/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/ugc-ads/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/ugc-ads/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/services/whatsapp-automation/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/whatsapp-automation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/whatsapp-automation/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/services/ad-account-audit/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/ad-account-audit/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/ad-account-audit/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/en/services/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/en/services/meta-ads/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/meta-ads/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/meta-ads/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/en/services/tiktok-ads/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/tiktok-ads/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/tiktok-ads/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/en/services/snapchat-ads/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/snapchat-ads/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/snapchat-ads/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/en/services/ugc-ads/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/ugc-ads/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/ugc-ads/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/en/services/whatsapp-automation/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/whatsapp-automation/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/whatsapp-automation/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibra2002a.github.io/ibrahim-website/en/services/ad-account-audit/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibra2002a.github.io/ibrahim-website/services/ad-account-audit/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibra2002a.github.io/ibrahim-website/en/services/ad-account-audit/"/>
+    <priority>0.8</priority>
+  </url>
 </urlset>
