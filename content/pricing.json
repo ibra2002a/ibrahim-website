@@ -1,6 +1,6 @@
 [
   {
-    "featured": false,
+    "featured": true,
     "entry": true,
     "ar": {
       "name": "فحص الحساب الإعلاني",
@@ -49,7 +49,8 @@
         "سكربت UGC جاهز كل شهر تصوّره بنفسك",
         "أفكار ونصوص إعلانية جديدة كل شهر",
         "تقرير شهري: شكد صرفت وشنو رجعلك"
-      ]
+      ],
+      "badge": ""
     },
     "en": {
       "name": "Starter",
@@ -65,7 +66,8 @@
         "Fresh ad ideas and copy every month",
         "Monthly report: what you spent and what came back"
       ]
-    }
+    },
+    "entry": false
   },
   {
     "featured": true,
@@ -104,7 +106,8 @@
         "Weekly report + monthly call to improve results",
         "Direct WhatsApp access to me"
       ]
-    }
+    },
+    "entry": false
   },
   {
     "featured": false,
@@ -122,7 +125,8 @@
         "إنتاج UGC منتظم: عدة فيديوهات شهريًا مع صنّاع محتوى",
         "خطة كريتيف كاملة مع توجيه التصوير",
         "لوحة تقارير مباشرة تشوف أرقامك بأي وقت"
-      ]
+      ],
+      "badge": ""
     },
     "en": {
       "name": "Scale",
@@ -139,6 +143,7 @@
         "A full creative plan with shoot direction",
         "A live reporting dashboard you can check anytime"
       ]
-    }
+    },
+    "entry": false
   }
 ]
