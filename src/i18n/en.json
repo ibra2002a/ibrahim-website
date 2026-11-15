@@ -35,5 +35,21 @@
   "case_solution": "Solution",
   "draft_badge": "Illustrative example — not a real result",
   "nf_title": "Page not found | Ibrahim Al-Mahawish",
-  "date_locale": "en-US"
+  "date_locale": "en-US",
+  "results_kicker": "Results for clients",
+  "results_title": "Numbers, not promises",
+  "results_sub": "Real numbers from campaigns I've managed.",
+  "draft_stats": "Placeholder numbers — add your real ones from the control panel",
+  "testi_kicker": "Testimonials",
+  "testi_title": "What clients say",
+  "testi_sub": "Real experiences from business owners I've worked with.",
+  "case_goal": "Goal",
+  "case_strategy": "Strategy",
+  "case_budget": "Budget",
+  "case_details": "See details",
+  "case_hide": "Hide details",
+  "work_cases": "See my work",
+  "work_services": "See my services",
+  "cta_short": "Book your free consultation",
+  "mobile_cta": "Book a free consultation"
 }

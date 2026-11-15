@@ -215,3 +215,9 @@ html[dir="ltr"] .sheet-panel { animation-name: slideInLtr; }
   .topbar h1 { font-size: 1.15rem; }
   .login-card { padding: 1.5rem; }
 }
+
+/* Testimonial photo */
+.photo-field { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+.photo-prev { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 1px solid var(--line); }
+.photo-prev.empty { display: grid; place-items: center; background: var(--paper); color: var(--muted); font-size: .8rem; }
+.photo-field label.btn { cursor: pointer; }

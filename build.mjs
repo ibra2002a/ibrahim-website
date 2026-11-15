@@ -163,26 +163,40 @@ const fmtDate = (d, lang) => {
   return isNaN(dt) ? "" : dt.toLocaleDateString(I18N[lang].date_locale, { year: "numeric", month: "long", day: "numeric" });
 };
 
-function caseStudiesHTML(lang) {
-  const file = path.join(ROOT, "content/case-studies.json");
-  if (!fs.existsSync(file)) return "";
+const readContent = (f, fallback) => {
+  const fp = path.join(ROOT, "content", f);
+  return fs.existsSync(fp) ? JSON.parse(fs.readFileSync(fp, "utf8")) : fallback;
+};
+const publishedCases = (lang) => readContent("case-studies.json", []).filter((c) => (DRAFTS || !c.draft) && c[lang]);
+const publishedStats = () => readContent("stats.json", []).filter((x) => (DRAFTS || !x.draft) && x.value);
+const publishedTestimonials = (lang) => readContent("testimonials.json", []).filter((x) => (DRAFTS || !x.draft) && x[lang] && x[lang].quote);
+
+function caseStudiesHTML(lang, root) {
   const t = I18N[lang];
-  const items = JSON.parse(fs.readFileSync(file, "utf8")).filter((c) => (DRAFTS || !c.draft) && c[lang]);
+  const items = publishedCases(lang);
   if (!items.length) return ""; // القسم يختفي تلقائيًا إذا ماكو دراسات منشورة
   const cards = items.map((c) => {
     const d = c[lang];
+    const meta = [d.industry, d.period].filter(Boolean).map(esc).join(" · ");
     return `
           <article class="case${c.draft ? " case-draft" : ""}">
             ${c.draft ? `<span class="case-badge">${esc(t.draft_badge)}</span>` : ""}
             <div class="case-head">
-              <div><h3>${esc(d.client)}</h3><p class="case-meta">${esc(d.industry)} · ${esc(d.period)}</p></div>
+              <div><h3>${esc(d.client)}</h3><p class="case-meta">${meta}</p></div>
               <ul class="case-platforms">${(c.platforms || []).map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
             </div>
             <div class="case-results">${(d.results || []).map((r) => `<div><strong>${esc(r.value)}</strong><small>${esc(r.label)}</small></div>`).join("")}</div>
-            <dl class="case-body">
-              <dt>${esc(t.case_challenge)}</dt><dd>${esc(d.challenge)}</dd>
-              <dt>${esc(t.case_solution)}</dt><dd>${esc(d.solution)}</dd>
+            <dl class="case-facts">
+              ${d.goal ? `<div><dt>${esc(t.case_goal)}</dt><dd>${esc(d.goal)}</dd></div>` : ""}
+              ${d.budget ? `<div><dt>${esc(t.case_budget)}</dt><dd>${esc(d.budget)}</dd></div>` : ""}
             </dl>
+            ${d.challenge || d.solution ? `<details class="case-more">
+              <summary><span class="when-closed">${esc(t.case_details)}</span><span class="when-open">${esc(t.case_hide)}</span></summary>
+              <dl class="case-body">
+                ${d.challenge ? `<dt>${esc(t.case_challenge)}</dt><dd>${esc(d.challenge)}</dd>` : ""}
+                ${d.solution ? `<dt>${esc(t.case_strategy)}</dt><dd>${esc(d.solution)}</dd>` : ""}
+              </dl>
+            </details>` : ""}
           </article>`;
   }).join("");
   return `
@@ -195,6 +209,64 @@ function caseStudiesHTML(lang) {
         </header>
         <div class="cases">${cards}
         </div>
+        ${ctaBand(lang)}
+      </div>
+    </section>`;
+}
+
+function ctaBand(lang, text) {
+  const t = I18N[lang];
+  return `<div class="cta-band"><p>${esc(text || t.post_cta_title)}</p><a class="btn btn-accent" href="#contact">${esc(t.cta_short)}</a></div>`;
+}
+
+function resultsHTML(lang) {
+  const t = I18N[lang];
+  const items = publishedStats().filter((x) => x[lang]);
+  if (!items.length) return "";
+  const anyDraft = items.some((x) => x.draft);
+  return `
+    <section class="results" id="results" aria-label="${esc(t.results_kicker)}">
+      <div class="container">
+        <div class="results-head">
+          <p class="kicker">${esc(t.results_kicker)}</p>
+          <h2>${esc(t.results_title)}</h2>
+          ${anyDraft ? `<span class="case-badge">${esc(t.draft_stats)}</span>` : ""}
+        </div>
+        <div class="stats">${items.map((x) => `
+          <div class="stat"><strong>${esc(x.value)}</strong><span>${esc(x[lang])}</span></div>`).join("")}
+        </div>
+      </div>
+    </section>`;
+}
+
+function testimonialsHTML(lang, root) {
+  const t = I18N[lang];
+  const items = publishedTestimonials(lang);
+  if (!items.length) return "";
+  const initials = (n) => { const w = String(n || "").replace(/^مثال:\s*/, "").trim().split(/\s+/); return /[a-z]/i.test(w[0] || "") ? w.slice(0, 2).map((x) => x[0].toUpperCase()).join("") : (w[0] || "").slice(0, 1); };
+  return `
+    <section class="section section-alt" id="testimonials">
+      <div class="container">
+        <header class="section-head">
+          <p class="kicker">${esc(t.testi_kicker)}</p>
+          <h2>${esc(t.testi_title)}</h2>
+          <p class="section-sub">${esc(t.testi_sub)}</p>
+        </header>
+        <div class="testis">${items.map((x) => {
+          const d = x[lang];
+          return `
+          <figure class="testi${x.draft ? " case-draft" : ""}">
+            ${x.draft ? `<span class="case-badge">${esc(t.draft_badge)}</span>` : ""}
+            ${d.result ? `<span class="testi-result">${esc(d.result)}</span>` : ""}
+            <blockquote>${esc(d.quote)}</blockquote>
+            <figcaption>
+              ${x.photo ? `<img src="${root}${esc(x.photo)}" alt="" width="48" height="48" loading="lazy">` : `<span class="testi-avatar" aria-hidden="true">${esc(initials(x.name))}</span>`}
+              <span><b>${esc(x.name)}</b><small>${esc([d.role, x.company].filter(Boolean).join(" · "))}</small></span>
+            </figcaption>
+          </figure>`;
+        }).join("")}
+        </div>
+        ${ctaBand(lang)}
       </div>
     </section>`;
 }
@@ -255,7 +327,11 @@ for (const lang of LANGS) {
 
   // الصفحة الرئيسية
   const homeTpl = read(`src/pages/home.${lang}.html`)
-    .replace("{{case_studies}}", caseStudiesHTML(lang))
+    .replace("{{case_studies}}", caseStudiesHTML(lang, rootOf(`${pre}index.html`)))
+    .replace("{{results}}", resultsHTML(lang))
+    .replace("{{testimonials}}", testimonialsHTML(lang, rootOf(`${pre}index.html`)))
+    .replaceAll("{{work_link}}", publishedCases(lang).length ? "#work" : publishedStats().length ? "#results" : "#services")
+    .replaceAll("{{work_label}}", esc(publishedCases(lang).length || publishedStats().length ? t.work_cases : t.work_services))
     .replace("{{pricing}}", pricingHTML(lang))
     .replace("{{faq}}", faqHTML(lang))
     .replace("{{plan_options}}", planOptions(lang));
@@ -353,7 +429,7 @@ ${p.html.replace(/href="\/([^"#]*)(#[^"]*)?"/g, (_, dir, hash) => `href="${link(
 // بيانات العرض التجريبي للوحة التحكم (بدون المسودات وبدون مفاتيح)
 {
   const files = {}, dirs = {};
-  for (const f of ["pricing.json", "faq.json", "case-studies.json"]) {
+  for (const f of ["pricing.json", "faq.json", "case-studies.json", "stats.json", "testimonials.json"]) {
     const fp = path.join(ROOT, "content", f);
     if (fs.existsSync(fp)) files[`content/${f}`] = JSON.parse(fs.readFileSync(fp, "utf8"));
   }

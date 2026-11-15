@@ -1,23 +1,99 @@
 [
   {
     "featured": false,
-    "ar": { "name": "البداية", "for": "للمشاريع الجديدة", "price": "$250", "period": "/ شهريًا", "cta": "ابدأ الآن",
-            "features": ["منصة واحدة (Meta أو TikTok)", "حتى 3 حملات نشطة", "إعداد البكسل الأساسي", "تقرير شهري"] },
-    "en": { "name": "Starter", "for": "For new businesses", "price": "$250", "period": "/ month", "cta": "Get started",
-            "features": ["One platform (Meta or TikTok)", "Up to 3 active campaigns", "Basic pixel setup", "Monthly report"] }
+    "ar": {
+      "name": "Starter",
+      "for": "للمشاريع الناشئة اللي تريد تبدي صح",
+      "price": "$250",
+      "period": "/ شهريًا",
+      "cta": "ابدأ بـ Starter",
+      "features": [
+        "إدارة حملاتك على منصة وحدة (Meta أو TikTok)",
+        "خطة إعلانية واضحة لأول 30 يوم",
+        "إعداد البكسل وتتبع الطلبات بشكل صحيح",
+        "أفكار ونصوص إعلانية جديدة كل شهر",
+        "تقرير شهري: شكد صرفت وشنو رجعلك"
+      ]
+    },
+    "en": {
+      "name": "Starter",
+      "for": "For new businesses that want to start right",
+      "price": "$250",
+      "period": "/ month",
+      "cta": "Start with Starter",
+      "features": [
+        "Your campaigns managed on one platform (Meta or TikTok)",
+        "A clear ad plan for your first 30 days",
+        "Pixel and order tracking set up correctly",
+        "Fresh ad ideas and copy every month",
+        "Monthly report: what you spent and what came back"
+      ]
+    }
   },
   {
     "featured": true,
-    "ar": { "name": "النمو", "for": "للمشاريع اللي تبيع وتريد تكبر", "price": "$500", "period": "/ شهريًا", "cta": "ابدأ الآن", "badge": "الأكثر طلبًا",
-            "features": ["Meta + TikTok", "حملات غير محدودة", "Pixel + Conversions API", "اختبار كريتيف أسبوعي", "تقرير أسبوعي + اجتماع شهري"] },
-    "en": { "name": "Growth", "for": "For businesses already selling and ready to grow", "price": "$500", "period": "/ month", "cta": "Get started", "badge": "Most popular",
-            "features": ["Meta + TikTok", "Unlimited campaigns", "Pixel + Conversions API", "Weekly creative testing", "Weekly report + monthly call"] }
+    "ar": {
+      "name": "Growth",
+      "for": "للشركات اللي تريد مبيعات أكثر",
+      "price": "$500",
+      "period": "/ شهريًا",
+      "cta": "ابدأ بـ Growth",
+      "badge": "⭐ الأكثر طلبًا",
+      "features": [
+        "إدارة كاملة لـ Meta + TikTok",
+        "Pixel + Conversions API: كل طلب يتسجل بدقة",
+        "اختبار كريتيف أسبوعي حتى نلقى الإعلان الرابح",
+        "إعادة استهداف الزوار اللي ما اشتروا",
+        "تقرير أسبوعي + اجتماع شهري لتحسين النتائج",
+        "تواصل مباشر وياي على الواتساب"
+      ]
+    },
+    "en": {
+      "name": "Growth",
+      "for": "For businesses that want more sales",
+      "price": "$500",
+      "period": "/ month",
+      "cta": "Start with Growth",
+      "badge": "⭐ Most popular",
+      "features": [
+        "Full management of Meta + TikTok",
+        "Pixel + Conversions API: every order tracked accurately",
+        "Weekly creative testing to find the winning ad",
+        "Retargeting visitors who didn't buy",
+        "Weekly report + monthly call to improve results",
+        "Direct WhatsApp access to me"
+      ]
+    }
   },
   {
     "featured": false,
-    "ar": { "name": "التوسع", "for": "للبراندات والمتاجر الكبيرة", "price": "حسب الطلب", "period": "", "cta": "تواصل معي",
-            "features": ["كل مزايا باقة النمو", "صفحات هبوط مخصصة", "استراتيجية كريتيف كاملة", "لوحة تقارير مباشرة"] },
-    "en": { "name": "Scale", "for": "For brands and large stores", "price": "Custom", "period": "", "cta": "Contact me",
-            "features": ["Everything in Growth", "Custom landing pages", "Full creative strategy", "Live reporting dashboard"] }
+    "ar": {
+      "name": "Scale",
+      "for": "للشركات اللي تريد تتوسع",
+      "price": "حسب الطلب",
+      "period": "",
+      "cta": "خلّينا نحجي",
+      "features": [
+        "كل مزايا Growth",
+        "استراتيجية توسع لميزانيات كبيرة بدون ما يطيح العائد",
+        "صفحات هبوط مخصصة ترفع نسبة التحويل",
+        "خطة كريتيف كاملة مع توجيه التصوير",
+        "لوحة تقارير مباشرة تشوف أرقامك بأي وقت"
+      ]
+    },
+    "en": {
+      "name": "Scale",
+      "for": "For businesses ready to expand",
+      "price": "Custom",
+      "period": "",
+      "cta": "Let's talk",
+      "features": [
+        "Everything in Growth",
+        "A scaling strategy for big budgets without killing ROAS",
+        "Custom landing pages that lift conversion",
+        "A full creative plan with shoot direction",
+        "A live reporting dashboard you can check anytime"
+      ]
+    }
   }
 ]

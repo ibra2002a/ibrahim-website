@@ -1,7 +1,10 @@
 [
   {
     "draft": true,
-    "platforms": ["Meta", "Instagram"],
+    "platforms": [
+      "Meta",
+      "Instagram"
+    ],
     "ar": {
       "client": "متجر ملابس أونلاين",
       "industry": "تجارة إلكترونية",
@@ -9,10 +12,21 @@
       "challenge": "مثال: إعلانات تجيب تفاعل عالي بس الطلبات قليلة، وتكلفة الطلب أعلى من هامش الربح.",
       "solution": "مثال: إعداد Conversions API، إعادة هيكلة الحملات على هدف المبيعات، واختبار 12 كريتيف بأسلوب UGC.",
       "results": [
-        { "value": "3.1x", "label": "ROAS" },
-        { "value": "-41%", "label": "تكلفة الطلب" },
-        { "value": "+180%", "label": "الطلبات الشهرية" }
-      ]
+        {
+          "value": "3.1x",
+          "label": "ROAS"
+        },
+        {
+          "value": "-41%",
+          "label": "تكلفة الطلب"
+        },
+        {
+          "value": "+180%",
+          "label": "الطلبات الشهرية"
+        }
+      ],
+      "goal": "مثال: زيادة الطلبات من Instagram بتكلفة أقل",
+      "budget": "$1,500 / شهر"
     },
     "en": {
       "client": "Online clothing store",
@@ -21,15 +35,28 @@
       "challenge": "Example: ads got lots of engagement but few orders, and cost per order exceeded the profit margin.",
       "solution": "Example: set up Conversions API, restructured campaigns around the sales objective, and tested 12 UGC-style creatives.",
       "results": [
-        { "value": "3.1x", "label": "ROAS" },
-        { "value": "-41%", "label": "Cost per order" },
-        { "value": "+180%", "label": "Monthly orders" }
-      ]
+        {
+          "value": "3.1x",
+          "label": "ROAS"
+        },
+        {
+          "value": "-41%",
+          "label": "Cost per order"
+        },
+        {
+          "value": "+180%",
+          "label": "Monthly orders"
+        }
+      ],
+      "goal": "Example: more Instagram orders at a lower cost",
+      "budget": "$1,500 / month"
     }
   },
   {
     "draft": true,
-    "platforms": ["TikTok"],
+    "platforms": [
+      "TikTok"
+    ],
     "ar": {
       "client": "مطعم وجبات سريعة",
       "industry": "مطاعم",
@@ -37,10 +64,21 @@
       "challenge": "مثال: الاعتماد الكامل على الزبائن المتكررين، وصعوبة الوصول لجمهور جديد بالمنطقة.",
       "solution": "مثال: حملات TikTok محلية بفيديوهات قصيرة من المطبخ، مع عرض خاص يتتبع عبر رسائل الواتساب.",
       "results": [
-        { "value": "+2,400", "label": "محادثة واتساب" },
-        { "value": "$0.42", "label": "تكلفة المحادثة" },
-        { "value": "+35%", "label": "طلبات التوصيل" }
-      ]
+        {
+          "value": "+2,400",
+          "label": "محادثة واتساب"
+        },
+        {
+          "value": "$0.42",
+          "label": "تكلفة المحادثة"
+        },
+        {
+          "value": "+35%",
+          "label": "طلبات التوصيل"
+        }
+      ],
+      "goal": "مثال: جلب زبائن جدد من المنطقة عبر الواتساب",
+      "budget": "$600 / شهر"
     },
     "en": {
       "client": "Fast-food restaurant",
@@ -49,10 +87,21 @@
       "challenge": "Example: fully reliant on repeat customers and struggling to reach new people nearby.",
       "solution": "Example: local TikTok campaigns with short kitchen videos, plus an offer tracked through WhatsApp messages.",
       "results": [
-        { "value": "+2,400", "label": "WhatsApp chats" },
-        { "value": "$0.42", "label": "Cost per chat" },
-        { "value": "+35%", "label": "Delivery orders" }
-      ]
+        {
+          "value": "+2,400",
+          "label": "WhatsApp chats"
+        },
+        {
+          "value": "$0.42",
+          "label": "Cost per chat"
+        },
+        {
+          "value": "+35%",
+          "label": "Delivery orders"
+        }
+      ],
+      "goal": "Example: bring new local customers via WhatsApp",
+      "budget": "$600 / month"
     }
   }
 ]

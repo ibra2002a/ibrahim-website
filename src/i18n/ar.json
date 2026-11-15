@@ -35,5 +35,21 @@
   "case_solution": "الحل",
   "draft_badge": "مثال توضيحي — ليس نتيجة حقيقية",
   "nf_title": "الصفحة غير موجودة | إبراهيم المهاوش",
-  "date_locale": "ar-IQ-u-nu-latn"
+  "date_locale": "ar-IQ-u-nu-latn",
+  "results_kicker": "نتائج حققتها مع العملاء",
+  "results_title": "أرقام، مو وعود",
+  "results_sub": "أرقام حقيقية من حملات أدرتها.",
+  "draft_stats": "أرقام مؤقتة — ضع أرقامك الحقيقية من لوحة التحكم",
+  "testi_kicker": "آراء العملاء",
+  "testi_title": "شنو يكولون العملاء؟",
+  "testi_sub": "تجارب حقيقية من أصحاب مشاريع اشتغلت وياهم.",
+  "case_goal": "الهدف",
+  "case_strategy": "الاستراتيجية",
+  "case_budget": "الميزانية",
+  "case_details": "شوف التفاصيل",
+  "case_hide": "إخفاء التفاصيل",
+  "work_cases": "شوف أعمالي",
+  "work_services": "شوف خدماتي",
+  "cta_short": "احجز استشارتك المجانية",
+  "mobile_cta": "احجز استشارة مجانية"
 }
