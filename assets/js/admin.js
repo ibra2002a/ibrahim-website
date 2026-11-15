@@ -99,6 +99,28 @@
     watchDeploy();
   }
 
+  async function writeBinary(path, base64, message) {
+    if (state.demo) return;
+    await gh(repoPath(path), { method: "PUT", body: JSON.stringify({ message, content: base64, branch: GH.branch }) });
+  }
+
+  // تصغير الصورة بالمتصفح قبل الرفع (مربع، WebP)
+  function resizeImage(file, size = 192) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        const c = document.createElement("canvas"); c.width = c.height = size;
+        const s = Math.min(img.width, img.height);
+        c.getContext("2d").drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, size, size);
+        const url = c.toDataURL("image/webp", 0.85);
+        URL.revokeObjectURL(img.src);
+        resolve(url.startsWith("data:image/webp") ? url : c.toDataURL("image/jpeg", 0.85));
+      };
+      img.onerror = () => reject(new Error("ما گدرت أقرا الصورة"));
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
   async function deleteFile(path, message) {
     if (state.demo) { toast("وضع تجريبي: الحذف ما ينحفظ"); return; }
     const prev = state.files[path] || (await readFile(path, { json: false }));
@@ -195,7 +217,9 @@
     { id: "overview", label: "نظرة عامة", icon: "◧" },
     { id: "leads", label: "الطلبات", icon: "☰" },
     { id: "pricing", label: "الباقات", icon: "◈" },
+    { id: "stats", label: "النتائج والأرقام", icon: "▲" },
     { id: "cases", label: "دراسات الحالة", icon: "★" },
+    { id: "testis", label: "آراء العملاء", icon: "❝" },
     { id: "blog", label: "المدونة", icon: "✎" },
     { id: "faq", label: "الأسئلة", icon: "?" },
     { id: "prefs", label: "الإعدادات", icon: "⚙" },
@@ -214,7 +238,7 @@
     const item = (v) => `<button type="button" class="nav-item${state.view === v.id ? " active" : ""}" data-view="${v.id}"><span class="nav-ic" aria-hidden="true">${v.icon}</span><span>${v.label}</span></button>`;
     $("#sideNav").innerHTML = VIEWS.map(item).join("");
     $("#tabBar").innerHTML = VIEWS.filter((v) => TAB_VIEWS.includes(v.id)).map(item).join("") +
-      `<button type="button" class="nav-item${["cases", "faq"].includes(state.view) ? " active" : ""}" data-more><span class="nav-ic" aria-hidden="true">⋯</span><span>المزيد</span></button>`;
+      `<button type="button" class="nav-item${["cases", "faq", "stats", "testis"].includes(state.view) ? " active" : ""}" data-more><span class="nav-ic" aria-hidden="true">⋯</span><span>المزيد</span></button>`;
   }
 
   async function go(view) {
@@ -285,7 +309,7 @@
       <section class="quick">
         <button type="button" class="quick-btn" data-goto="blog" data-new-post><span>✎</span>مقال جديد</button>
         <button type="button" class="quick-btn" data-goto="pricing"><span>◈</span>تعديل الأسعار</button>
-        <button type="button" class="quick-btn" data-goto="cases"><span>★</span>دراسة حالة</button>
+        <button type="button" class="quick-btn" data-goto="stats"><span>▲</span>النتائج والأرقام</button>
         <a class="quick-btn" href="../" target="_blank" rel="noopener"><span>↗</span>عرض الموقع</a>
       </section>
 
@@ -516,15 +540,17 @@
           <hr>${langTabs(L)}
           ${field("اسم العميل / المشروع", "client", d.client)}
           <div class="field-row">${field("المجال", "industry", d.industry)}${field("المدة", "period", d.period)}</div>
+          ${field("الهدف", "goal", d.goal, { placeholder: "مثال: زيادة الطلبات بتكلفة أقل" })}
+          ${field("الميزانية", "budget", d.budget, { placeholder: "مثال: $1,500 / شهر" })}
           ${field("التحدي", "challenge", d.challenge, { type: "textarea" })}
-          ${field("الحل (شنو سويت)", "solution", d.solution, { type: "textarea" })}
+          ${field("الاستراتيجية (شنو سويت)", "solution", d.solution, { type: "textarea" })}
           <p class="label-strong">النتائج</p>
           ${res.map((r, k) => `<div class="field-row">${field(`القيمة ${k + 1}`, `rv${k}`, r.value, { dir: "ltr", placeholder: "3.1x" })}${field("الوصف", `rl${k}`, r.label, { placeholder: "ROAS" })}</div>`).join("")}`;
       };
       const collect = () => {
         const v = formData($("#sheetBody"));
         c.draft = v.draft; c.platforms = v.platforms.split(",").map((s) => s.trim()).filter(Boolean);
-        c[L] = { client: v.client, industry: v.industry, period: v.period, challenge: v.challenge, solution: v.solution,
+        c[L] = { client: v.client, industry: v.industry, period: v.period, goal: v.goal, budget: v.budget, challenge: v.challenge, solution: v.solution,
           results: [0, 1, 2].map((k) => ({ value: v[`rv${k}`], label: v[`rl${k}`] })).filter((r) => r.value || r.label) };
       };
       const repaint = () => { $("#sheetBody").innerHTML = body(); $$("#sheetBody [data-lang]").forEach((b) => b.addEventListener("click", () => { collect(); L = b.dataset.lang; repaint(); })); };
@@ -678,6 +704,108 @@
       });
       $("#addQ").addEventListener("click", () => { collect(); items.push({ q: "", a: "" }); paint(); });
       $("#saveFaq").addEventListener("click", async () => { collect(); data[L] = items.filter((f) => f.q); await writeFile("content/faq.json", data, "Update FAQ from control panel").catch(fail); paint(); });
+    };
+    paint();
+  };
+
+  /* ---------- النتائج والأرقام ---------- */
+  RENDER.stats = async (el) => {
+    const file = await load("content/stats.json");
+    const items = clone(file.data || []);
+    const paint = () => {
+      el.innerHTML = `
+        <p class="note-inline">هذي الأرقام تظهر مباشرة تحت الواجهة الرئيسية. حط أرقام حقيقية بس، وأي رقم "مسودة" ما يظهر بالموقع.</p>
+        <div class="toolbar"><span class="muted small">${items.filter((x) => !x.draft && x.value).length} رقم منشور</span><button type="button" class="btn btn-outline btn-sm" id="addStat">+ رقم</button><button type="button" class="btn btn-accent btn-sm" id="saveStats">حفظ ونشر</button></div>
+        <div class="edit-stack">${items.map((x, i) => `
+          <form class="panel stat-edit" data-i="${i}">
+            <div class="panel-head"><span class="muted small">رقم ${i + 1}</span><div class="mini-actions"><button type="button" data-move="-1" aria-label="تقديم">↑</button><button type="button" data-move="1" aria-label="تأخير">↓</button><button type="button" data-del aria-label="حذف">🗑</button></div></div>
+            ${field("الرقم", "value", x.value, { dir: "ltr", placeholder: "$45K+ أو 3.2x أو 1,200" })}
+            <div class="field-row">${field("الوصف (عربي)", "ar", x.ar, { placeholder: "مبيعات حققتها للعملاء" })}${field("الوصف (English)", "en", x.en, { dir: "ltr", placeholder: "Sales generated" })}</div>
+            ${toggle("مسودة (ما يظهر بالموقع)", "draft", x.draft)}
+          </form>`).join("")}</div>`;
+      const collect = () => $$(".stat-edit", el).forEach((f) => { const v = formData(f); items[+f.dataset.i] = { draft: v.draft, value: v.value, ar: v.ar, en: v.en }; });
+      el._collect = collect;
+      $$(".stat-edit", el).forEach((f) => {
+        const i = +f.dataset.i;
+        $$("[data-move]", f).forEach((b) => b.addEventListener("click", () => { collect(); const j = i + +b.dataset.move; if (j < 0 || j >= items.length) return; [items[i], items[j]] = [items[j], items[i]]; paint(); }));
+        $("[data-del]", f).addEventListener("click", () => { if (!confirmInline(f, "تحذف الرقم؟")) return; collect(); items.splice(i, 1); paint(); });
+      });
+      $("#addStat").addEventListener("click", () => { collect(); items.push({ draft: false, value: "", ar: "", en: "" }); paint(); });
+      $("#saveStats").addEventListener("click", async () => { collect(); await writeFile("content/stats.json", items.filter((x) => x.value), "Update results from control panel").catch(fail); paint(); });
+    };
+    paint();
+  };
+
+  /* ---------- آراء العملاء ---------- */
+  RENDER.testis = async (el) => {
+    const file = await load("content/testimonials.json");
+    const items = clone(file.data || []);
+    const paint = () => {
+      el.innerHTML = `
+        <div class="toolbar"><span class="muted small">${items.length} رأي · المسودات ما تظهر بالموقع</span><button type="button" class="btn btn-accent btn-sm" id="addTesti">+ رأي عميل</button></div>
+        <div class="list">${items.map((x, i) => `
+          <button type="button" class="list-item" data-i="${i}">
+            <span class="li-main"><b>${esc(x.name || "بدون اسم")}</b><small>${esc(x.company || "")}</small></span>
+            <span class="badge-st ${x.draft ? "draft" : "live"}">${x.draft ? "مسودة" : "منشور"}</span>
+          </button>`).join("") || `<p class="empty">ماكو آراء بعد. اطلب من عملائك جملتين عن تجربتهم وياك وضيفها هنا.</p>`}</div>`;
+      $$(".list-item", el).forEach((b) => b.addEventListener("click", () => edit(+b.dataset.i)));
+      $("#addTesti").addEventListener("click", () => edit(-1));
+    };
+    const edit = (i) => {
+      const x = i < 0 ? { draft: false, name: "", company: "", photo: "", ar: {}, en: {} } : clone(items[i]);
+      let L = "ar", pending = null; // pending = صورة جديدة (data URL) لسه ما انرفعت
+      const body = () => {
+        const d = x[L] || {};
+        const src = pending || (x.photo ? "../" + x.photo : "");
+        return `
+          ${toggle("مسودة (ما يظهر بالموقع)", "draft", x.draft)}
+          <div class="field-row">${field("اسم العميل", "name", x.name)}${field("الشركة / المشروع", "company", x.company)}</div>
+          <div class="photo-field">
+            ${src ? `<img src="${esc(src)}" alt="" class="photo-prev">` : `<span class="photo-prev empty">صورة</span>`}
+            <label class="btn btn-outline btn-sm">رفع صورة أو شعار<input type="file" accept="image/*" id="photoIn" hidden></label>
+            ${src ? `<button type="button" class="btn btn-outline btn-sm" id="photoDel">إزالة</button>` : ""}
+          </div>
+          <hr>${langTabs(L)}
+          ${field("صفته", "role", d.role, { placeholder: "مثال: صاحب متجر" })}
+          ${field("كلام العميل", "quote", d.quote, { type: "textarea", rows: 4 })}
+          ${field("النتيجة (اختياري)", "result", d.result, { placeholder: "مثال: +120% طلبات" })}`;
+      };
+      const collect = () => {
+        const v = formData($("#sheetBody"));
+        x.draft = v.draft; x.name = v.name; x.company = v.company;
+        x[L] = { role: v.role, quote: v.quote, result: v.result };
+      };
+      const repaint = () => {
+        $("#sheetBody").innerHTML = body();
+        $$("#sheetBody [data-lang]").forEach((b) => b.addEventListener("click", () => { collect(); L = b.dataset.lang; repaint(); }));
+        $("#photoIn").addEventListener("change", async (e) => {
+          const f = e.target.files && e.target.files[0]; if (!f) return;
+          collect();
+          try { pending = await resizeImage(f); repaint(); } catch (err) { fail(err); }
+        });
+        const del = $("#photoDel"); if (del) del.addEventListener("click", () => { collect(); pending = null; x.photo = ""; repaint(); });
+      };
+      openSheet(i < 0 ? "رأي عميل جديد" : "تعديل رأي العميل", "", [
+        ...(i >= 0 ? [{ label: "حذف", cls: "btn-danger", run: async () => { if (!confirmInline($("#sheetFoot"), "تحذف الرأي؟")) return; items.splice(i, 1); await writeFile("content/testimonials.json", items, "Delete testimonial from control panel").catch(fail); closeSheet(); paint(); } }] : []),
+        { label: "إلغاء", run: closeSheet },
+        { label: "حفظ ونشر", cls: "btn-accent", run: async () => {
+          collect();
+          if (!x.name) return toast("اكتب اسم العميل", true);
+          if (!(x.ar && x.ar.quote) && !(x.en && x.en.quote)) return toast("اكتب كلام العميل", true);
+          try {
+            if (pending && !state.demo) {
+              const ext = pending.startsWith("data:image/webp") ? "webp" : "jpg";
+              const path = `public/assets/img/testimonials/${slugify(x.name) || "client"}-${Date.now().toString(36)}.${ext}`;
+              await writeBinary(path, pending.split(",")[1], `Upload testimonial photo for ${x.name}`);
+              x.photo = path.replace(/^public\//, "");
+            }
+            if (i < 0) items.push(x); else items[i] = x;
+            await writeFile("content/testimonials.json", items, "Update testimonials from control panel");
+            closeSheet(); paint();
+          } catch (e) { fail(e); }
+        } },
+      ]);
+      repaint();
     };
     paint();
   };

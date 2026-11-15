@@ -19,6 +19,8 @@
       noMargin: "أدخل هامش ربح أكبر من صفر حتى نحسب نقطة التعادل.",
       profitable: (x) => `✓ حملتك رابحة. نقطة التعادل عندك ROAS ${x}x.`,
       loss: (x) => `تحتاج ROAS لا يقل عن ${x}x حتى تغطي تكلفة الإعلان. خفض تكلفة الطلب هو المفتاح.`,
+      calcTitle: "طلب تحليل مجاني من الحاسبة 📊", calcPlan: "تحليل مجاني (الحاسبة)",
+      calcLine: (b, c, a, m, r) => `أرقامي: ميزانية $${b}، تكلفة الطلب $${c}، متوسط الطلب $${a}، هامش ${m}% ← ROAS ${r}`,
     },
     en: {
       nameErr: "Please enter your name.", phoneErr: "Please enter a valid WhatsApp number.",
@@ -27,6 +29,8 @@
       noMargin: "Enter a profit margin above zero to calculate break-even.",
       profitable: (x) => `✓ Profitable. Your break-even ROAS is ${x}x.`,
       loss: (x) => `You need at least ${x}x ROAS to cover ad spend. Lowering your CPA is the key.`,
+      calcTitle: "Free analysis request from the calculator 📊", calcPlan: "Free analysis (calculator)",
+      calcLine: (b, c, a, m, r) => `My numbers: budget $${b}, CPA $${c}, AOV $${a}, margin ${m}% → ROAS ${r}`,
     },
   }[LANG];
 
@@ -183,6 +187,43 @@
     );
   }
 
+  /* ---------- الحاسبة ← طلب تحليل مجاني (Lead generator) ---------- */
+  function initCalcLead() {
+    const box = $("#calcLead"), calc = $("#calc");
+    if (!box || !calc) return;
+    const btn = $("#cl-send"), err = $("#cl-err");
+    btn.addEventListener("click", () => {
+      const name = String($("#cl-name").value || "").replace(/[<>]/g, "").trim().slice(0, 80);
+      const phone = String($("#cl-phone").value || "").replace(/[<>]/g, "").trim().slice(0, 20);
+      err.textContent = "";
+      if (name.length < 2) { err.textContent = STR.nameErr; return $("#cl-name").focus(); }
+      if (!/^\+?\d{8,15}$/.test(phone.replace(/[^\d+]/g, ""))) { err.textContent = STR.phoneErr; return $("#cl-phone").focus(); }
+      const v = (n) => calc.elements[n].value;
+      const line = STR.calcLine(v("budget"), v("cpa"), v("aov"), v("margin"), $("#outRoas").textContent);
+      const attr = (window.Track && window.Track.attribution()) || {};
+      saveLead({ name, phone, business_type: null, budget: "$" + v("budget"), plan: STR.calcPlan, message: line, lang: LANG,
+        source: attr.utm_source || "calculator", campaign: attr.utm_campaign || null, attribution: Object.keys(attr).length ? attr : null });
+      track("Lead", { content_category: "calculator", content_name: STR.calcPlan });
+      const url = waUrl([STR.calcTitle, `${STR.name}: ${name}`, `${STR.phone}: ${phone}`, line].join("\n"));
+      $("#cl-wa").href = url;
+      $("#cl-ok").hidden = false;
+      try { window.open(url, "_blank", "noopener"); } catch (_) {}
+    });
+  }
+
+  /* ---------- شريط الحجز الثابت على الموبايل ---------- */
+  function initMobileCta() {
+    const bar = $("#mobileCta");
+    if (!bar || !("IntersectionObserver" in window)) return;
+    const targets = [$("#contact"), $(".hero-actions")].filter(Boolean);
+    const visible = new Set();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)));
+      bar.classList.toggle("hide", visible.size > 0); // نخفيه إذا زر الحجز أو النموذج ظاهر أصلًا
+    }, { threshold: 0.15 });
+    targets.forEach((t) => io.observe(t));
+  }
+
   /* ---------- زر الواتساب العائم ---------- */
   function initWhatsAppFloat() {
     const btn = $("#waFloat");
@@ -195,7 +236,7 @@
   /* ---------- أنيميشن الظهور عند التمرير ---------- */
   function initReveal() {
     if (!("IntersectionObserver" in window)) return;
-    const els = $$(".section-head, .about-card, .about-points li, .card, .steps li, .case, .plan, .faq details, .calc, .form, .post-card");
+    const els = $$(".section-head, .about-card, .about-qa > div, .why-grid li, .stat, .testi, .card, .steps li, .case, .plan, .faq details, .calc, .form, .post-card");
     els.forEach((el) => el.classList.add("reveal"));
     const io = new IntersectionObserver(
       (entries) => entries.forEach((en) => {
@@ -214,6 +255,8 @@
     initPlanLinks();
     initLeadForm();
     initWhatsAppFloat();
+    initCalcLead();
+    initMobileCta();
     initReveal();
   });
 })();
