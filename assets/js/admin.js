@@ -477,12 +477,14 @@
             ${field("المزايا (كل سطر ميزة)", "features", (d.features || []).join("\n"), { type: "textarea", rows: 5 })}
             <div class="field-row">${field("نص الزر", "cta", d.cta)}${field("شارة (للمميزة)", "badge", d.badge)}</div>
             ${toggle("باقة مميزة (تظهر بلون مختلف)", "featured", p.featured)}
+            ${toggle("عرض دخول (بطاقة عريضة فوق الباقات، مثل فحص الحساب)", "entry", p.entry)}
           </form>`;
         }).join("")}</div>`;
       bindLang(el, paint);
       const collect = () => $$(".plan-edit", el).forEach((f) => {
         const i = +f.dataset.i, v = formData(f);
         plans[i].featured = v.featured;
+        plans[i].entry = v.entry;
         plans[i][L] = { ...(plans[i][L] || {}), name: v.name, for: v.for, price: v.price, period: v.period, cta: v.cta, badge: v.badge,
           features: v.features.split("\n").map((s) => s.trim()).filter(Boolean) };
       });
