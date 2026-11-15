@@ -609,3 +609,18 @@ html[dir="ltr"] .testi blockquote::before { content: "“"; }
   .btn { min-height: 52px; }
   .section { padding: 3.5rem 0; }
 }
+
+/* UGC — بطاقة خدمة عريضة */
+.card-wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem; align-items: center; background: var(--ink); color: #fff; border-color: var(--ink); position: relative; overflow: hidden; }
+.card-wide::before { content: ""; position: absolute; inset: 0; background: radial-gradient(420px 260px at 90% 0%, rgba(200,242,60,.16), transparent 70%); pointer-events: none; }
+.card-wide > * { position: relative; }
+.card-wide .card-ic { background: var(--accent); color: var(--ink); }
+.card-wide h3 { font-size: 1.35rem; display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+.card-wide p { color: var(--muted-on-dark) !important; }
+.card-wide:hover { border-color: var(--ink); }
+.tag-new { font-size: .72rem; font-weight: 700; background: var(--accent); color: var(--ink); padding: .1rem .55rem; border-radius: 6px; }
+.card-list { display: grid; gap: .55rem; }
+.card-list li { position: relative; padding-inline-start: 1.7rem; font-size: .97rem; }
+.card-list li::before { content: "✓"; position: absolute; inset-inline-start: 0; top: .1rem; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: rgba(200,242,60,.15); color: var(--accent); font-size: .75rem; font-weight: 700; }
+@media (max-width: 860px) { .card-wide { grid-template-columns: 1fr; } }
+.section-alt .card.card-wide, .card.card-wide { background: var(--ink); }
