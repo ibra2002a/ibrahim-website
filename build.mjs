@@ -314,7 +314,7 @@ const person = (lang) => ({
   "@context": "https://schema.org", "@type": "Person",
   name: I18N[lang].name, jobTitle: I18N[lang].role, url: absUrl(langPrefix(lang)),
   image: `${SITE}/assets/img/ibrahim-640.jpg`, telephone: "+" + CONFIG.whatsapp, sameAs: [CONFIG.instagram],
-  knowsAbout: ["Meta Ads", "TikTok Ads", "Instagram Marketing", "Facebook Ads", "Conversions API", "Performance Marketing"],
+  knowsAbout: ["Meta Ads", "TikTok Ads", "UGC Ads", "Instagram Marketing", "Facebook Ads", "Conversions API", "Performance Marketing"],
 });
 
 /* ---------------- البناء ---------------- */
