@@ -91,6 +91,7 @@
     Contact:       { meta: ["track", "Contact"],              tt: "Contact",     ga: "contact" },
     SelectPlan:    { meta: ["trackCustom", "SelectPlan"],     tt: "ClickButton", ga: "select_item" },
     UseCalculator: { meta: ["trackCustom", "UseCalculator"],  tt: "ClickButton", ga: "use_calculator" },
+    AssistantOpen: { meta: ["trackCustom", "AssistantOpen"],  tt: "ClickButton", ga: "assistant_open" },
   };
 
   function event(name, data) {

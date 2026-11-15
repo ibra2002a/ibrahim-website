@@ -648,3 +648,65 @@ html[dir="ltr"] .testi blockquote::before { content: "“"; }
 @media (max-width: 1100px) { .cards { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 860px) { .offer { grid-template-columns: 1fr; } .offer .btn { width: 100%; } }
 @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+
+/* =========================================================
+   مساعد المحادثة
+   ========================================================= */
+.ai-launch { position: fixed; bottom: 1.25rem; inset-inline-end: 1.25rem; z-index: 60; display: inline-flex; align-items: center; gap: .55rem;
+  background: var(--ink); color: #fff; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: .55rem 1.1rem .55rem .6rem;
+  padding-inline-start: .6rem; padding-inline-end: 1.1rem; box-shadow: 0 12px 30px rgba(11,13,18,.3); cursor: pointer; font-weight: 600; transition: transform .2s var(--ease); }
+.ai-launch:hover { transform: translateY(-2px); }
+.ai-launch-ic { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: var(--ink); position: relative; }
+.ai-launch-ic::after { content: ""; position: absolute; top: 1px; inset-inline-end: 1px; width: 10px; height: 10px; border-radius: 50%; background: #22C55E; border: 2px solid var(--ink); }
+body.ai-open .ai-launch { opacity: 0; pointer-events: none; }
+
+.ai-panel { position: fixed; z-index: 70; bottom: 1.25rem; inset-inline-end: 1.25rem; width: min(390px, calc(100vw - 2rem)); height: min(620px, calc(100vh - 2.5rem));
+  background: var(--surface); border-radius: 22px; box-shadow: 0 30px 80px rgba(11,13,18,.35); display: flex; flex-direction: column; overflow: hidden; animation: aiIn .25s var(--ease); }
+@keyframes aiIn { from { opacity: 0; transform: translateY(16px) scale(.98); } }
+.ai-head { display: flex; align-items: center; gap: .7rem; background: var(--ink); color: #fff; padding: .85rem 1rem; }
+.ai-head img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--accent); }
+.ai-head div { display: flex; flex-direction: column; line-height: 1.3; flex: 1; min-width: 0; }
+.ai-head small { color: var(--muted-on-dark); font-size: .78rem; display: flex; align-items: center; gap: .35rem; }
+.ai-head small::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #22C55E; }
+.ai-close { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,.18); background: transparent; color: #fff; cursor: pointer; }
+.ai-msgs { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: .6rem; background: var(--paper); }
+.ai-msg { max-width: 88%; padding: .65rem .85rem; border-radius: 16px; font-size: .93rem; line-height: 1.65; word-wrap: break-word; }
+.ai-msg.bot { align-self: flex-start; background: var(--surface); border: 1px solid var(--line); border-start-start-radius: 4px; }
+.ai-msg.me { align-self: flex-end; background: var(--ink); color: #fff; border-start-end-radius: 4px; }
+.ai-msg p { margin: 0 0 .4rem; } .ai-msg p:last-child { margin: 0; }
+.ai-list { margin: .5rem 0 0; display: grid; gap: .45rem; }
+.ai-list li { position: relative; padding-inline-start: 1rem; }
+.ai-list li::before { content: ""; position: absolute; inset-inline-start: 0; top: .6rem; width: 6px; height: 6px; border-radius: 2px; background: var(--accent); box-shadow: 0 0 0 1px var(--ink); }
+.ai-list span { color: var(--muted); font-size: .86rem; }
+.ai-list.compact li { font-size: .88rem; }
+.ai-plan { margin-top: .5rem; border: 1px solid var(--line); border-radius: 12px; padding: .5rem .7rem; background: var(--paper); }
+.ai-plan.hot { border-color: var(--ink); box-shadow: inset 3px 0 0 var(--accent); }
+.ai-price { font-weight: 700; direction: ltr; unicode-bidi: isolate; }
+.ai-plan small { color: var(--muted); }
+.ai-note { display: block; margin-top: .5rem; font-size: .85rem; color: var(--muted); }
+.ai-msg.typing { display: inline-flex; gap: .3rem; padding: .8rem 1rem; }
+.ai-msg.typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: aiDot 1s infinite; }
+.ai-msg.typing span:nth-child(2) { animation-delay: .15s; } .ai-msg.typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes aiDot { 50% { opacity: .25; transform: translateY(-3px); } }
+.ai-chips { display: flex; flex-wrap: wrap; gap: .4rem; padding: .6rem .8rem 0; background: var(--paper); }
+.ai-chips:empty { display: none; }
+.ai-chip { border: 1.5px solid var(--ink); background: var(--surface); color: var(--ink); border-radius: 999px; padding: .4rem .85rem; font-size: .85rem; font-weight: 500; cursor: pointer; text-decoration: none; }
+.ai-chip:hover { background: var(--ink); color: #fff; }
+.ai-chip.primary { background: var(--accent); border-color: var(--accent); font-weight: 600; }
+.ai-form { display: flex; gap: .5rem; padding: .7rem .8rem; background: var(--paper); border-top: 1px solid var(--line); }
+.ai-form input { flex: 1; min-height: 46px; border: 1.5px solid var(--line); border-radius: 999px; padding: .5rem 1rem; background: #fff; font-size: 16px; }
+.ai-form input:focus { outline: none; border-color: var(--ink); }
+.ai-form button { width: 46px; height: 46px; border-radius: 50%; border: 0; background: var(--ink); color: var(--accent); cursor: pointer; display: grid; place-items: center; flex-shrink: 0; }
+html[dir="rtl"] .ai-form button svg { transform: scaleX(-1); }
+.ai-disclaimer { margin: 0; padding: 0 1rem .6rem; font-size: .72rem; color: var(--muted); background: var(--paper); text-align: center; }
+
+/* زر واتساب العائم ينتقل يسار حتى ما يتداخل وية المساعد */
+.wa-float { inset-inline-start: auto; inset-inline-end: 1.25rem; bottom: 5.6rem; }
+
+.mobile-cta-ai { display: none; }
+@media (max-width: 860px) {
+  .ai-launch { display: none; }
+  .mobile-cta-ai { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; background: var(--ink); color: var(--accent); border: 1.5px solid var(--accent); flex-shrink: 0; cursor: pointer; }
+  .ai-panel { inset: auto 0 0 0; width: 100%; height: 88vh; height: 88dvh; border-radius: 22px 22px 0 0; padding-bottom: env(safe-area-inset-bottom); }
+  body.ai-open .mobile-cta { transform: translateY(110%); }
+}

@@ -19,5 +19,6 @@ window.SITE_CONFIG = {
     "tiktokPixelId": "",
     "ga4Id": "",
     "debug": false
-  }
+  },
+  "aiEndpoint": ""
 };
