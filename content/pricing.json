@@ -1,6 +1,40 @@
 [
   {
     "featured": false,
+    "entry": true,
+    "ar": {
+      "name": "فحص الحساب الإعلاني",
+      "for": "ابدأ بخطوة صغيرة قبل أي اشتراك",
+      "price": "$50",
+      "period": "لمرة وحدة",
+      "cta": "اطلب الفحص",
+      "badge": "عرض دخول",
+      "features": [
+        "مراجعة كاملة لحساباتك على Meta أو TikTok أو Snapchat",
+        "فحص البكسل والتتبع وهيكلة الحملات",
+        "أهم الأخطاء اللي تضيّع ميزانيتك",
+        "خطة تحسين واضحة بنقاط تطبقها فورًا",
+        "جلسة شرح 30 دقيقة على الواتساب"
+      ]
+    },
+    "en": {
+      "name": "Ad Account Audit",
+      "for": "Start small before any subscription",
+      "price": "$50",
+      "period": "one-time",
+      "cta": "Request an audit",
+      "badge": "Entry offer",
+      "features": [
+        "Full review of your Meta, TikTok or Snapchat accounts",
+        "Pixel, tracking and campaign structure check",
+        "The biggest mistakes wasting your budget",
+        "A clear improvement plan you can apply right away",
+        "A 30-minute walkthrough on WhatsApp"
+      ]
+    }
+  },
+  {
+    "featured": false,
     "ar": {
       "name": "Starter",
       "for": "للمشاريع الناشئة اللي تريد تبدي صح",
@@ -8,7 +42,7 @@
       "period": "/ شهريًا",
       "cta": "ابدأ بـ Starter",
       "features": [
-        "إدارة حملاتك على منصة وحدة (Meta أو TikTok)",
+        "إدارة حملاتك على منصة وحدة (Meta أو TikTok أو Snapchat)",
         "خطة إعلانية واضحة لأول 30 يوم",
         "إعداد البكسل وتتبع الطلبات بشكل صحيح",
         "سكربت UGC جاهز كل شهر تصوّره بنفسك",
@@ -23,7 +57,7 @@
       "period": "/ month",
       "cta": "Start with Starter",
       "features": [
-        "Your campaigns managed on one platform (Meta or TikTok)",
+        "Your campaigns managed on one platform (Meta, TikTok or Snapchat)",
         "A clear ad plan for your first 30 days",
         "Pixel and order tracking set up correctly",
         "A ready UGC script every month for you to film",
@@ -42,10 +76,11 @@
       "cta": "ابدأ بـ Growth",
       "badge": "⭐ الأكثر طلبًا",
       "features": [
-        "إدارة كاملة لـ Meta + TikTok",
+        "إدارة كاملة لـ Meta + TikTok + Snapchat",
         "Pixel + Conversions API: كل طلب يتسجل بدقة",
         "اختبار كريتيف أسبوعي حتى نلقى الإعلان الرابح",
         "فيديو UGC شهريًا مع اختبار أكثر من Hook",
+        "إعلانات Click-to-WhatsApp مع ردود تلقائية أساسية",
         "إعادة استهداف الزوار اللي ما اشتروا",
         "تقرير أسبوعي + اجتماع شهري لتحسين النتائج",
         "تواصل مباشر وياي على الواتساب"
@@ -59,10 +94,11 @@
       "cta": "Start with Growth",
       "badge": "⭐ Most popular",
       "features": [
-        "Full management of Meta + TikTok",
+        "Full management of Meta + TikTok + Snapchat",
         "Pixel + Conversions API: every order tracked accurately",
         "Weekly creative testing to find the winning ad",
         "One UGC video monthly with multiple hooks tested",
+        "Click-to-WhatsApp ads with basic auto-replies",
         "Retargeting visitors who didn't buy",
         "Weekly report + monthly call to improve results",
         "Direct WhatsApp access to me"
@@ -80,6 +116,7 @@
       "features": [
         "كل مزايا Growth",
         "استراتيجية توسع لميزانيات كبيرة بدون ما يطيح العائد",
+        "بوت واتساب كامل يأهّل العملاء ويجمع بياناتهم",
         "صفحات هبوط مخصصة ترفع نسبة التحويل",
         "إنتاج UGC منتظم: عدة فيديوهات شهريًا مع صنّاع محتوى",
         "خطة كريتيف كاملة مع توجيه التصوير",
@@ -95,6 +132,7 @@
       "features": [
         "Everything in Growth",
         "A scaling strategy for big budgets without killing ROAS",
+        "A full WhatsApp bot that qualifies leads and captures their details",
         "Custom landing pages that lift conversion",
         "Ongoing UGC production: several videos monthly with creators",
         "A full creative plan with shoot direction",

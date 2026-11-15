@@ -5,6 +5,10 @@
       "a": "أنصح بميزانية لا تقل عن 300$ شهريًا حتى تكون عندي بيانات كافية للاختبار والتحسين. نحدد الرقم المناسب سوية بعد الاستشارة."
     },
     {
+      "q": "شنو يشمل فحص الحساب الإعلاني؟",
+      "a": "أراجع حساباتك الإعلانية، البكسل والتتبع، وهيكلة الحملات والإعلانات، وأعطيك تقرير بأهم الأخطاء وخطة تحسين واضحة، مع جلسة شرح على الواتساب. تكدر تطبق الخطة بنفسك أو نشتغل عليها سوية."
+    },
+    {
       "q": "متى أشوف نتائج؟",
       "a": "أول أسبوعين مرحلة اختبار وتعلّم للخوارزمية. عادةً تبدأ النتائج تستقر وتتحسن من الأسبوع الثالث فما بعد."
     },
@@ -29,6 +33,10 @@
     {
       "q": "What's the minimum ad budget?",
       "a": "I recommend at least $300/month so there's enough data to test and optimize. We'll set the right number together after the consultation."
+    },
+    {
+      "q": "What does the ad account audit include?",
+      "a": "I review your ad accounts, pixel and tracking, and campaign structure, then give you a report of the biggest mistakes and a clear improvement plan, plus a WhatsApp walkthrough. You can apply the plan yourself or we can work on it together."
     },
     {
       "q": "When will I see results?",

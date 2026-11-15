@@ -624,3 +624,27 @@ html[dir="ltr"] .testi blockquote::before { content: "“"; }
 .card-list li::before { content: "✓"; position: absolute; inset-inline-start: 0; top: .1rem; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: rgba(200,242,60,.15); color: var(--accent); font-size: .75rem; font-weight: 700; }
 @media (max-width: 860px) { .card-wide { grid-template-columns: 1fr; } }
 .section-alt .card.card-wide, .card.card-wide { background: var(--ink); }
+
+/* v4 — 8 خدمات بأربع أعمدة + عرض الدخول (فحص الحساب) */
+.cards { grid-template-columns: repeat(4, 1fr); }
+.cards .card { padding: 1.5rem; }
+.cards .card h3 { font-size: 1.08rem; }
+
+.offer { display: grid; grid-template-columns: 1fr 1.1fr; gap: 1.5rem 2.5rem; align-items: center; margin-bottom: 1.6rem;
+  background: var(--accent); color: var(--ink); border-radius: 24px; padding: clamp(1.4rem, 3vw, 2.2rem); position: relative; overflow: hidden; }
+.offer::after { content: ""; position: absolute; width: 260px; height: 260px; border-radius: 50%; inset-inline-end: -80px; top: -110px; background: rgba(255,255,255,.25); pointer-events: none; }
+.offer > * { position: relative; }
+.offer-badge { display: inline-block; background: var(--ink); color: var(--accent); font-size: .78rem; font-weight: 700; padding: .2rem .7rem; border-radius: 999px; margin-bottom: .7rem; }
+.offer h3 { font-size: clamp(1.4rem, 3vw, 1.9rem); margin-bottom: .25rem; }
+.offer-main > p { margin-bottom: .6rem; opacity: .85; }
+.offer-price { font-weight: 500; }
+.offer-price span { font-size: 2.3rem; font-weight: 700; }
+.offer .btn-accent { background: var(--ink); color: #fff; }
+.offer .btn-accent:hover { background: #222833; }
+.offer-list { display: grid; gap: .6rem; background: rgba(255,255,255,.45); border-radius: 18px; padding: 1.2rem 1.3rem; }
+.offer-list li { position: relative; padding-inline-start: 1.7rem; font-weight: 500; }
+.offer-list li::before { content: "✓"; position: absolute; inset-inline-start: 0; top: .15rem; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--ink); color: var(--accent); font-size: .72rem; font-weight: 700; }
+
+@media (max-width: 1100px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 860px) { .offer { grid-template-columns: 1fr; } .offer .btn { width: 100%; } }
+@media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }

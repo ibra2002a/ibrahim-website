@@ -278,7 +278,7 @@ function testimonialsHTML(lang, root) {
 function pricingHTML(lang) {
   const file = path.join(ROOT, "content/pricing.json");
   if (!fs.existsSync(file)) return "";
-  return JSON.parse(fs.readFileSync(file, "utf8")).filter((p) => p[lang]).map((p) => {
+  return JSON.parse(fs.readFileSync(file, "utf8")).filter((p) => p[lang] && !p.entry).map((p) => {
     const d = p[lang];
     const numeric = /\d/.test(d.price || "");
     return `
@@ -290,6 +290,26 @@ function pricingHTML(lang) {
             <ul>${(d.features || []).filter(Boolean).map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
             <a class="btn ${p.featured ? "btn-accent" : "btn-outline"}" href="#contact" data-plan="${esc(d.name)}">${esc(d.cta || "")}</a>
           </article>`;
+  }).join("");
+}
+
+// عرض الدخول (مثل فحص الحساب): بطاقة عريضة فوق الباقات
+function entryOfferHTML(lang) {
+  const file = path.join(ROOT, "content/pricing.json");
+  if (!fs.existsSync(file)) return "";
+  return JSON.parse(fs.readFileSync(file, "utf8")).filter((p) => p[lang] && p.entry).map((p) => {
+    const d = p[lang];
+    return `
+        <article class="offer">
+          <div class="offer-main">
+            ${d.badge ? `<span class="offer-badge">${esc(d.badge)}</span>` : ""}
+            <h3>${esc(d.name)}</h3>
+            <p>${esc(d.for)}</p>
+            <p class="offer-price"><span>${esc(d.price)}</span>${d.period ? " " + esc(d.period) : ""}</p>
+            <a class="btn btn-accent" href="#contact" data-plan="${esc(d.name)}">${esc(d.cta || "")}</a>
+          </div>
+          <ul class="offer-list">${(d.features || []).filter(Boolean).map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+        </article>`;
   }).join("");
 }
 
@@ -314,7 +334,7 @@ const person = (lang) => ({
   "@context": "https://schema.org", "@type": "Person",
   name: I18N[lang].name, jobTitle: I18N[lang].role, url: absUrl(langPrefix(lang)),
   image: `${SITE}/assets/img/ibrahim-640.jpg`, telephone: "+" + CONFIG.whatsapp, sameAs: [CONFIG.instagram],
-  knowsAbout: ["Meta Ads", "TikTok Ads", "UGC Ads", "Instagram Marketing", "Facebook Ads", "Conversions API", "Performance Marketing"],
+  knowsAbout: ["Meta Ads", "TikTok Ads", "Snapchat Ads", "UGC Ads", "WhatsApp Marketing", "Instagram Marketing", "Facebook Ads", "Conversions API", "Performance Marketing"],
 });
 
 /* ---------------- البناء ---------------- */
@@ -337,6 +357,7 @@ for (const lang of LANGS) {
     .replaceAll("{{work_link}}", publishedCases(lang).length ? "#work" : publishedStats().length ? "#results" : "#services")
     .replaceAll("{{work_label}}", esc(publishedCases(lang).length || publishedStats().length ? t.work_cases : t.work_services))
     .replace("{{pricing}}", pricingHTML(lang))
+    .replace("{{entry_offer}}", entryOfferHTML(lang))
     .replace("{{faq}}", faqHTML(lang))
     .replace("{{plan_options}}", planOptions(lang));
   page({ file: `${pre}index.html`, lang, isHome: true, title: t.home_title, description: t.home_description,
