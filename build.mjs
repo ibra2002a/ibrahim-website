@@ -94,6 +94,10 @@ function page({ file, lang, title, description, content, alternates = {}, jsonld
     alt_lang: otherLang,
     alt_url: link(file, altUrlFile ?? langPrefix(otherLang)),
     whatsapp: CONFIG.whatsapp, instagram: CONFIG.instagram,
+    footer_services: (() => {
+      const items = publishedServices(lang);
+      return items.length ? `<nav class="footer-svc" aria-label="${esc(t.footer_services)}">${items.map((x) => `<a href="${link(file, `${homeDir}services/${x.slug}/`)}">${esc(x[lang].title)}</a>`).join("")}</nav>` : "";
+    })(),
     verify_meta: [
       CONFIG.seo && CONFIG.seo.googleVerification ? `  <meta name="google-site-verification" content="${esc(CONFIG.seo.googleVerification)}">` : "",
       CONFIG.seo && CONFIG.seo.bingVerification ? `  <meta name="msvalidate.01" content="${esc(CONFIG.seo.bingVerification)}">` : "",
@@ -172,6 +176,7 @@ const readContent = (f, fallback) => {
   return fs.existsSync(fp) ? JSON.parse(fs.readFileSync(fp, "utf8")) : fallback;
 };
 const publishedCases = (lang) => readContent("case-studies.json", []).filter((c) => (DRAFTS || !c.draft) && c[lang]);
+const publishedServices = (lang) => readContent("services.json", []).filter((x) => (DRAFTS || !x.draft) && x[lang] && x.slug);
 const publishedStats = () => readContent("stats.json", []).filter((x) => (DRAFTS || !x.draft) && x.value);
 const publishedTestimonials = (lang) => readContent("testimonials.json", []).filter((x) => (DRAFTS || !x.draft) && x[lang] && x[lang].quote);
 
@@ -294,7 +299,7 @@ function pricingHTML(lang) {
 }
 
 // عرض الدخول (مثل فحص الحساب): بطاقة عريضة فوق الباقات
-function entryOfferHTML(lang) {
+function entryOfferHTML(lang, pre = "") {
   const file = path.join(ROOT, "content/pricing.json");
   if (!fs.existsSync(file)) return "";
   return JSON.parse(fs.readFileSync(file, "utf8")).filter((p) => p[lang] && p.entry).map((p) => {
@@ -306,7 +311,7 @@ function entryOfferHTML(lang) {
             <h3>${esc(d.name)}</h3>
             <p>${esc(d.for)}</p>
             <p class="offer-price"><span>${esc(d.price)}</span>${d.period ? " " + esc(d.period) : ""}</p>
-            <a class="btn btn-accent" href="#contact" data-plan="${esc(d.name)}">${esc(d.cta || "")}</a>
+            <div class="offer-actions"><a class="btn btn-accent" href="#contact" data-plan="${esc(d.name)}">${esc(d.cta || "")}</a>${p.page && publishedServices(lang).some((x) => x.slug === p.page) ? `<a class="offer-more" href="${link(`${pre}index.html`, `${pre}services/${p.page}/`)}">${esc(I18N[lang].offer_details)}</a>` : ""}</div>
           </div>
           <ul class="offer-list">${(d.features || []).filter(Boolean).map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
         </article>`;
@@ -357,7 +362,8 @@ for (const lang of LANGS) {
     .replaceAll("{{work_link}}", publishedCases(lang).length ? "#work" : publishedStats().length ? "#results" : "#services")
     .replaceAll("{{work_label}}", esc(publishedCases(lang).length || publishedStats().length ? t.work_cases : t.work_services))
     .replace("{{pricing}}", pricingHTML(lang))
-    .replace("{{entry_offer}}", entryOfferHTML(lang))
+    .replace("{{entry_offer}}", entryOfferHTML(lang, pre))
+    .replace(/\{\{svc:([\w-]+)\}\}/g, (_, slug) => link(`${pre}index.html`, `${pre}services/${slug}/`))
     .replace("{{faq}}", faqHTML(lang))
     .replace("{{plan_options}}", planOptions(lang));
   page({ file: `${pre}index.html`, lang, isHome: true, title: t.home_title, description: t.home_description,
@@ -432,6 +438,126 @@ ${p.html.replace(/href="\/([^"#]*)(#[^"]*)?"/g, (_, dir, hash) => `href="${link(
   }
 }
 
+// صفحات الخدمات
+for (const lang of LANGS) {
+  const t = I18N[lang];
+  const pre = langPrefix(lang);
+  const other = LANGS.find((l) => l !== lang);
+  const all = publishedServices(lang);
+  if (!all.length) continue;
+  const idxFile = `${pre}services/index.html`;
+  const idxAlts = Object.fromEntries(LANGS.map((l) => [l, `${langPrefix(l)}services/`]));
+  page({ file: idxFile, lang, title: t.svc_index_title, description: t.svc_index_sub, bodyClass: "page-services", alternates: idxAlts,
+    altUrlFile: `${langPrefix(other)}services/`,
+    content: `
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="kicker">${esc(t.svc_index_heading)}</p>
+        <h1>${esc(t.svc_index_heading)}</h1>
+        <p class="lead">${esc(t.svc_index_sub)}</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container svc-index">${all.map((x) => `
+        <a class="svc-tile" href="${link(idxFile, `${pre}services/${x.slug}/`)}">
+          <span class="card-ic">${esc(x.icon || "◎")}</span>
+          <h2>${esc(x[lang].title)}</h2>
+          <p>${esc(x[lang].description)}</p>
+          <span class="card-more">${esc(t.svc_more)}</span>
+        </a>`).join("")}
+      </div>
+    </section>
+  </main>` });
+  sitemap.push({ loc: `${pre}services/`, alts: idxAlts, priority: "0.8" });
+
+  for (const x of all) {
+    const d = x[lang];
+    const file = `${pre}services/${x.slug}/index.html`;
+    const alts = Object.fromEntries(LANGS.filter((l) => x[l]).map((l) => [l, `${langPrefix(l)}services/${x.slug}/`]));
+    const wa = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(`${t.svc_wa_msg} ${d.title}`)}`;
+    const related = all.filter((r) => r.slug !== x.slug).slice(0, 3);
+    const homeUrl = link(file, pre);
+    page({ file, lang, title: d.seoTitle || `${d.title} | ${t.name}`, description: d.description, bodyClass: "page-service",
+      alternates: alts, altUrlFile: alts[other] || `${langPrefix(other)}services/`, robots: x.draft ? "noindex" : "index, follow",
+      jsonld: [
+        { "@context": "https://schema.org", "@type": "Service", name: d.title, description: d.description, serviceType: d.title,
+          areaServed: ["IQ", "Middle East"], url: absUrl(`${pre}services/${x.slug}/`), provider: { "@type": "Person", name: t.name, url: absUrl(pre) } },
+        ...(d.faq && d.faq.length ? [{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: d.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }] : []),
+        { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+          { "@type": "ListItem", position: 1, name: t.home, item: absUrl(pre) },
+          { "@type": "ListItem", position: 2, name: t.svc_index_heading, item: absUrl(`${pre}services/`) },
+          { "@type": "ListItem", position: 3, name: d.title, item: absUrl(`${pre}services/${x.slug}/`) } ] },
+      ],
+      content: `
+  <main id="main">
+    <section class="page-hero svc-hero">
+      <div class="container">
+        <nav class="crumbs" aria-label="breadcrumb"><a href="${homeUrl}">${esc(t.home)}</a><span>/</span><a href="${link(file, `${pre}services/`)}">${esc(t.svc_index_heading)}</a></nav>
+        <p class="kicker">${esc(t.svc_kicker)}</p>
+        <h1>${esc(d.title)}</h1>
+        <p class="lead">${esc(d.intro)}</p>
+        <div class="hero-actions">
+          <a class="btn btn-accent" href="${homeUrl}#contact">${esc(t.cta_short)}</a>
+          <a class="btn btn-ghost" href="${wa}" target="_blank" rel="noopener">${esc(t.svc_wa)}</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <header class="section-head"><h2>${esc(t.svc_benefits)}</h2></header>
+        <ul class="svc-benefits">${(d.benefits || []).map((b) => `<li>${esc(b)}</li>`).join("")}</ul>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container svc-two">
+        <div>
+          <h2>${esc(t.svc_fit)}</h2>
+          <ul class="svc-fit">${(d.fit || []).map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+        </div>
+        <div>
+          <h2>${esc(t.svc_steps)}</h2>
+          <ol class="svc-steps">${(d.steps || []).map((st, i) => `<li><span>${String(i + 1).padStart(2, "0")}</span>${esc(st)}</li>`).join("")}</ol>
+        </div>
+      </div>
+    </section>
+
+    ${d.faq && d.faq.length ? `<section class="section">
+      <div class="container faq-wrap">
+        <header class="section-head"><h2>${esc(t.svc_faq)}</h2></header>
+        <div class="faq">${d.faq.map((f) => `
+          <details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}
+        </div>
+      </div>
+    </section>` : ""}
+
+    <section class="section svc-cta-wrap">
+      <div class="container">
+        <div class="post-cta svc-cta">
+          <h2>${esc(t.svc_cta_title)}</h2>
+          <p>${esc(t.svc_cta_text)}</p>
+          <div class="hero-actions">
+            <a class="btn btn-accent" href="${homeUrl}#contact">${esc(t.cta_short)}</a>
+            <a class="btn btn-ghost" href="${homeUrl}#pricing">${esc(t.svc_pricing)}</a>
+          </div>
+        </div>
+        ${related.length ? `<h2 class="related-title">${esc(t.svc_related)}</h2>
+        <div class="svc-index related">${related.map((r) => `
+          <a class="svc-tile" href="${link(file, `${pre}services/${r.slug}/`)}">
+            <span class="card-ic">${esc(r.icon || "◎")}</span>
+            <h3>${esc(r[lang].title)}</h3>
+            <span class="card-more">${esc(t.svc_more)}</span>
+          </a>`).join("")}
+        </div>` : ""}
+      </div>
+    </section>
+  </main>` });
+    if (!x.draft) sitemap.push({ loc: `${pre}services/${x.slug}/`, alts, priority: "0.8" });
+  }
+}
+
 // 404 (روابط من الجذر لأنها تنعرض على أي مسار)
 {
   const t = I18N.ar;
@@ -486,7 +612,7 @@ ${p.html.replace(/href="\/([^"#]*)(#[^"]*)?"/g, (_, dir, hash) => `href="${link(
 // بيانات العرض التجريبي للوحة التحكم (بدون المسودات وبدون مفاتيح)
 {
   const files = {}, dirs = {};
-  for (const f of ["pricing.json", "faq.json", "case-studies.json", "stats.json", "testimonials.json"]) {
+  for (const f of ["pricing.json", "faq.json", "case-studies.json", "stats.json", "testimonials.json", "services.json"]) {
     const fp = path.join(ROOT, "content", f);
     if (fs.existsSync(fp)) files[`content/${f}`] = JSON.parse(fs.readFileSync(fp, "utf8"));
   }
