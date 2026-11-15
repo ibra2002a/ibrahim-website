@@ -839,6 +839,13 @@
           ${field("anon public key", "supabaseAnonKey", s.supabaseAnonKey, { dir: "ltr", type: "textarea", rows: 3 })}
         </section>
         <section class="panel">
+          <h2>المساعد الذكي (AI)</h2>
+          <p class="muted small">المساعد يشتغل بالموقع حتى بدون هذا الرابط (وضع موجّه). حط رابط الـ Cloudflare Worker حتى يجاوب بالذكاء الاصطناعي على أي سؤال. الشرح بملف <code>ai-worker/README.md</code>.</p>
+          <div class="field"><label>رابط المساعد (Worker URL)</label>
+            <div class="copy-row"><input name="aiEndpoint" type="text" dir="ltr" value="${esc(s.aiEndpoint || "")}" placeholder="https://ibrahim-ai.xxxx.workers.dev"><button type="button" class="btn btn-outline btn-sm" id="testAI">اختبار</button></div>
+            <small class="hint" id="aiTestResult"></small></div>
+        </section>
+        <section class="panel">
           <h2>محركات البحث (Google و Bing)</h2>
           <p class="muted small">الصق كود التحقق بس (النص داخل content="…") أو الوسم كامل، واللوحة تستخرجه.</p>
           ${field("Google Search Console", "googleVerification", (s.seo || {}).googleVerification, { dir: "ltr", placeholder: "abc123XYZ…" })}
@@ -858,9 +865,19 @@
       if (/service_role/.test(atobSafe(v.supabaseAnonKey))) return toast("هذا مفتاح service_role! استخدم anon public بس", true);
       const next = { ...s, whatsapp: v.whatsapp.replace(/\D/g, ""), instagram: v.instagram, whatsappGreeting: v.whatsappGreeting, whatsappGreetingEn: v.whatsappGreetingEn,
         supabaseUrl: v.supabaseUrl.replace(/\/$/, ""), supabaseAnonKey: v.supabaseAnonKey.replace(/\s/g, ""), siteUrl: v.siteUrl.replace(/\/$/, ""),
+        aiEndpoint: /^https:\/\//.test(v.aiEndpoint) ? v.aiEndpoint.replace(/\/$/, "") : "",
         seo: { googleVerification: verifyCode(v.googleVerification), bingVerification: verifyCode(v.bingVerification) },
         tracking: { ...s.tracking, metaPixelId: v.metaPixelId.replace(/\D/g, ""), tiktokPixelId: v.tiktokPixelId.trim(), ga4Id: v.ga4Id.trim() } };
       await writeFile("content/settings.json", next, "Update settings from control panel").catch(fail);
+    });
+    $("#testAI").addEventListener("click", async () => {
+      const url = $("#prefsForm [name=aiEndpoint]").value.trim(), out = $("#aiTestResult");
+      if (!/^https:\/\//.test(url)) return (out.textContent = "الرابط لازم يبدي بـ https://");
+      out.textContent = "جاري الاختبار…";
+      try {
+        const r = await (await fetch(url)).json();
+        out.textContent = r.ok ? (r.provider === "none" ? "⚠️ الـ Worker شغال بس ما مضاف مفتاح AI" : `✓ شغال (${r.provider === "claude" ? "Claude" : "Gemini"})`) : "⚠️ رد غير متوقع";
+      } catch (_) { out.textContent = "✕ ما گدرت أوصل للرابط. تأكد منه ومن النشر."; }
     });
     $("#copySitemap").addEventListener("click", () => {
       const v = $("#sitemapUrl").value;

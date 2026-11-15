@@ -37,13 +37,35 @@
     <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3Z"/></svg>
   </a>
 
+  <!-- مساعد المحادثة -->
+  <button class="ai-launch" id="aiLaunch" type="button" data-ai-open aria-controls="aiPanel" aria-expanded="false">
+    <span class="ai-launch-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 3C6.5 3 2 6.9 2 11.7c0 2.4 1.1 4.6 3 6.2L4.3 21l3.7-1.8c1.2.4 2.6.6 4 .6 5.5 0 10-3.9 10-8.7S17.5 3 12 3Zm-4 9.9a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Z"/></svg></span>
+    <span class="ai-launch-txt">{{t.ai_open}}</span>
+  </button>
+  <section class="ai-panel" id="aiPanel" role="dialog" aria-modal="false" aria-labelledby="aiTitle" hidden>
+    <header class="ai-head">
+      <img src="{{root}}assets/img/ibrahim-320.webp" alt="" width="40" height="40">
+      <div><strong id="aiTitle"></strong><small id="aiStatus"></small></div>
+      <button type="button" class="ai-close" id="aiClose">✕</button>
+    </header>
+    <div class="ai-msgs" id="aiMsgs" aria-live="polite"></div>
+    <div class="ai-chips" id="aiChips"></div>
+    <form class="ai-form" id="aiForm" autocomplete="off">
+      <input id="aiInput" type="text" maxlength="800" aria-label="{{t.ai_open}}">
+      <button type="submit" id="aiSend"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 20.5 21 12 3 3.5 3 10l12 2-12 2z"/></svg></button>
+    </form>
+    <p class="ai-disclaimer" id="aiDisclaimer"></p>
+  </section>
+
   <div class="mobile-cta" id="mobileCta">
     <a class="btn btn-accent" href="{{home}}#contact">{{t.mobile_cta}}</a>
+    <button class="mobile-cta-ai" type="button" data-ai-open aria-label="{{t.ai_open}}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.9 2 11.7c0 2.4 1.1 4.6 3 6.2L4.3 21l3.7-1.8c1.2.4 2.6.6 4 .6 5.5 0 10-3.9 10-8.7S17.5 3 12 3Zm-4 9.9a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Z"/></svg></button>
     <a class="mobile-cta-wa" href="https://wa.me/{{whatsapp}}" target="_blank" rel="noopener" aria-label="{{t.wa_label}}">{{> icon-wa}}</a>
   </div>
 
   <script src="{{root}}assets/js/config.js" defer></script>
   <script src="{{root}}assets/js/tracking.js" defer></script>
   <script src="{{root}}assets/js/main.js" defer></script>
+  <script src="{{root}}assets/js/assistant.js" defer></script>
 </body>
 </html>

@@ -447,8 +447,40 @@ ${p.html.replace(/href="\/([^"#]*)(#[^"]*)?"/g, (_, dir, hash) => `href="${link(
     whatsappGreeting: CONFIG.whatsappGreeting, whatsappGreetingEn: CONFIG.whatsappGreetingEn, currency: CONFIG.currency || "$",
     supabaseUrl: CONFIG.supabaseUrl || "", supabaseAnonKey: CONFIG.supabaseAnonKey || "",
     github: CONFIG.github || null, siteUrl: SITE, tracking: CONFIG.tracking || {},
+    aiEndpoint: CONFIG.aiEndpoint || "",
   };
   write("assets/js/config.js", `/* يتولد تلقائيًا من content/settings.json — لا تعدله هنا */\nwindow.SITE_CONFIG = ${JSON.stringify(pub, null, 2)};\n`);
+}
+
+// معرفة المساعد (تتولد من محتوى الموقع؛ يستخدمها المساعد بالموقع والـ AI Worker)
+{
+  const strip = (h) => String(h).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  const know = {
+    person: { ar: I18N.ar.name, en: I18N.en.name, role: { ar: I18N.ar.role, en: I18N.en.role } },
+    contact: { whatsapp: CONFIG.whatsapp, instagram: CONFIG.instagram, site: SITE },
+    langs: {},
+  };
+  const pricingAll = readContent("pricing.json", []);
+  const faqAll = readContent("faq.json", {});
+  for (const lang of LANGS) {
+    const tpl = read(`src/pages/home.${lang}.html`);
+    const svc = tpl.slice(tpl.indexOf('id="services"'), tpl.indexOf('id="about"'));
+    const services = [...svc.matchAll(/<h3>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/g)].map((m) => ({ name: strip(m[1]).replace(/\s*(جديد|New)$/, ""), desc: strip(m[2]) }));
+    const about = tpl.slice(tpl.indexOf('class="about-qa"'), tpl.indexOf('id="why"'));
+    const why = tpl.slice(tpl.indexOf('class="why-grid"'), tpl.indexOf('id="process"'));
+    know.langs[lang] = {
+      services,
+      about: [...about.matchAll(/<h3>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/g)].map((m) => `${strip(m[1])} ${strip(m[2])}`),
+      why: [...why.matchAll(/<b>([\s\S]*?)<\/b><span>([\s\S]*?)<\/span>/g)].map((m) => `${strip(m[1])}: ${strip(m[2])}`),
+      plans: pricingAll.filter((p) => p[lang]).map((p) => ({ name: p[lang].name, for: p[lang].for, price: p[lang].price, period: p[lang].period || "",
+        features: p[lang].features || [], entry: !!p.entry, featured: !!p.featured })),
+      faq: (faqAll[lang] || []).filter((f) => f.q),
+      stats: readContent("stats.json", []).filter((x) => !x.draft && x.value && x[lang]).map((x) => `${x.value} ${x[lang]}`),
+      cases: readContent("case-studies.json", []).filter((c) => !c.draft && c[lang]).map((c) => ({ client: c[lang].client, industry: c[lang].industry,
+        goal: c[lang].goal, results: (c[lang].results || []).map((r) => `${r.value} ${r.label}`) })),
+    };
+  }
+  write("assets/ai-knowledge.json", JSON.stringify(know));
 }
 
 // بيانات العرض التجريبي للوحة التحكم (بدون المسودات وبدون مفاتيح)
