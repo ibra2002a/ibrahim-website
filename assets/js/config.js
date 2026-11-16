@@ -13,7 +13,7 @@ window.SITE_CONFIG = {
     "repo": "ibrahim-website",
     "branch": "website-v2"
   },
-  "siteUrl": "https://ibra2002a.github.io/ibrahim-website",
+  "siteUrl": "https://ibrahimiq.tech",
   "tracking": {
     "metaPixelId": "",
     "tiktokPixelId": "",
