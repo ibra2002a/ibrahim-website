@@ -13,6 +13,34 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ibrahimiq.tech/blog/ad-mistakes/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/blog/ad-mistakes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/blog/ad-mistakes/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ibrahimiq.tech/blog/campaign-analysis/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/blog/campaign-analysis/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/blog/campaign-analysis/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ibrahimiq.tech/blog/real-estate-ads/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/blog/real-estate-ads/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/blog/real-estate-ads/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ibrahimiq.tech/blog/performance-marketing/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/blog/performance-marketing/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/blog/performance-marketing/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://ibrahimiq.tech/blog/break-even-roas/</loc>
     <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/blog/break-even-roas/"/>
@@ -23,6 +51,7 @@
     <loc>https://ibrahimiq.tech/blog/conversions-api/</loc>
     <lastmod>2026-11-05</lastmod>
     <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/blog/conversions-api/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/blog/conversions-api/"/>
     <priority>0.7</priority>
   </url>
   <url>
@@ -38,10 +67,45 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ibrahimiq.tech/en/blog/ad-mistakes/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/blog/ad-mistakes/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/blog/ad-mistakes/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ibrahimiq.tech/en/blog/campaign-analysis/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/blog/campaign-analysis/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/blog/campaign-analysis/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ibrahimiq.tech/en/blog/real-estate-ads/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/blog/real-estate-ads/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/blog/real-estate-ads/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ibrahimiq.tech/en/blog/performance-marketing/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/blog/performance-marketing/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/blog/performance-marketing/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://ibrahimiq.tech/en/blog/break-even-roas/</loc>
     <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/blog/break-even-roas/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/blog/break-even-roas/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ibrahimiq.tech/en/blog/conversions-api/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/blog/conversions-api/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/blog/conversions-api/"/>
     <priority>0.7</priority>
   </url>
   <url>
