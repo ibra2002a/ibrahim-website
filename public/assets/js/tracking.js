@@ -92,6 +92,7 @@
     SelectPlan:    { meta: ["trackCustom", "SelectPlan"],     tt: "ClickButton", ga: "select_item" },
     UseCalculator: { meta: ["trackCustom", "UseCalculator"],  tt: "ClickButton", ga: "use_calculator" },
     AssistantOpen: { meta: ["trackCustom", "AssistantOpen"],  tt: "ClickButton", ga: "assistant_open" },
+    ViewCaseStudy: { meta: ["trackCustom", "ViewCaseStudy"],  tt: "ViewContent", ga: "view_case_study" },
   };
 
   function event(name, data) {

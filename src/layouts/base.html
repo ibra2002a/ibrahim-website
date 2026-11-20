@@ -2,15 +2,19 @@
 <html lang="{{lang}}" dir="{{dir}}">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{{title}}</title>
   <meta name="description" content="{{description}}">
   <meta name="robots" content="{{robots}}">
-  <meta name="theme-color" content="#0B0D12">
+  <meta name="author" content="{{t.name}}">
+  <meta name="theme-color" content="#0A0B0E">
+  <meta name="color-scheme" content="dark">
   <link rel="canonical" href="{{canonical}}">
 {{verify_meta}}
 {{alternates}}
   <link rel="icon" href="{{root}}assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="{{root}}assets/img/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="{{root}}assets/img/apple-touch-icon.png">
   <link rel="manifest" href="{{root}}site.webmanifest">
 
   <meta property="og:type" content="{{og_type}}">
@@ -20,11 +24,16 @@
   <meta property="og:description" content="{{description}}">
   <meta property="og:url" content="{{canonical}}">
   <meta property="og:image" content="{{site_url}}/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{t.name}} — {{t.tagline}}">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{title}}">
+  <meta name="twitter:description" content="{{description}}">
+  <meta name="twitter:image" content="{{site_url}}/assets/img/og-image.jpg">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300..700&display=swap">
+  <link rel="preload" href="{{root}}assets/fonts/readex-pro-arabic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{root}}assets/fonts/readex-pro-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{root}}assets/css/main.css">
 {{jsonld}}
 </head>
@@ -33,13 +42,12 @@
 {{> header}}
 {{content}}
 {{> footer}}
-  <a class="wa-float" id="waFloat" href="{{home}}#contact" aria-label="{{t.wa_label}}">
-    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3Z"/></svg>
-  </a>
+
+  <a class="wa-float" id="waFloat" href="https://wa.me/{{whatsapp}}" target="_blank" rel="noopener" aria-label="{{t.wa_label}}">{{> i-chat}}</a>
 
   <!-- مساعد المحادثة -->
   <button class="ai-launch" id="aiLaunch" type="button" data-ai-open aria-controls="aiPanel" aria-expanded="false">
-    <span class="ai-launch-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 3C6.5 3 2 6.9 2 11.7c0 2.4 1.1 4.6 3 6.2L4.3 21l3.7-1.8c1.2.4 2.6.6 4 .6 5.5 0 10-3.9 10-8.7S17.5 3 12 3Zm-4 9.9a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Z"/></svg></span>
+    <span class="ai-launch-ic" aria-hidden="true">{{> i-spark}}</span>
     <span class="ai-launch-txt">{{t.ai_open}}</span>
   </button>
   <section class="ai-panel" id="aiPanel" role="dialog" aria-modal="false" aria-labelledby="aiTitle" hidden>
@@ -58,9 +66,9 @@
   </section>
 
   <div class="mobile-cta" id="mobileCta">
-    <a class="btn btn-accent" href="{{home}}#contact">{{t.mobile_cta}}</a>
-    <button class="mobile-cta-ai" type="button" data-ai-open aria-label="{{t.ai_open}}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.9 2 11.7c0 2.4 1.1 4.6 3 6.2L4.3 21l3.7-1.8c1.2.4 2.6.6 4 .6 5.5 0 10-3.9 10-8.7S17.5 3 12 3Zm-4 9.9a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Z"/></svg></button>
-    <a class="mobile-cta-wa" href="https://wa.me/{{whatsapp}}" target="_blank" rel="noopener" aria-label="{{t.wa_label}}">{{> icon-wa}}</a>
+    <a class="btn btn-primary" href="{{home}}#contact">{{t.mobile_cta}}</a>
+    <button class="mobile-cta-ic" type="button" data-ai-open aria-label="{{t.ai_open}}">{{> i-spark}}</button>
+    <a class="mobile-cta-ic" href="https://wa.me/{{whatsapp}}" target="_blank" rel="noopener" aria-label="{{t.wa_label}}">{{> i-chat}}</a>
   </div>
 
   <script src="{{root}}assets/js/config.js" defer></script>

@@ -1,254 +1,289 @@
   <main id="main">
-    <!-- ===== 1. الهيرو ===== -->
+    <!-- ===== 1. Hero ===== -->
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow"><img class="eyebrow-avatar" src="{{root}}assets/img/ibrahim-320.webp" width="28" height="28" alt="" fetchpriority="high"> إبراهيم المهاوش · مدير تسويق رقمي</p>
+          <p class="hero-eyebrow"><img src="{{root}}assets/img/ibrahim-320.webp" width="32" height="32" alt="" fetchpriority="high"><span>إبراهيم مهاوش · مسوّق رقمي</span></p>
           <h1>إعلانات تجيب <mark>عملاء</mark>،<br>مو بس مشاهدات.</h1>
-          <p class="lead">أساعد الشركات والمتاجر العراقية على زيادة المبيعات من خلال إعلانات Meta وTikTok المدروسة.</p>
+          <p class="lead">أساعد الشركات والعلامات التجارية على تحويل ميزانياتها الإعلانية إلى نتائج قابلة للقياس.</p>
           <div class="hero-actions">
-            <a class="btn btn-accent" href="#contact">احجز استشارة مجانية</a>
-            <a class="btn btn-ghost" href="{{work_link}}">{{work_label}} ←</a>
+            <a class="btn btn-primary btn-lg" href="#contact">احجز استشارة</a>
+            <a class="btn btn-secondary btn-lg" href="{{work_link}}">{{work_label}}</a>
           </div>
-          <ul class="platforms" aria-label="المنصات">
-            <li>Meta</li><li>Instagram</li><li>Facebook</li><li>TikTok</li><li>Snapchat</li>
+          <ul class="hero-trust">
+            <li>{{> i-lock}}الحساب الإعلاني يبقى باسمك</li>
+            <li>{{> i-doc}}تقارير واضحة</li>
+            <li>{{> i-clock}}رد خلال 24 ساعة</li>
           </ul>
         </div>
-        <!-- لوحة توضيحية (أرقام مثال) -->
+
         <div class="hero-visual" aria-hidden="true">
-          <div class="dash">
-            <div class="dash-head">
-              <span class="dash-title">أداء الحملة</span>
-              <span class="dash-tag">مثال توضيحي</span>
+          <div class="viz">
+            <div class="viz-head">
+              <span class="viz-title"><span class="viz-live"></span>لوحة الأداء</span>
+              <span class="viz-tag">واجهة توضيحية</span>
             </div>
-            <div class="dash-kpis">
-              <div><small>العائد ROAS</small><strong>4.2x</strong><em class="up">▲ 38%</em></div>
-              <div><small>تكلفة العميل</small><strong>$6.80</strong><em class="up">▼ 22%</em></div>
-              <div><small>التحويلات</small><strong>1,284</strong><em class="up">▲ 51%</em></div>
+            <div class="viz-kpis">
+              <div class="viz-kpi"><span class="k-label">ROAS</span><span class="k-trend">{{> i-trend}}</span><span class="k-bar"><i class="w1"></i></span></div>
+              <div class="viz-kpi"><span class="k-label">CPA</span><span class="k-trend k-down">{{> i-trend}}</span><span class="k-bar"><i class="w2"></i></span></div>
+              <div class="viz-kpi"><span class="k-label">CVR</span><span class="k-trend">{{> i-trend}}</span><span class="k-bar"><i class="w3"></i></span></div>
             </div>
-            <svg class="dash-chart" viewBox="0 0 320 120" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#C8F23C" stop-opacity=".35"/>
-                  <stop offset="1" stop-color="#C8F23C" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <path d="M0 100 C40 95 60 80 90 82 S150 60 180 58 S240 30 270 26 S310 14 320 10 L320 120 L0 120 Z" fill="url(#g)"/>
-              <path class="line" d="M0 100 C40 95 60 80 90 82 S150 60 180 58 S240 30 270 26 S310 14 320 10" fill="none" stroke="#C8F23C" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-            <div class="dash-foot">
-              <span><i class="sw sw-a"></i>Meta</span>
-              <span><i class="sw sw-b"></i>TikTok</span>
-              <span class="muted">آخر 30 يوم</span>
+            <div class="viz-funnel">
+              <div class="f-row"><span>الظهور</span><span class="f-track"><span class="f-bar f1"></span></span></div>
+              <div class="f-row"><span>النقرات</span><span class="f-track"><span class="f-bar f2"></span></span></div>
+              <div class="f-row"><span>عملاء محتملون</span><span class="f-track"><span class="f-bar f3"></span></span></div>
+              <div class="f-row"><span>المبيعات</span><span class="f-track"><span class="f-bar f4"></span></span></div>
+            </div>
+            <div class="viz-chart">
+              <div class="viz-chart-head"><span>تطور العائد</span><span class="viz-legend"><i></i>ROAS</span></div>
+              <svg viewBox="0 0 320 104" preserveAspectRatio="none">
+                <defs><linearGradient id="vizFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C8F23C" stop-opacity=".28"/><stop offset="1" stop-color="#C8F23C" stop-opacity="0"/></linearGradient></defs>
+                <path class="viz-grid" d="M0 26h320M0 52h320M0 78h320"/>
+                <path d="M0 90 C35 86 55 74 85 76 S140 58 172 55 S228 32 258 29 S304 16 320 12 L320 104 L0 104 Z" fill="url(#vizFill)"/>
+                <path class="viz-line" d="M0 90 C35 86 55 74 85 76 S140 58 172 55 S228 32 258 29 S304 16 320 12"/>
+              </svg>
             </div>
           </div>
-          <div class="float-card fc-1"><strong>✓</strong><span>التقرير الأسبوعي جاهز</span></div>
-          <div class="float-card fc-2"><span class="pulse"></span>البكسل وConversions API شغّالين</div>
+          <div class="viz-chip chip-1">{{> i-check}}<span dir="ltr">Pixel + Conversions API</span></div>
+          <div class="viz-chip chip-2">{{> i-spark}}<span>اختبار A/B مستمر</span></div>
         </div>
       </div>
     </section>
 
-    <!-- ===== 2. النتائج (من لوحة التحكم) ===== -->
+    <!-- ===== 2. الأرقام (من لوحة التحكم) ===== -->
 {{results}}
 
-    <!-- ===== 3. الأعمال / دراسات الحالة ===== -->
-{{case_studies}}
+    <!-- ===== 3. من أنا ===== -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="about">
+          <div class="about-media">
+            <div class="portrait">
+              <picture>
+                <source type="image/avif" srcset="{{root}}assets/img/ibrahim-320.avif 320w, {{root}}assets/img/ibrahim-640.avif 640w" sizes="(max-width: 560px) 220px, 300px">
+                <source type="image/webp" srcset="{{root}}assets/img/ibrahim-320.webp 320w, {{root}}assets/img/ibrahim-640.webp 640w" sizes="(max-width: 560px) 220px, 300px">
+                <img src="{{root}}assets/img/ibrahim-640.jpg" width="300" height="300" alt="إبراهيم مهاوش، مسوّق رقمي" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="portrait-meta">
+              <strong>إبراهيم مهاوش</strong>
+              <span dir="ltr">Digital Marketing &amp; Performance Marketing</span>
+              <a class="text-link" href="{{instagram}}" target="_blank" rel="noopener">{{> i-camera}}<span dir="ltr">@ibrahim.media.iq</span></a>
+            </div>
+          </div>
+          <div class="about-body">
+            <p class="eyebrow">من أنا</p>
+            <h2>أنا إبراهيم مهاوش</h2>
+            <p class="about-lead" data-k="about">مسوّق رقمي متخصص في الإعلانات والأداء التسويقي، أركز على بناء الحملات التي لا تكتفي بالوصول والمشاهدات، بل تهدف إلى تحقيق نتائج تجارية قابلة للقياس.</p>
+            <p class="about-text" data-k="about">أبدأ دائمًا من الهدف التجاري: مبيعات، عملاء محتملون، أو حجوزات. ثم أبني الحملة والتتبع والتقارير حول هذا الهدف، حتى يكون كل قرار مبنيًا على أرقام واضحة.</p>
+            <ul class="skills">
+              <li>Digital Marketing</li><li>Performance Marketing</li><li>Meta Ads</li><li>Campaign Strategy</li><li>Lead Generation</li><li>Conversion Optimization</li>
+            </ul>
+            <div class="about-actions">
+              <a class="btn btn-primary" href="#contact">احجز استشارة</a>
+              <a class="btn btn-ghost" href="#process">كيف أعمل؟</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="why" id="why">
+          <h3 class="why-title">لماذا يختارني العملاء؟</h3>
+          <ul class="why-grid">
+            <li data-k="why"><span class="why-ic">{{> i-lock}}</span><b>الحساب الإعلاني يبقى باسمك</b><span>أعمل بصلاحيات Business Manager، وأنت المالك دائمًا.</span></li>
+            <li data-k="why"><span class="why-ic">{{> i-shield}}</span><b>البيانات ملكك</b><span>الجماهير والبكسل والنتائج تبقى عندك حتى لو توقفنا.</span></li>
+            <li data-k="why"><span class="why-ic">{{> i-doc}}</span><b>تقارير واضحة</b><span>أرقام مفهومة: كم أنفقت، ماذا حققت، وما الخطوة القادمة.</span></li>
+            <li data-k="why"><span class="why-ic">{{> i-chart}}</span><b>قرارات مبنية على الأرقام</b><span>كل تعديل على الحملة له سبب واضح في البيانات.</span></li>
+            <li data-k="why"><span class="why-ic">{{> i-chat}}</span><b>تواصل مباشر</b><span>تتعامل معي شخصيًا، بدون وسطاء وبدون انتظار.</span></li>
+            <li data-k="why"><span class="why-ic">{{> i-clock}}</span><b>بدون عقود طويلة</b><span>اشتراك شهري، ويمكنك الإيقاف بإشعار قبل 15 يومًا.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
     <!-- ===== 4. الخدمات ===== -->
     <section class="section section-alt" id="services">
       <div class="container">
         <header class="section-head">
-          <p class="kicker">الخدمات</p>
-          <h2>كل اللي تحتاجه حتى إعلانك يبيع</h2>
-          <p class="section-sub">من أول إعداد للحساب الإعلاني إلى توسيع الحملات الرابحة.</p>
+          <p class="eyebrow">الخدمات</p>
+          <h2>خدمات مبنية على النتائج</h2>
+          <p class="section-sub">كل خدمة مرتبطة بهدف يمكن قياسه: مبيعات، عملاء محتملون، أو عائد أعلى على الإنفاق.</p>
         </header>
-        <div class="cards">
-          <article class="card card-wide">
-            <div class="card-wide-main">
-              <div class="card-ic">▶</div>
-              <h3>إعلانات UGC <span class="tag-new">جديد</span></h3>
-              <p>فيديوهات قصيرة بأسلوب الزبون الحقيقي: تجربة منتج، فتح طرد، أو رأي صريح. هذا المحتوى يبين طبيعي بالـ Feed ويبني ثقة أكثر من الإعلان التقليدي، خصوصًا على TikTok وInstagram Reels.</p>
-              <a class="card-more card-more-light" href="{{svc:ugc-ads}}">اعرف أكثر ←</a>
-            </div>
-            <ul class="card-list">
-              <li>أفكار وسكربتات UGC مكتوبة للبيع</li>
-              <li>توجيه صنّاع المحتوى والتصوير</li>
-              <li>مونتاج بأسلوب المنصة مع نصوص على الفيديو</li>
-              <li>اختبار أكثر من بداية (Hook) حتى نلقى الرابح</li>
-            </ul>
-          </article>
-          <article class="card"><div class="card-ic">◎</div><h3>إدارة حملات Meta</h3><p>حملات Instagram وFacebook مبنية على أهداف المبيعات والرسائل، مع هيكلة صحيحة للجمهور والميزانية.</p><a class="card-more" href="{{svc:meta-ads}}">اعرف أكثر ←</a></article>
-          <article class="card"><div class="card-ic">♪</div><h3>إعلانات TikTok</h3><p>حملات Spark Ads وفيديوهات بأسلوب المنصة، تجيب انتباه خلال أول ثانيتين وتحوّله لطلبات.</p><a class="card-more" href="{{svc:tiktok-ads}}">اعرف أكثر ←</a></article>
-          <article class="card"><div class="card-ic">◑</div><h3>إعلانات Snapchat</h3><p>حملات سناب شات توصلك لجمهور الشباب بالعراق والخليج، وغالبًا بمنافسة أقل من باقي المنصات.</p><a class="card-more" href="{{svc:snapchat-ads}}">اعرف أكثر ←</a></article>
-          <article class="card"><div class="card-ic">✆</div><h3>واتساب وأتمتة الردود</h3><p>إعلانات Click-to-WhatsApp تفتح محادثة مباشرة، وبوت يرد ويسأل العميل الأسئلة المهمة تلقائيًا حتى ما يضيع ولا طلب.</p><a class="card-more" href="{{svc:whatsapp-automation}}">اعرف أكثر ←</a></article>
-          <article class="card"><div class="card-ic">✦</div><h3>الكريتيف والمحتوى الإعلاني</h3><p>أفكار إعلانات، سكربتات فيديو، ونصوص تسويقية أكتبها للتحويل، مع اختبار نسخ متعددة.</p></article>
-          <article class="card"><div class="card-ic">⌖</div><h3>إعداد البكسل والتتبع</h3><p>Pixel وConversions API والأحداث (Events) بشكل صحيح، حتى الخوارزمية تتعلم وتجيب العميل المناسب.</p></article>
-          <article class="card"><div class="card-ic">▣</div><h3>صفحات الهبوط</h3><p>صفحات سريعة ومتوافقة مع الموبايل مصممة لهدف واحد: تحويل الزائر إلى عميل.</p></article>
-          <article class="card"><div class="card-ic">↗</div><h3>التحليل والتقارير</h3><p>تقرير واضح: شنو انصرف، شنو رجع، وشنو الخطوة الجاية لتحسين النتائج.</p></article>
+        <div class="svc-grid">
+          <article class="svc-card"><span class="svc-ic">{{> i-campaign}}</span><h3>إدارة الحملات الإعلانية</h3><p>بناء وإدارة وتحسين الحملات لتحقيق أفضل أداء ممكن.</p></article>
+          <article class="svc-card"><span class="svc-ic">{{> i-target}}</span><h3>Meta Ads</h3><p>Facebook + Instagram مع استهداف وتحليل وتحسين مستمر.</p><a class="svc-link" href="{{svc:meta-ads}}">اعرف أكثر {{> i-arrow}}</a></article>
+          <article class="svc-card"><span class="svc-ic">{{> i-trend}}</span><h3>Performance Marketing</h3><p>ربط الإنفاق الإعلاني بالنتائج والمبيعات والتحويلات.</p></article>
+          <article class="svc-card"><span class="svc-ic">{{> i-funnel}}</span><h3>Lead Generation</h3><p>إنشاء حملات تهدف إلى الحصول على عملاء محتملين بجودة أعلى.</p></article>
+          <article class="svc-card"><span class="svc-ic">{{> i-compass}}</span><h3>استراتيجية التسويق</h3><p>تحليل النشاط والجمهور والمنافسين وبناء استراتيجية مناسبة.</p></article>
+          <article class="svc-card"><span class="svc-ic">{{> i-chart}}</span><h3>تحليل وتحسين الحملات</h3><p>تحليل البيانات واكتشاف نقاط الهدر وتحسين النتائج.</p><a class="svc-link" href="{{svc:ad-account-audit}}">فحص الحساب الإعلاني {{> i-arrow}}</a></article>
         </div>
-        <div class="cta-band"><p>تريد تعرف أي خدمة تناسب مشروعك؟</p><a class="btn btn-accent" href="#contact">احجز استشارتك المجانية</a></div>
-      </div>
-    </section>
-
-    <!-- ===== 5. من هو إبراهيم ===== -->
-    <section class="section" id="about">
-      <div class="container about-grid">
-        <div class="about-card">
-          <picture class="avatar">
-            <source type="image/webp" srcset="{{root}}assets/img/ibrahim-320.webp 320w, {{root}}assets/img/ibrahim-640.webp 640w" sizes="260px">
-            <img src="{{root}}assets/img/ibrahim-320.jpg" srcset="{{root}}assets/img/ibrahim-320.jpg 320w, {{root}}assets/img/ibrahim-640.jpg 640w" sizes="260px" width="260" height="260" alt="إبراهيم المهاوش، مدير تسويق رقمي" loading="lazy" decoding="async">
-          </picture>
-          <strong>إبراهيم المهاوش</strong>
-          <span>مدير تسويق رقمي</span>
-          <ul class="about-tags">
-            <li>Meta Ads</li><li>TikTok Ads</li><li>Snapchat Ads</li><li>Conversions API</li><li>Creative Strategy</li>
-          </ul>
-          <a class="ig-link" href="{{instagram}}" target="_blank" rel="noopener">{{> icon-ig}}<span dir="ltr">@ibrahim.media.iq</span></a>
-        </div>
-        <div class="about-copy">
-          <p class="kicker">من أنا</p>
-          <h2>هلا، أنا إبراهيم 👋</h2>
-          <div class="about-qa">
-            <div>
-              <h3>من هو إبراهيم؟</h3>
-              <p>مدير تسويق رقمي متخصص بإدارة الحملات الإعلانية على Meta وInstagram وFacebook وTikTok. شغلي اليومي هو تحويل ميزانية الإعلان إلى طلبات ومبيعات حقيقية للمشاريع العراقية.</p>
-            </div>
-            <div>
-              <h3>شنو يميز طريقة شغلي؟</h3>
-              <p>أشتغل بالأرقام مو بالإحساس. قبل ما أصرف دينار أفهم مشروعك وعميلك، أجهّز التتبع صح، وبعدها أختبر بسرعة وأكبّر اللي يربح وأوقف اللي يخسر.</p>
-            </div>
-            <div>
-              <h3>ليش العملاء يختاروني؟</h3>
-              <p>لأن الحجي واضح من البداية: شكد راح نصرف، شنو نتوقع، وشنو صار فعلًا. وتتعامل وياي أنا شخصيًا من أول رسالة لآخر تقرير.</p>
-            </div>
-          </div>
+        <div class="svc-more">
+          <p class="svc-more-title">منصات وخدمات متخصصة</p>
+          <div class="svc-chips">{{svc_links}}</div>
         </div>
       </div>
     </section>
 
-    <!-- ===== ليش تشتغل وياي ===== -->
-    <section class="why" id="why">
-      <div class="container">
-        <div class="why-head">
-          <p class="kicker">ليش تشتغل وياي؟</p>
-          <h2>مو وكالة. مو وسيط.<br><mark>تتعامل وياي مباشرة.</mark></h2>
-        </div>
-        <ul class="why-grid">
-          <li><b>الحساب الإعلاني يبقى باسمك</b><span>أشتغل بصلاحيات Business Manager، وأنت المالك دائمًا.</span></li>
-          <li><b>البيانات ملكك</b><span>الجماهير والبكسل وكل النتائج تبقى عندك حتى لو وقفنا.</span></li>
-          <li><b>تقارير واضحة</b><span>أرقام مفهومة: شكد صرفت، شكد رجع، وشنو الخطوة الجاية.</span></li>
-          <li><b>قرارات مبنية على الأرقام</b><span>كل تعديل على الحملة له سبب واضح بالبيانات.</span></li>
-          <li><b>تواصل مباشر</b><span>واتساب وياي شخصيًا، بدون مدير حساب وبدون انتظار.</span></li>
-          <li><b>بدون عقود طويلة</b><span>اشتراك شهري، وتوقف بأي وقت بإشعار 15 يوم.</span></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ===== 6. طريقة العمل ===== -->
+    <!-- ===== 5. كيف أعمل ===== -->
     <section class="section" id="process">
       <div class="container">
         <header class="section-head">
-          <p class="kicker">طريقة العمل</p>
-          <h2>4 خطوات من الفكرة للنتيجة</h2>
+          <p class="eyebrow">كيف أعمل؟</p>
+          <h2>خمس مراحل واضحة من الفكرة إلى التوسّع</h2>
         </header>
-        <ol class="steps">
-          <li><span class="step-n">01</span><h3>تحليل</h3><p>أفهم مشروعك، منتجك، منافسيك، وجمهورك، وأراجع حساباتك الإعلانية الحالية.</p></li>
-          <li><span class="step-n">02</span><h3>استراتيجية</h3><p>أحدد الأهداف والميزانية والرسائل الإعلانية، وأجهّز التتبع والكريتيف.</p></li>
-          <li><span class="step-n">03</span><h3>إطلاق واختبار</h3><p>أطلق الحملات وأختبر الجماهير والإعلانات بسرعة حتى ألقى الأفضل أداءً.</p></li>
-          <li><span class="step-n">04</span><h3>تحسين وتوسيع</h3><p>أوقف الخاسر، أكبّر الرابح، وأرفع الميزانية بشكل مدروس مع الحفاظ على العائد.</p></li>
+        <ol class="timeline">
+          <li><span class="tl-num">01</span><h3>تحليل</h3><p>فهم النشاط والجمهور والهدف.</p></li>
+          <li><span class="tl-num">02</span><h3>استراتيجية</h3><p>تحديد القنوات والجمهور والرسائل.</p></li>
+          <li><span class="tl-num">03</span><h3>إطلاق</h3><p>إطلاق الحملات بطريقة منظمة.</p></li>
+          <li><span class="tl-num">04</span><h3>تحسين</h3><p>تحليل البيانات واختبار الإعلانات والجمهور.</p></li>
+          <li><span class="tl-num">05</span><h3>التوسّع <span class="tl-en">Scale</span></h3><p>زيادة النتائج وتوسيع الحملات الناجحة.</p></li>
         </ol>
       </div>
     </section>
 
-    <!-- ===== 7. آراء العملاء (من لوحة التحكم) ===== -->
-{{testimonials}}
+    <!-- ===== 6. دراسات الحالة (من لوحة التحكم) ===== -->
+{{case_studies}}
 
-    <!-- ===== 8. الباقات ===== -->
-    <section class="section" id="pricing">
+    <!-- ===== 7. القطاعات ===== -->
+    <section class="section section-alt" id="sectors">
       <div class="container">
         <header class="section-head">
-          <p class="kicker">الباقات</p>
-          <h2>اختار الباقة المناسبة لمرحلة مشروعك</h2>
-          <p class="section-sub">كل باقة توضح شنو تحصل مقابل فلوسك. الأسعار لا تشمل الميزانية الإعلانية المدفوعة للمنصات.</p>
+          <p class="eyebrow">القطاعات</p>
+          <h2>أعمل مع قطاعات مختلفة</h2>
+          <p class="section-sub">لكل قطاع هدف مختلف، والحملة تُبنى حسب طبيعة العميل وطريقة الشراء.</p>
+        </header>
+        <ul class="sectors">
+          <li><span class="sec-ic">{{> i-building}}</span><b>العقارات</b><span>عملاء محتملون جادّون وحجوزات معاينة</span></li>
+          <li><span class="sec-ic">{{> i-utensils}}</span><b>المطاعم</b><span>طلبات توصيل وحجوزات</span></li>
+          <li><span class="sec-ic">{{> i-bag}}</span><b>التجارة الإلكترونية</b><span>مبيعات بعائد واضح على الإنفاق</span></li>
+          <li><span class="sec-ic">{{> i-briefcase}}</span><b>الخدمات</b><span>استفسارات ورسائل مؤهلة</span></li>
+          <li><span class="sec-ic">{{> i-cap}}</span><b>التعليم</b><span>تسجيل في الدورات والبرامج</span></li>
+          <li><span class="sec-ic">{{> i-pulse}}</span><b>العيادات</b><span>مواعيد وحجوزات منتظمة</span></li>
+          <li><span class="sec-ic">{{> i-store}}</span><b>الشركات المحلية</b><span>زبائن من منطقتك</span></li>
+          <li><span class="sec-ic">{{> i-rocket}}</span><b>المشاريع الناشئة</b><span>إطلاق ونمو بميزانية مدروسة</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 8. حاسبة الإعلانات ===== -->
+    <section class="section" id="calculator">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">حاسبة الإعلانات</p>
+          <h2>احسب العائد المتوقع من إعلاناتك</h2>
+          <p class="section-sub">حرّك القيم وشاهد العائد على الإنفاق (ROAS)، الإيرادات، تكلفة الحصول على العميل، والربح التقديري.</p>
+        </header>
+        <div class="calc-shell">
+          <form class="calc-inputs" id="calc" novalidate>
+            <div class="calc-live" aria-hidden="true"><span>ROAS<b id="liveRoas">—</b></span><span>الربح التقديري<b id="liveProfit">—</b></span></div>
+            <div class="rf">
+              <div class="rf-top"><label for="c-budget">الميزانية الإعلانية الشهرية</label><span class="rf-num"><em>$</em><input id="c-budget" name="budget" type="number" inputmode="decimal" min="0" step="50" value="1000"></span></div>
+              <input class="rf-range" type="range" min="100" max="20000" step="50" value="1000" data-for="c-budget" aria-label="الميزانية الإعلانية الشهرية">
+            </div>
+            <div class="rf">
+              <div class="rf-top"><label for="c-price">متوسط سعر المنتج / الخدمة</label><span class="rf-num"><em>$</em><input id="c-price" name="price" type="number" inputmode="decimal" min="0" step="1" value="35"></span></div>
+              <input class="rf-range" type="range" min="1" max="1000" step="1" value="35" data-for="c-price" aria-label="متوسط سعر المنتج أو الخدمة">
+            </div>
+            <div class="rf">
+              <div class="rf-top"><label for="c-customers">عدد العملاء المتوقع شهريًا</label><span class="rf-num"><input id="c-customers" name="customers" type="number" inputmode="numeric" min="0" step="1" value="120"></span></div>
+              <input class="rf-range" type="range" min="0" max="2000" step="1" value="120" data-for="c-customers" aria-label="عدد العملاء المتوقع شهريًا">
+            </div>
+            <div class="rf">
+              <div class="rf-top"><label for="c-margin">هامش الربح</label><span class="rf-num"><input id="c-margin" name="margin" type="number" inputmode="decimal" min="0" max="100" step="1" value="40"><em>%</em></span></div>
+              <input class="rf-range" type="range" min="0" max="100" step="1" value="40" data-for="c-margin" aria-label="هامش الربح">
+            </div>
+          </form>
+          <div class="calc-results" aria-live="polite">
+            <div class="res res-main"><small>العائد على الإنفاق (ROAS)</small><strong id="outRoas">—</strong><span class="res-state" id="roasState"></span></div>
+            <div class="res"><small>الإيرادات</small><strong id="outRevenue">—</strong></div>
+            <div class="res"><small>تكلفة العميل (CAC)</small><strong id="outCac">—</strong></div>
+            <div class="res"><small>الربح التقديري</small><strong id="outProfit">—</strong></div>
+            <p class="calc-hint" id="calcHint"></p>
+            <p class="calc-note">{{> i-shield}}هذه النتائج تقديرية وليست ضمانًا للأداء.</p>
+          </div>
+        </div>
+        <div class="calc-lead" id="calcLead">
+          <div class="calc-lead-copy">
+            <p class="calc-lead-title">تريد أعرفك شلون ممكن نحسّن هذا الرقم؟</p>
+            <p class="calc-lead-sub">احصل على تحليل مجاني لحملاتك، وأرسل لك ملاحظاتي على الواتساب.</p>
+          </div>
+          <div class="calc-lead-row">
+            <input type="text" id="cl-name" placeholder="اسمك" maxlength="80" autocomplete="name" aria-label="اسمك">
+            <input type="tel" id="cl-phone" placeholder="رقم الواتساب" maxlength="20" autocomplete="tel" inputmode="tel" dir="ltr" aria-label="رقم الواتساب">
+            <button type="button" class="btn btn-primary" id="cl-send">احصل على تحليل مجاني</button>
+          </div>
+          <p class="calc-lead-err" id="cl-err" role="alert"></p>
+          <p class="calc-lead-ok" id="cl-ok" hidden>✓ وصل طلبك. إذا لم يُفتح الواتساب <a id="cl-wa" href="#" target="_blank" rel="noopener">اضغط هنا</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 9. الباقات ===== -->
+    <section class="section section-alt" id="pricing">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">الباقات</p>
+          <h2>باقات واضحة حسب مرحلة نشاطك</h2>
+          <p class="section-sub">اختر نقطة البداية المناسبة، والأسعار لا تشمل الميزانية الإعلانية المدفوعة للمنصات.</p>
         </header>
         {{entry_offer}}
         <div class="plans">{{pricing}}
         </div>
-        <div class="cta-band"><p>مو متأكد شنو يناسبك؟ نحددها سوية بـ 20 دقيقة.</p><a class="btn btn-accent" href="#contact">احجز استشارتك المجانية</a></div>
+        <p class="price-note">{{> i-spark}}السعر النهائي يحدد بعد تحليل النشاط والهدف الإعلاني.</p>
       </div>
     </section>
 
-    <!-- ===== 9. حاسبة العائد (تجيب عملاء) ===== -->
-    <section class="section section-alt" id="calculator">
-      <div class="container calc-grid">
-        <div>
-          <p class="kicker">أداة مجانية</p>
-          <h2>احسب عائد إعلاناتك المتوقع</h2>
-          <p class="section-sub">غيّر الأرقام وشوف تقديرًا لعدد الطلبات والإيرادات والعائد على الإنفاق الإعلاني (ROAS).</p>
-          <p class="note">الأرقام تقديرية للتخطيط فقط، والنتائج الفعلية تختلف حسب المنتج والسوق والكريتيف.</p>
-        </div>
-        <div class="calc-wrap">
-          <form class="calc" id="calc" novalidate>
-            <label>الميزانية الشهرية ($)<input type="number" name="budget" min="0" step="50" value="1000" inputmode="decimal"></label>
-            <label>تكلفة الطلب الواحد CPA ($)<input type="number" name="cpa" min="0.1" step="0.5" value="8" inputmode="decimal"></label>
-            <label>متوسط قيمة الطلب ($)<input type="number" name="aov" min="0" step="1" value="35" inputmode="decimal"></label>
-            <label>هامش الربح (%)<input type="number" name="margin" min="0" max="100" step="1" value="40" inputmode="decimal"></label>
-            <div class="calc-out" aria-live="polite">
-              <div><small>الطلبات المتوقعة</small><strong id="outOrders">—</strong></div>
-              <div><small>الإيرادات</small><strong id="outRevenue">—</strong></div>
-              <div><small>ROAS</small><strong id="outRoas">—</strong></div>
-              <div><small>صافي الربح بعد الإعلان</small><strong id="outProfit">—</strong></div>
-            </div>
-            <p class="calc-hint" id="calcHint"></p>
-          </form>
-          <div class="calc-lead" id="calcLead">
-            <p class="calc-lead-title">تريد أعرفك شلون ممكن نحسّن هذا الرقم؟</p>
-            <p class="calc-lead-sub">احصل على تحليل مجاني لحملاتك. أرسلك ملاحظاتي على الواتساب.</p>
-            <div class="calc-lead-row">
-              <input type="text" id="cl-name" placeholder="اسمك" maxlength="80" autocomplete="name" aria-label="اسمك">
-              <input type="tel" id="cl-phone" placeholder="رقم الواتساب" maxlength="20" autocomplete="tel" inputmode="tel" dir="ltr" aria-label="رقم الواتساب">
-              <button type="button" class="btn btn-accent" id="cl-send">احصل على تحليل مجاني</button>
-            </div>
-            <p class="calc-lead-err" id="cl-err" role="alert"></p>
-            <p class="calc-lead-ok" id="cl-ok" hidden>✓ وصل طلبك. إذا ما انفتح الواتساب <a id="cl-wa" href="#" target="_blank" rel="noopener">اضغط هنا</a>.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- ===== 10. آراء العملاء (من لوحة التحكم) ===== -->
+{{testimonials}}
 
-    <!-- ===== الأسئلة الشائعة ===== -->
+    <!-- ===== 11. الأسئلة الشائعة ===== -->
     <section class="section" id="faq">
-      <div class="container faq-wrap">
+      <div class="container faq-layout">
         <header class="section-head">
-          <p class="kicker">الأسئلة الشائعة</p>
-          <h2>أسئلة تتكرر قبل ما نبدأ</h2>
+          <p class="eyebrow">الأسئلة الشائعة</p>
+          <h2>أسئلة تتكرر قبل البدء</h2>
+          <p class="section-sub">لم تجد جوابك؟ اسأل المساعد أو راسلني مباشرة.</p>
+          <a class="btn btn-secondary" href="https://wa.me/{{whatsapp}}" target="_blank" rel="noopener">{{> i-chat}}اسألني على الواتساب</a>
         </header>
         <div class="faq">{{faq}}
         </div>
       </div>
     </section>
 
-    <!-- ===== 10. احجز استشارة ===== -->
+    <!-- ===== 12. أفكار من السوق ===== -->
+{{insights}}
+
+    <!-- ===== 13. CTA ===== -->
+    <section class="cta-final" id="cta">
+      <div class="container">
+        <div class="cta-box">
+          <h2>جاهز تخلي إعلانك يشتغل بذكاء؟</h2>
+          <p>خلينا نراجع نشاطك ونحدد أفضل فرصة للنمو.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary btn-lg" href="#contact">احجز استشارة</a>
+            <a class="btn btn-secondary btn-lg" href="https://wa.me/{{whatsapp}}" target="_blank" rel="noopener">تواصل معي</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 14. التواصل ===== -->
     <section class="section contact" id="contact">
       <div class="container contact-grid">
         <div class="contact-copy">
-          <p class="kicker">ابدأ الآن</p>
-          <h2>احجز استشارتك المجانية لمدة 20 دقيقة</h2>
-          <p>أراجع وضعك الحالي وأعطيك خطة واضحة لأول 30 يوم، حتى لو قررت ما نشتغل سوية.</p>
+          <p class="eyebrow">تواصل</p>
+          <h2>احجز استشارتك</h2>
+          <p class="contact-lead">استشارة مجانية لمدة 20 دقيقة: أراجع وضعك الحالي وأعطيك خطة واضحة لأول 30 يومًا، حتى لو قررت عدم العمل معًا.</p>
           <ul class="contact-points">
-            <li>رد خلال 24 ساعة</li>
-            <li>بدون أي التزام</li>
-            <li>خطة مبدئية مجانية</li>
+            <li>{{> i-clock}}رد خلال 24 ساعة</li>
+            <li>{{> i-shield}}بدون أي التزام</li>
+            <li>{{> i-doc}}خطة مبدئية مجانية</li>
           </ul>
-          <div class="direct">
-            <p class="direct-title">أو تواصل معي مباشرة</p>
-            <a class="direct-link" href="https://wa.me/{{whatsapp}}" target="_blank" rel="noopener">{{> icon-wa}}<span><small>واتساب</small><b dir="ltr">0771 109 4000</b></span></a>
-            <a class="direct-link" href="{{instagram}}" target="_blank" rel="noopener">{{> icon-ig}}<span><small>إنستغرام</small><b dir="ltr">@ibrahim.media.iq</b></span></a>
-          </div>
+          <div class="channels">{{channels}}</div>
         </div>
 
         <form class="form" id="leadForm" novalidate>
           <div class="hp" aria-hidden="true"><label>اترك هذا الحقل فارغًا <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <p class="form-title">نموذج طلب الاستشارة</p>
           <div class="field">
             <label for="f-name">الاسم</label>
             <input id="f-name" name="name" type="text" required maxlength="80" autocomplete="name">
@@ -261,9 +296,9 @@
           </div>
           <div class="field-row">
             <div class="field">
-              <label for="f-type">نوع المشروع</label>
+              <label for="f-type">نوع النشاط</label>
               <select id="f-type" name="type">
-                <option>متجر إلكتروني</option><option>مطعم أو كافيه</option><option>عيادة أو خدمات</option><option>براند ملابس</option><option>أخرى</option>
+                <option>متجر إلكتروني</option><option>مطعم أو كافيه</option><option>عقارات</option><option>عيادة أو خدمات</option><option>تعليم</option><option>براند ملابس</option><option>أخرى</option>
               </select>
             </div>
             <div class="field">
@@ -281,15 +316,15 @@
             </select>
           </div>
           <div class="field">
-            <label for="f-msg">شنو هدفك من الإعلانات؟</label>
-            <textarea id="f-msg" name="message" rows="3" maxlength="600" placeholder="مثال: أريد أزيد طلبات المتجر من Instagram"></textarea>
+            <label for="f-msg">ما هدفك من الإعلانات؟</label>
+            <textarea id="f-msg" name="message" rows="3" maxlength="600" placeholder="مثال: زيادة طلبات المتجر من Instagram"></textarea>
           </div>
-          <button class="btn btn-accent btn-block" type="submit">احجز استشارتي المجانية</button>
-          <p class="form-note">رسالتك تتجهز وتنفتح بالواتساب مباشرة.</p>
+          <button class="btn btn-primary btn-block" type="submit">احجز استشارتي</button>
+          <p class="form-note">رسالتك تتجهز وتُفتح في الواتساب مباشرة.</p>
           <div class="form-success" id="formSuccess" hidden>
             <strong>رسالتك جاهزة ✓</strong>
-            <p>إذا ما انفتح واتساب تلقائيًا، اضغط الرابط:</p>
-            <a id="waLink" class="btn btn-outline btn-block" href="#" target="_blank" rel="noopener">افتح واتساب</a>
+            <p>إذا لم يُفتح الواتساب تلقائيًا، اضغط الرابط:</p>
+            <a id="waLink" class="btn btn-secondary btn-block" href="#" target="_blank" rel="noopener">افتح الواتساب</a>
           </div>
         </form>
       </div>

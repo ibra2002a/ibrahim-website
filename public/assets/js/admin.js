@@ -416,7 +416,7 @@
   }
 
   function leadCard(l) {
-    const wa = `https://wa.me/${waPhone(l.phone)}?text=${encodeURIComponent(`هلا ${l.name}، معك إبراهيم المهاوش بخصوص طلب الاستشارة 👋`)}`;
+    const wa = `https://wa.me/${waPhone(l.phone)}?text=${encodeURIComponent(`هلا ${l.name}، معك إبراهيم مهاوش بخصوص طلب الاستشارة 👋`)}`;
     return `
       <article class="lead-card" data-id="${esc(l.id)}" data-status="${esc(l.status)}">
         <div class="lead-top">
@@ -475,7 +475,9 @@
             ${field("الاسم", "name", d.name)}
             ${field("لمن؟", "for", d.for)}
             <div class="field-row">${field("السعر", "price", d.price, { hint: "مثال: $250 أو حسب الطلب" })}${field("الفترة", "period", d.period, { hint: "مثال: / شهريًا" })}</div>
-            ${field("المزايا (كل سطر ميزة)", "features", (d.features || []).join("\n"), { type: "textarea", rows: 5 })}
+            ${field("الخدمات (كل سطر خدمة)", "features", (d.features || []).join("\n"), { type: "textarea", rows: 5 })}
+            <div class="field-row">${field("عدد الحملات", "campaigns", d.campaigns, { placeholder: "مثال: حتى 3 حملات" })}${field("التقارير", "reports", d.reports, { placeholder: "مثال: تقرير أسبوعي" })}</div>
+            <div class="field-row">${field("التحسين", "optimization", d.optimization, { placeholder: "مثال: مراجعة أسبوعية" })}${field("الدعم", "support", d.support, { placeholder: "مثال: واتساب خلال أيام العمل" })}</div>
             <div class="field-row">${field("نص الزر", "cta", d.cta)}${field("شارة (للمميزة)", "badge", d.badge)}</div>
             ${toggle("باقة مميزة (تظهر بلون مختلف)", "featured", p.featured)}
             ${toggle("عرض دخول (بطاقة عريضة فوق الباقات، مثل فحص الحساب)", "entry", p.entry)}
@@ -487,6 +489,7 @@
         plans[i].featured = v.featured;
         plans[i].entry = v.entry;
         plans[i][L] = { ...(plans[i][L] || {}), name: v.name, for: v.for, price: v.price, period: v.period, cta: v.cta, badge: v.badge,
+          campaigns: v.campaigns, reports: v.reports, optimization: v.optimization, support: v.support,
           features: v.features.split("\n").map((s) => s.trim()).filter(Boolean) };
       });
       $$(".plan-edit", el).forEach((f) => {
@@ -515,22 +518,30 @@
     return false;
   }
 
+  // حالة العنصر: مكان مؤقت (مثال يظهر حتى تضيف بيانات حقيقية) / مسودة / منشور
+  const statusBadge = (x, live = "منشور") => x.placeholder
+    ? `<span class="badge-st draft">مكان مؤقت</span>`
+    : `<span class="badge-st ${x.draft ? "draft" : "live"}">${x.draft ? "مسودة" : live}</span>`;
+  const PH_TOGGLE = "مكان مؤقت (مثال توضيحي يظهر بشارة واضحة لحد ما تضيف بيانات حقيقية)";
+
   /* ---------- دراسات الحالة ---------- */
   RENDER.cases = async (el) => {
     const file = await load("content/case-studies.json");
     const items = clone(file.data || []);
     const paint = () => {
       el.innerHTML = `
-        <div class="toolbar"><span class="muted small">${items.length} دراسة · المسودات ما تظهر بالموقع</span><button type="button" class="btn btn-accent btn-sm" id="addCase">+ دراسة حالة</button></div>
+        <div class="toolbar"><span class="muted small">${items.length} دراسة · المسودات ما تظهر بالموقع، والأماكن المؤقتة تظهر بشارة "مكان مخصص"</span><button type="button" class="btn btn-accent btn-sm" id="addCase">+ دراسة حالة</button></div>
         <div class="list">${items.map((c, i) => `
           <button type="button" class="list-item" data-i="${i}">
             <span class="li-main"><b>${esc((c.ar && c.ar.client) || (c.en && c.en.client) || "بدون اسم")}</b><small>${esc((c.platforms || []).join(" · "))} · ${esc((c.ar && c.ar.period) || "")}</small></span>
-            <span class="badge-st ${c.draft ? "draft" : "live"}">${c.draft ? "مسودة" : "منشورة"}</span>
+            ${statusBadge(c, "منشورة")}
           </button>`).join("") || `<p class="empty">ماكو دراسات حالة بعد. أضف أول وحدة بنتائجك الحقيقية.</p>`}</div>`;
       $$(".list-item", el).forEach((b) => b.addEventListener("click", () => editCase(+b.dataset.i)));
       $("#addCase").addEventListener("click", () => editCase(-1));
     };
-    const blank = () => ({ draft: true, platforms: ["Meta"], ar: { results: [{}, {}, {}] }, en: { results: [{}, {}, {}] } });
+    const blank = () => ({ draft: true, platforms: ["Meta"],
+      ar: { results: [{ label: "ROAS" }, { label: "CPL / CPA" }, { label: "التحويلات" }] },
+      en: { results: [{ label: "ROAS" }, { label: "CPL / CPA" }, { label: "Conversions" }] } });
     const editCase = (i) => {
       const c = i < 0 ? blank() : clone(items[i]);
       let L = "ar";
@@ -539,6 +550,7 @@
         const res = [0, 1, 2].map((k) => (d.results || [])[k] || {});
         return `
           ${toggle("مسودة (ما تظهر بالموقع)", "draft", c.draft)}
+          ${toggle(PH_TOGGLE, "placeholder", c.placeholder)}
           ${field("المنصات (افصل بفاصلة)", "platforms", (c.platforms || []).join(", "), { dir: "ltr", placeholder: "Meta, Instagram, TikTok" })}
           <hr>${langTabs(L)}
           ${field("اسم العميل / المشروع", "client", d.client)}
@@ -547,13 +559,14 @@
           ${field("الميزانية", "budget", d.budget, { placeholder: "مثال: $1,500 / شهر" })}
           ${field("التحدي", "challenge", d.challenge, { type: "textarea" })}
           ${field("الاستراتيجية (شنو سويت)", "solution", d.solution, { type: "textarea" })}
-          <p class="label-strong">النتائج</p>
+          ${field("النتيجة (جملة وحدة تظهر بالبطاقة)", "result", d.result, { type: "textarea", rows: 2, placeholder: "مثال: ضاعفنا الطلبات بنفس الميزانية خلال 6 أسابيع" })}
+          <p class="label-strong">الأرقام (ROAS، تكلفة العميل، التحويلات…)</p>
           ${res.map((r, k) => `<div class="field-row">${field(`القيمة ${k + 1}`, `rv${k}`, r.value, { dir: "ltr", placeholder: "3.1x" })}${field("الوصف", `rl${k}`, r.label, { placeholder: "ROAS" })}</div>`).join("")}`;
       };
       const collect = () => {
         const v = formData($("#sheetBody"));
-        c.draft = v.draft; c.platforms = v.platforms.split(",").map((s) => s.trim()).filter(Boolean);
-        c[L] = { client: v.client, industry: v.industry, period: v.period, goal: v.goal, budget: v.budget, challenge: v.challenge, solution: v.solution,
+        c.draft = v.draft; c.placeholder = v.placeholder; c.platforms = v.platforms.split(",").map((s) => s.trim()).filter(Boolean);
+        c[L] = { client: v.client, industry: v.industry, period: v.period, goal: v.goal, budget: v.budget, challenge: v.challenge, solution: v.solution, result: v.result,
           results: [0, 1, 2].map((k) => ({ value: v[`rv${k}`], label: v[`rl${k}`] })).filter((r) => r.value || r.label) };
       };
       const repaint = () => { $("#sheetBody").innerHTML = body(); $$("#sheetBody [data-lang]").forEach((b) => b.addEventListener("click", () => { collect(); L = b.dataset.lang; repaint(); })); };
@@ -583,7 +596,7 @@
     },
     stringify(d, body) {
       const clean = (v) => String(v ?? "").replace(/\n/g, " ").trim();
-      const lines = ["title", "description", "date", "translation"].filter((k) => d[k]).map((k) => `${k}: ${clean(d[k])}`);
+      const lines = ["title", "description", "date", "category", "translation"].filter((k) => d[k]).map((k) => `${k}: ${clean(d[k])}`);
       if (d.draft) lines.push("draft: true");
       return `---\n${lines.join("\n")}\n---\n\n${body.trim()}\n`;
     },
@@ -619,7 +632,7 @@
       <div class="toolbar">${langTabs(L)}<button type="button" class="btn btn-accent btn-sm" id="newPost">+ مقال جديد</button></div>
       <div class="list">${posts.map((p, i) => `
         <button type="button" class="list-item" data-i="${i}">
-          <span class="li-main"><b>${esc(p.data.title || p.slug)}</b><small>${esc(p.data.date || "")} · /${esc(p.slug)}</small></span>
+          <span class="li-main"><b>${esc(p.data.title || p.slug)}</b><small>${esc(p.data.date || "")}${p.data.category ? " · " + esc(p.data.category) : ""} · /${esc(p.slug)}</small></span>
           <span class="badge-st ${p.data.draft ? "draft" : "live"}">${p.data.draft ? "مسودة" : "منشور"}</span>
         </button>`).join("") || `<p class="empty">ماكو مقالات بهذي اللغة.</p>`}</div>`;
     bindLang(el, () => go("blog"));
@@ -641,6 +654,7 @@
         ${field("رابط المقال (slug)", "slug", post ? post.slug : "", { dir: "ltr", placeholder: "my-article", hint: isNew ? "حروف إنكليزية وشرطات فقط" : "ما يتغير بعد النشر" })}
         ${field("التاريخ", "date", d.date, { type: "date", dir: "ltr" })}
       </div>
+      ${field("التصنيف", "category", d.category, { placeholder: L === "ar" ? "مثال: Meta Ads أو تحليل الحملات" : "e.g. Meta Ads", hint: "نفس الاسم بالضبط حتى تتجمع المقالات بفلتر واحد" })}
       <div class="field"><label>النسخة ${other === "en" ? "الإنكليزية" : "العربية"} (اختياري)</label>
         <select name="translation" dir="ltr"><option value="">—</option>${otherSlugs.map((s) => `<option${s === d.translation ? " selected" : ""}>${esc(s)}</option>`).join("")}</select></div>
       ${toggle("مسودة (ما ينشر لحد ما تطفيها)", "draft", d.draft)}
@@ -661,7 +675,7 @@
         let slug = post ? post.slug : slugify(v.slug || v.title) || `post-${Date.now().toString(36)}`;
         const path = `content/blog/${L}/${slug}.md`;
         if (isNew && !state.demo) { const exists = await readFile(path, { json: false }).catch(() => ({})); if (exists && exists.sha) return toast("هذا الرابط مستخدم، غيّر الـ slug", true); }
-        const text = fm.stringify({ title: v.title, description: v.description, date: v.date, translation: v.translation, draft: v.draft }, v.body);
+        const text = fm.stringify({ title: v.title, description: v.description, date: v.date, category: v.category, translation: v.translation, draft: v.draft }, v.body);
         await writeFile(path, text, `${isNew ? "Add" : "Update"} post ${slug} from control panel`, { json: false }).catch(fail);
         closeSheet(); go("blog");
       } },
@@ -784,23 +798,24 @@
     const items = clone(file.data || []);
     const paint = () => {
       el.innerHTML = `
-        <p class="note-inline">هذي الأرقام تظهر مباشرة تحت الواجهة الرئيسية. حط أرقام حقيقية بس، وأي رقم "مسودة" ما يظهر بالموقع.</p>
-        <div class="toolbar"><span class="muted small">${items.filter((x) => !x.draft && x.value).length} رقم منشور</span><button type="button" class="btn btn-outline btn-sm" id="addStat">+ رقم</button><button type="button" class="btn btn-accent btn-sm" id="saveStats">حفظ ونشر</button></div>
+        <p class="note-inline">هذي الأرقام تظهر مباشرة تحت الواجهة الرئيسية. حط أرقام حقيقية بس، وطفي "مكان مؤقت" لما تكتب الرقم الحقيقي. أي رقم "مسودة" ما يظهر بالموقع.</p>
+        <div class="toolbar"><span class="muted small">${items.filter((x) => !x.draft && !x.placeholder && x.value).length} رقم حقيقي منشور</span><button type="button" class="btn btn-outline btn-sm" id="addStat">+ رقم</button><button type="button" class="btn btn-accent btn-sm" id="saveStats">حفظ ونشر</button></div>
         <div class="edit-stack">${items.map((x, i) => `
           <form class="panel stat-edit" data-i="${i}">
             <div class="panel-head"><span class="muted small">رقم ${i + 1}</span><div class="mini-actions"><button type="button" data-move="-1" aria-label="تقديم">↑</button><button type="button" data-move="1" aria-label="تأخير">↓</button><button type="button" data-del aria-label="حذف">🗑</button></div></div>
             ${field("الرقم", "value", x.value, { dir: "ltr", placeholder: "$45K+ أو 3.2x أو 1,200" })}
             <div class="field-row">${field("الوصف (عربي)", "ar", x.ar, { placeholder: "مبيعات حققتها للعملاء" })}${field("الوصف (English)", "en", x.en, { dir: "ltr", placeholder: "Sales generated" })}</div>
             ${toggle("مسودة (ما يظهر بالموقع)", "draft", x.draft)}
+            ${toggle("مكان مؤقت (+XX لحد ما تضيف الرقم الحقيقي)", "placeholder", x.placeholder)}
           </form>`).join("")}</div>`;
-      const collect = () => $$(".stat-edit", el).forEach((f) => { const v = formData(f); items[+f.dataset.i] = { draft: v.draft, value: v.value, ar: v.ar, en: v.en }; });
+      const collect = () => $$(".stat-edit", el).forEach((f) => { const v = formData(f); items[+f.dataset.i] = { draft: v.draft, placeholder: v.placeholder, value: v.value, ar: v.ar, en: v.en }; });
       el._collect = collect;
       $$(".stat-edit", el).forEach((f) => {
         const i = +f.dataset.i;
         $$("[data-move]", f).forEach((b) => b.addEventListener("click", () => { collect(); const j = i + +b.dataset.move; if (j < 0 || j >= items.length) return; [items[i], items[j]] = [items[j], items[i]]; paint(); }));
         $("[data-del]", f).addEventListener("click", () => { if (!confirmInline(f, "تحذف الرقم؟")) return; collect(); items.splice(i, 1); paint(); });
       });
-      $("#addStat").addEventListener("click", () => { collect(); items.push({ draft: false, value: "", ar: "", en: "" }); paint(); });
+      $("#addStat").addEventListener("click", () => { collect(); items.push({ draft: false, placeholder: false, value: "", ar: "", en: "" }); paint(); });
       $("#saveStats").addEventListener("click", async () => { collect(); await writeFile("content/stats.json", items.filter((x) => x.value), "Update results from control panel").catch(fail); paint(); });
     };
     paint();
@@ -812,11 +827,11 @@
     const items = clone(file.data || []);
     const paint = () => {
       el.innerHTML = `
-        <div class="toolbar"><span class="muted small">${items.length} رأي · المسودات ما تظهر بالموقع</span><button type="button" class="btn btn-accent btn-sm" id="addTesti">+ رأي عميل</button></div>
+        <div class="toolbar"><span class="muted small">${items.length} رأي · المسودات ما تظهر بالموقع. لا تضيف إلا آراء حقيقية.</span><button type="button" class="btn btn-accent btn-sm" id="addTesti">+ رأي عميل</button></div>
         <div class="list">${items.map((x, i) => `
           <button type="button" class="list-item" data-i="${i}">
             <span class="li-main"><b>${esc(x.name || "بدون اسم")}</b><small>${esc(x.company || "")}</small></span>
-            <span class="badge-st ${x.draft ? "draft" : "live"}">${x.draft ? "مسودة" : "منشور"}</span>
+            ${statusBadge(x)}
           </button>`).join("") || `<p class="empty">ماكو آراء بعد. اطلب من عملائك جملتين عن تجربتهم وياك وضيفها هنا.</p>`}</div>`;
       $$(".list-item", el).forEach((b) => b.addEventListener("click", () => edit(+b.dataset.i)));
       $("#addTesti").addEventListener("click", () => edit(-1));
@@ -829,6 +844,7 @@
         const src = pending || (x.photo ? "../" + x.photo : "");
         return `
           ${toggle("مسودة (ما يظهر بالموقع)", "draft", x.draft)}
+          ${toggle(PH_TOGGLE, "placeholder", x.placeholder)}
           <div class="field-row">${field("اسم العميل", "name", x.name)}${field("الشركة / المشروع", "company", x.company)}</div>
           <div class="photo-field">
             ${src ? `<img src="${esc(src)}" alt="" class="photo-prev">` : `<span class="photo-prev empty">صورة</span>`}
@@ -842,7 +858,7 @@
       };
       const collect = () => {
         const v = formData($("#sheetBody"));
-        x.draft = v.draft; x.name = v.name; x.company = v.company;
+        x.draft = v.draft; x.placeholder = v.placeholder; x.name = v.name; x.company = v.company;
         x[L] = { role: v.role, quote: v.quote, result: v.result };
       };
       const repaint = () => {
@@ -891,6 +907,9 @@
           <h2>التواصل</h2>
           ${field("رقم الواتساب (دولي بدون +)", "whatsapp", s.whatsapp, { dir: "ltr", hint: "مثال: 9647711094000" })}
           ${field("رابط الإنستغرام", "instagram", s.instagram, { dir: "ltr" })}
+          <div class="field-row">${field("رابط فيسبوك (اختياري)", "facebook", (s.social || {}).facebook, { dir: "ltr", placeholder: "https://facebook.com/…" })}${field("رابط تيك توك (اختياري)", "tiktok", (s.social || {}).tiktok, { dir: "ltr", placeholder: "https://tiktok.com/@…" })}</div>
+          <div class="field-row">${field("رابط لينكدإن (اختياري)", "linkedin", (s.social || {}).linkedin, { dir: "ltr", placeholder: "https://linkedin.com/in/…" })}${field("البريد الإلكتروني (اختياري)", "email", (s.social || {}).email, { dir: "ltr", type: "email", placeholder: "name@example.com" })}</div>
+          <small class="hint">أي رابط تتركه فارغ ما يظهر بالموقع.</small>
           ${field("رسالة الواتساب الترحيبية (عربي)", "whatsappGreeting", s.whatsappGreeting)}
           ${field("رسالة الواتساب الترحيبية (English)", "whatsappGreetingEn", s.whatsappGreetingEn, { dir: "ltr" })}
         </section>
@@ -924,6 +943,7 @@
         <section class="panel">
           <h2>الموقع</h2>
           ${field("رابط الموقع", "siteUrl", s.siteUrl, { dir: "ltr", hint: "غيّره إذا ربطت دومين خاص" })}
+          ${toggle("إظهار الأماكن المؤقتة (+XX، دراسات وآراء توضيحية) لحد ما تضيف البيانات الحقيقية", "showPlaceholders", s.showPlaceholders !== false)}
         </section>
         <button class="btn btn-accent btn-block" type="submit">حفظ ونشر</button>
       </form>`;
@@ -931,7 +951,10 @@
       e.preventDefault();
       const v = formData(e.target);
       if (/service_role/.test(atobSafe(v.supabaseAnonKey))) return toast("هذا مفتاح service_role! استخدم anon public بس", true);
+      const url = (u) => (/^https:\/\//.test(u) ? u : "");
       const next = { ...s, whatsapp: v.whatsapp.replace(/\D/g, ""), instagram: v.instagram, whatsappGreeting: v.whatsappGreeting, whatsappGreetingEn: v.whatsappGreetingEn,
+        social: { facebook: url(v.facebook), tiktok: url(v.tiktok), linkedin: url(v.linkedin), email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email) ? v.email : "" },
+        showPlaceholders: v.showPlaceholders,
         supabaseUrl: v.supabaseUrl.replace(/\/$/, ""), supabaseAnonKey: v.supabaseAnonKey.replace(/\s/g, ""), siteUrl: v.siteUrl.replace(/\/$/, ""),
         aiEndpoint: /^https:\/\//.test(v.aiEndpoint) ? v.aiEndpoint.replace(/\/$/, "") : "",
         seo: { googleVerification: verifyCode(v.googleVerification), bingVerification: verifyCode(v.bingVerification) },

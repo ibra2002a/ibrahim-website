@@ -1,7 +1,40 @@
 /* =========================================================
-   لوحة التحكم — تعتمد على متغيرات main.css
+   لوحة التحكم — واجهة فاتحة للعمل اليومي.
+   تعيد تعريف متغيرات main.css داخل .admin فقط
+   حتى تبقى المكوّنات المشتركة (أزرار، حقول، شعار) مقروءة.
    ========================================================= */
-.admin { background: var(--paper); min-height: 100vh; }
+.admin {
+  color-scheme: light;
+  --ink: #0E0F12;
+  --paper: #F5F3EE;
+  --line: #E4E1D8;
+  --muted: #6B6E76;
+  --muted-on-dark: #A7AAB2;
+  --radius: 16px;
+  --shadow: 0 10px 30px -12px rgba(14, 15, 18, .18);
+  --bg: #F5F3EE;
+  --bg-2: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-2: #F8F7F3;
+  --surface-3: #EFEDE6;
+  --border: #E4E1D8;
+  --border-2: #D8D4C9;
+  --border-strong: #B9B4A7;
+  --text: #0E0F12;
+  --text-2: #4A4D55;
+  --text-3: #6B6E76;
+  --accent: #C8F23C;
+  --accent-2: #B6DD2C;
+  --accent-ink: #0E0F12;
+  --accent-soft: rgba(200, 242, 60, .22);
+  --accent-line: rgba(110, 140, 10, .5);
+  --danger: #D93636;
+  background: var(--paper);
+  color: var(--text);
+  min-height: 100vh;
+}
+.admin .sidebar .logo-text small { color: var(--muted-on-dark); }
+.admin .prose { color: var(--text); }
 .admin [hidden] { display: none !important; }
 body.sheet-open { overflow: hidden; }
 .small { font-size: .85rem; }

@@ -1,53 +1,5 @@
 [
   {
-    "draft": true,
-    "name": "مثال: اسم العميل",
-    "company": "اسم الشركة",
-    "photo": "",
-    "ar": {
-      "role": "صاحب متجر",
-      "quote": "هنا تحط كلام العميل الحقيقي عن تجربته وياك. مثال: صار عندنا طلبات يومية ثابتة من الإعلانات، والتقارير واضحة.",
-      "result": "+120% طلبات"
-    },
-    "en": {
-      "role": "Store owner",
-      "quote": "Your client's real words go here. Example: we now get steady daily orders from ads, and the reports are clear.",
-      "result": "+120% orders"
-    }
-  },
-  {
-    "draft": true,
-    "name": "مثال: اسم العميل",
-    "company": "اسم المطعم",
-    "photo": "",
-    "ar": {
-      "role": "مدير تسويق",
-      "quote": "مثال: أكثر شي عجبني التواصل المباشر، كل سؤال ينجاوب بنفس اليوم.",
-      "result": "تكلفة أقل 35%"
-    },
-    "en": {
-      "role": "Marketing manager",
-      "quote": "Example: what I liked most was direct contact. Every question answered the same day.",
-      "result": "35% lower cost"
-    }
-  },
-  {
-    "draft": true,
-    "name": "مثال: اسم العميل",
-    "company": "اسم البراند",
-    "photo": "",
-    "ar": {
-      "role": "مؤسس براند",
-      "quote": "مثال: أول مرة أفهم وين تروح فلوس الإعلانات وشنو ترجع.",
-      "result": "ROAS 3.4x"
-    },
-    "en": {
-      "role": "Brand founder",
-      "quote": "Example: for the first time I understand where the ad money goes and what it brings back.",
-      "result": "ROAS 3.4x"
-    }
-  },
-  {
     "draft": false,
     "name": "محمد علي",
     "company": "شركة امجاد بغداد",
@@ -58,5 +10,41 @@
       "result": ""
     },
     "en": {}
+  },
+  {
+    "placeholder": true,
+    "name": "اسم العميل",
+    "company": "اسم الشركة",
+    "photo": "",
+    "ar": {
+      "role": "المنصب",
+      "quote": "هنا يظهر رأي عميل حقيقي بعد إضافته من لوحة التحكم.",
+      "result": ""
+    },
+    "en": {
+      "name": "Client name",
+      "company": "Company",
+      "role": "Role",
+      "quote": "A real client testimonial will appear here once added from the control panel.",
+      "result": ""
+    }
+  },
+  {
+    "placeholder": true,
+    "name": "اسم العميل",
+    "company": "اسم الشركة",
+    "photo": "",
+    "ar": {
+      "role": "المنصب",
+      "quote": "هنا يظهر رأي عميل حقيقي بعد إضافته من لوحة التحكم.",
+      "result": ""
+    },
+    "en": {
+      "name": "Client name",
+      "company": "Company",
+      "role": "Role",
+      "quote": "A real client testimonial will appear here once added from the control panel.",
+      "result": ""
+    }
   }
 ]

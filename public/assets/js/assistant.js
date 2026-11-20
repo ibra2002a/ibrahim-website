@@ -74,9 +74,9 @@
     const base = (document.querySelector('script[src*="assistant.js"]') || {}).src || "";
     const url = base.replace(/js\/assistant\.js.*$/, "ai-knowledge.json");
     try { KNOW = await (await fetch(url)).json(); K = KNOW.langs[LANG]; }
-    catch (_) { KNOW = { person: { ar: "إبراهيم المهاوش", en: "Ibrahim Al-Mahawish" } }; K = { services: [], plans: [], faq: [], about: [], why: [], stats: [], cases: [] }; }
+    catch (_) { KNOW = { person: { ar: "إبراهيم مهاوش", en: "Ibrahim Mahaoush" } }; K = { services: [], plans: [], faq: [], about: [], why: [], stats: [], cases: [] }; }
   }
-  const personName = () => (KNOW && KNOW.person && KNOW.person[LANG]) || (LANG === "ar" ? "إبراهيم المهاوش" : "Ibrahim Al-Mahawish");
+  const personName = () => (KNOW && KNOW.person && KNOW.person[LANG]) || (LANG === "ar" ? "إبراهيم مهاوش" : "Ibrahim Mahaoush");
 
   /* ---------- الواجهة ---------- */
   const panel = () => $("#aiPanel");

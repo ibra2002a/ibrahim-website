@@ -3,252 +3,287 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow"><img class="eyebrow-avatar" src="{{root}}assets/img/ibrahim-320.webp" width="28" height="28" alt="" fetchpriority="high"> Ibrahim Al-Mahawish · Digital Marketing Manager</p>
+          <p class="hero-eyebrow"><img src="{{root}}assets/img/ibrahim-320.webp" width="32" height="32" alt="" fetchpriority="high"><span>Ibrahim Mahaoush · Digital Marketer</span></p>
           <h1>Ads that bring <mark>customers</mark>,<br>not just views.</h1>
-          <p class="lead">I help Iraqi businesses and stores grow sales with well-planned Meta and TikTok ads.</p>
+          <p class="lead">I help companies and brands turn their ad budgets into measurable results.</p>
           <div class="hero-actions">
-            <a class="btn btn-accent" href="#contact">Book a free consultation</a>
-            <a class="btn btn-ghost" href="{{work_link}}">{{work_label}} →</a>
+            <a class="btn btn-primary btn-lg" href="#contact">Book a consultation</a>
+            <a class="btn btn-secondary btn-lg" href="{{work_link}}">{{work_label}}</a>
           </div>
-          <ul class="platforms" aria-label="Platforms">
-            <li>Meta</li><li>Instagram</li><li>Facebook</li><li>TikTok</li><li>Snapchat</li>
+          <ul class="hero-trust">
+            <li>{{> i-lock}}Your ad account stays yours</li>
+            <li>{{> i-doc}}Clear reports</li>
+            <li>{{> i-clock}}Reply within 24 hours</li>
           </ul>
         </div>
-        <!-- Illustrative dashboard (sample numbers) -->
+
         <div class="hero-visual" aria-hidden="true">
-          <div class="dash">
-            <div class="dash-head">
-              <span class="dash-title">Campaign performance</span>
-              <span class="dash-tag">Illustrative</span>
+          <div class="viz">
+            <div class="viz-head">
+              <span class="viz-title"><span class="viz-live"></span>Performance panel</span>
+              <span class="viz-tag">Illustrative UI</span>
             </div>
-            <div class="dash-kpis">
-              <div><small>ROAS</small><strong>4.2x</strong><em class="up">▲ 38%</em></div>
-              <div><small>Cost per lead</small><strong>$6.80</strong><em class="up">▼ 22%</em></div>
-              <div><small>Conversions</small><strong>1,284</strong><em class="up">▲ 51%</em></div>
+            <div class="viz-kpis">
+              <div class="viz-kpi"><span class="k-label">ROAS</span><span class="k-trend">{{> i-trend}}</span><span class="k-bar"><i class="w1"></i></span></div>
+              <div class="viz-kpi"><span class="k-label">CPA</span><span class="k-trend k-down">{{> i-trend}}</span><span class="k-bar"><i class="w2"></i></span></div>
+              <div class="viz-kpi"><span class="k-label">CVR</span><span class="k-trend">{{> i-trend}}</span><span class="k-bar"><i class="w3"></i></span></div>
             </div>
-            <svg class="dash-chart" viewBox="0 0 320 120" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#C8F23C" stop-opacity=".35"/>
-                  <stop offset="1" stop-color="#C8F23C" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <path d="M0 100 C40 95 60 80 90 82 S150 60 180 58 S240 30 270 26 S310 14 320 10 L320 120 L0 120 Z" fill="url(#g)"/>
-              <path class="line" d="M0 100 C40 95 60 80 90 82 S150 60 180 58 S240 30 270 26 S310 14 320 10" fill="none" stroke="#C8F23C" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-            <div class="dash-foot">
-              <span><i class="sw sw-a"></i>Meta</span>
-              <span><i class="sw sw-b"></i>TikTok</span>
-              <span class="muted">Last 30 days</span>
+            <div class="viz-funnel">
+              <div class="f-row"><span>Impressions</span><span class="f-track"><span class="f-bar f1"></span></span></div>
+              <div class="f-row"><span>Clicks</span><span class="f-track"><span class="f-bar f2"></span></span></div>
+              <div class="f-row"><span>Leads</span><span class="f-track"><span class="f-bar f3"></span></span></div>
+              <div class="f-row"><span>Sales</span><span class="f-track"><span class="f-bar f4"></span></span></div>
+            </div>
+            <div class="viz-chart">
+              <div class="viz-chart-head"><span>Return over time</span><span class="viz-legend"><i></i>ROAS</span></div>
+              <svg viewBox="0 0 320 104" preserveAspectRatio="none">
+                <defs><linearGradient id="vizFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C8F23C" stop-opacity=".28"/><stop offset="1" stop-color="#C8F23C" stop-opacity="0"/></linearGradient></defs>
+                <path class="viz-grid" d="M0 26h320M0 52h320M0 78h320"/>
+                <path d="M0 90 C35 86 55 74 85 76 S140 58 172 55 S228 32 258 29 S304 16 320 12 L320 104 L0 104 Z" fill="url(#vizFill)"/>
+                <path class="viz-line" d="M0 90 C35 86 55 74 85 76 S140 58 172 55 S228 32 258 29 S304 16 320 12"/>
+              </svg>
             </div>
           </div>
-          <div class="float-card fc-1"><strong>✓</strong><span>Weekly report ready</span></div>
-          <div class="float-card fc-2"><span class="pulse"></span>Pixel & Conversions API live</div>
+          <div class="viz-chip chip-1">{{> i-check}}<span>Pixel + Conversions API</span></div>
+          <div class="viz-chip chip-2">{{> i-spark}}<span>Continuous A/B testing</span></div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Results -->
+    <!-- 2. Numbers -->
 {{results}}
 
-    <!-- 3. Work -->
-{{case_studies}}
+    <!-- 3. About -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="about">
+          <div class="about-media">
+            <div class="portrait">
+              <picture>
+                <source type="image/avif" srcset="{{root}}assets/img/ibrahim-320.avif 320w, {{root}}assets/img/ibrahim-640.avif 640w" sizes="(max-width: 560px) 220px, 300px">
+                <source type="image/webp" srcset="{{root}}assets/img/ibrahim-320.webp 320w, {{root}}assets/img/ibrahim-640.webp 640w" sizes="(max-width: 560px) 220px, 300px">
+                <img src="{{root}}assets/img/ibrahim-640.jpg" width="300" height="300" alt="Ibrahim Mahaoush, digital marketer" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="portrait-meta">
+              <strong>Ibrahim Mahaoush</strong>
+              <span>Digital Marketing &amp; Performance Marketing</span>
+              <a class="text-link" href="{{instagram}}" target="_blank" rel="noopener">{{> i-camera}}<span>@ibrahim.media.iq</span></a>
+            </div>
+          </div>
+          <div class="about-body">
+            <p class="eyebrow">About me</p>
+            <h2>I'm Ibrahim Mahaoush</h2>
+            <p class="about-lead" data-k="about">A digital marketer specializing in advertising and performance marketing. I focus on building campaigns that don't stop at reach and views, but aim for measurable business results.</p>
+            <p class="about-text" data-k="about">I always start from the business goal (sales, leads or bookings) and build the campaign, tracking and reporting around it, so every decision is backed by clear numbers.</p>
+            <ul class="skills">
+              <li>Digital Marketing</li><li>Performance Marketing</li><li>Meta Ads</li><li>Campaign Strategy</li><li>Lead Generation</li><li>Conversion Optimization</li>
+            </ul>
+            <div class="about-actions">
+              <a class="btn btn-primary" href="#contact">Book a consultation</a>
+              <a class="btn btn-ghost" href="#process">How I work</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="why" id="why">
+          <h3 class="why-title">Why clients choose me</h3>
+          <ul class="why-grid">
+            <li data-k="why"><span class="why-ic">{{> i-lock}}</span><b>Your ad account stays yours</b><span>I work through Business Manager access; you always own it.</span></li>
+            <li data-k="why"><span class="why-ic">{{> i-shield}}</span><b>Your data is yours</b><span>Audiences, pixel and results stay with you, even if we stop.</span></li>
+            <li data-k="why"><span class="why-ic">{{> i-doc}}</span><b>Clear reports</b><span>Plain numbers: what you spent, what it achieved, what's next.</span></li>
+            <li data-k="why"><span class="why-ic">{{> i-chart}}</span><b>Data-driven decisions</b><span>Every campaign change has a clear reason in the data.</span></li>
+            <li data-k="why"><span class="why-ic">{{> i-chat}}</span><b>Direct contact</b><span>You work with me personally, no middlemen, no waiting.</span></li>
+            <li data-k="why"><span class="why-ic">{{> i-clock}}</span><b>No long contracts</b><span>Month-to-month; stop anytime with 15 days' notice.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
     <!-- 4. Services -->
     <section class="section section-alt" id="services">
       <div class="container">
         <header class="section-head">
-          <p class="kicker">Services</p>
-          <h2>Everything your ads need to sell</h2>
-          <p class="section-sub">From setting up your ad account to scaling the winning campaigns.</p>
+          <p class="eyebrow">Services</p>
+          <h2>Services built around results</h2>
+          <p class="section-sub">Every service is tied to a goal you can measure: sales, leads, or a higher return on ad spend.</p>
         </header>
-        <div class="cards">
-          <article class="card card-wide">
-            <div class="card-wide-main">
-              <div class="card-ic">▶</div>
-              <h3>UGC Ads <span class="tag-new">New</span></h3>
-              <p>Short videos in a real customer's voice: product try-ons, unboxings or honest reviews. This content feels native in the feed and builds more trust than traditional ads, especially on TikTok and Instagram Reels.</p>
-              <a class="card-more card-more-light" href="{{svc:ugc-ads}}">Learn more →</a>
-            </div>
-            <ul class="card-list">
-              <li>UGC concepts and scripts written to sell</li>
-              <li>Creator and shoot direction</li>
-              <li>Platform-native editing with on-screen text</li>
-              <li>Testing multiple hooks to find the winner</li>
-            </ul>
-          </article>
-          <article class="card"><div class="card-ic">◎</div><h3>Meta Ads management</h3><p>Instagram and Facebook campaigns built around sales and messaging objectives, with a solid audience and budget structure.</p><a class="card-more" href="{{svc:meta-ads}}">Learn more →</a></article>
-          <article class="card"><div class="card-ic">♪</div><h3>TikTok Ads</h3><p>Spark Ads and native-style videos that grab attention in the first two seconds and turn it into orders.</p><a class="card-more" href="{{svc:tiktok-ads}}">Learn more →</a></article>
-          <article class="card"><div class="card-ic">◑</div><h3>Snapchat Ads</h3><p>Snapchat campaigns that reach young audiences in Iraq and the Gulf, often with less competition than other platforms.</p><a class="card-more" href="{{svc:snapchat-ads}}">Learn more →</a></article>
-          <article class="card"><div class="card-ic">✆</div><h3>WhatsApp & auto-replies</h3><p>Click-to-WhatsApp ads that open a chat instantly, plus a bot that answers and qualifies customers automatically so no order is missed.</p><a class="card-more" href="{{svc:whatsapp-automation}}">Learn more →</a></article>
-          <article class="card"><div class="card-ic">✦</div><h3>Ad creative & copy</h3><p>Ad concepts, video scripts and copy written to convert, with multiple variations tested.</p></article>
-          <article class="card"><div class="card-ic">⌖</div><h3>Pixel & tracking setup</h3><p>Pixel, Conversions API and events set up correctly, so the algorithm learns and finds the right customers.</p></article>
-          <article class="card"><div class="card-ic">▣</div><h3>Landing pages</h3><p>Fast, mobile-first pages designed for one goal: turning visitors into customers.</p></article>
-          <article class="card"><div class="card-ic">↗</div><h3>Analytics & reporting</h3><p>A clear report: what was spent, what came back, and the next step to improve results.</p></article>
+        <div class="svc-grid">
+          <article class="svc-card"><span class="svc-ic">{{> i-campaign}}</span><h3>Ad campaign management</h3><p>Building, managing and optimizing campaigns for the best possible performance.</p></article>
+          <article class="svc-card"><span class="svc-ic">{{> i-target}}</span><h3>Meta Ads</h3><p>Facebook + Instagram with targeting, analysis and continuous optimization.</p><a class="svc-link" href="{{svc:meta-ads}}">Learn more {{> i-arrow}}</a></article>
+          <article class="svc-card"><span class="svc-ic">{{> i-trend}}</span><h3>Performance Marketing</h3><p>Connecting ad spend to results, sales and conversions.</p></article>
+          <article class="svc-card"><span class="svc-ic">{{> i-funnel}}</span><h3>Lead Generation</h3><p>Campaigns designed to bring in higher-quality leads.</p></article>
+          <article class="svc-card"><span class="svc-ic">{{> i-compass}}</span><h3>Marketing strategy</h3><p>Analyzing your business, audience and competitors to build the right strategy.</p></article>
+          <article class="svc-card"><span class="svc-ic">{{> i-chart}}</span><h3>Campaign analysis &amp; optimization</h3><p>Analyzing data, finding wasted spend and improving results.</p><a class="svc-link" href="{{svc:ad-account-audit}}">Ad account audit {{> i-arrow}}</a></article>
         </div>
-        <div class="cta-band"><p>Not sure which service fits your business?</p><a class="btn btn-accent" href="#contact">Book your free consultation</a></div>
-      </div>
-    </section>
-
-    <!-- 5. About -->
-    <section class="section" id="about">
-      <div class="container about-grid">
-        <div class="about-card">
-          <picture class="avatar">
-            <source type="image/webp" srcset="{{root}}assets/img/ibrahim-320.webp 320w, {{root}}assets/img/ibrahim-640.webp 640w" sizes="260px">
-            <img src="{{root}}assets/img/ibrahim-320.jpg" srcset="{{root}}assets/img/ibrahim-320.jpg 320w, {{root}}assets/img/ibrahim-640.jpg 640w" sizes="260px" width="260" height="260" alt="Ibrahim Al-Mahawish, digital marketing manager" loading="lazy" decoding="async">
-          </picture>
-          <strong>Ibrahim Al-Mahawish</strong>
-          <span>Digital Marketing Manager</span>
-          <ul class="about-tags">
-            <li>Meta Ads</li><li>TikTok Ads</li><li>Snapchat Ads</li><li>Conversions API</li><li>Creative Strategy</li>
-          </ul>
-          <a class="ig-link" href="{{instagram}}" target="_blank" rel="noopener">{{> icon-ig}}<span dir="ltr">@ibrahim.media.iq</span></a>
-        </div>
-        <div class="about-copy">
-          <p class="kicker">About me</p>
-          <h2>Hi, I'm Ibrahim 👋</h2>
-          <div class="about-qa">
-            <div>
-              <h3>Who is Ibrahim?</h3>
-              <p>A digital marketing manager specialized in paid campaigns on Meta, Instagram, Facebook and TikTok. My daily work is turning ad budgets into real orders and sales for businesses in Iraq.</p>
-            </div>
-            <div>
-              <h3>What makes my approach different?</h3>
-              <p>I work with numbers, not gut feeling. Before spending a dollar I learn your business and customer, set up tracking properly, then test fast, scale what wins and cut what loses.</p>
-            </div>
-            <div>
-              <h3>Why do clients choose me?</h3>
-              <p>Because everything is clear from day one: how much we'll spend, what to expect, and what actually happened. And you deal with me personally, from the first message to the last report.</p>
-            </div>
-          </div>
+        <div class="svc-more">
+          <p class="svc-more-title">Specialized platforms &amp; services</p>
+          <div class="svc-chips">{{svc_links}}</div>
         </div>
       </div>
     </section>
 
-    <!-- Why work with me -->
-    <section class="why" id="why">
-      <div class="container">
-        <div class="why-head">
-          <p class="kicker">Why work with me?</p>
-          <h2>Not an agency. Not a middleman.<br><mark>You work with me directly.</mark></h2>
-        </div>
-        <ul class="why-grid">
-          <li><b>The ad account stays yours</b><span>I work through Business Manager access; you always own it.</span></li>
-          <li><b>Your data is yours</b><span>Audiences, pixel and results stay with you, even if we stop.</span></li>
-          <li><b>Clear reports</b><span>Plain numbers: what you spent, what came back, what's next.</span></li>
-          <li><b>Data-driven decisions</b><span>Every campaign change has a clear reason in the numbers.</span></li>
-          <li><b>Direct contact</b><span>WhatsApp me personally, no account manager, no waiting.</span></li>
-          <li><b>No long contracts</b><span>Month-to-month. Stop anytime with 15 days' notice.</span></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- 6. Process -->
+    <!-- 5. Process -->
     <section class="section" id="process">
       <div class="container">
         <header class="section-head">
-          <p class="kicker">Process</p>
-          <h2>4 steps from idea to results</h2>
+          <p class="eyebrow">How I work</p>
+          <h2>Five clear stages from idea to scale</h2>
         </header>
-        <ol class="steps">
-          <li><span class="step-n">01</span><h3>Analyze</h3><p>I learn your business, product, competitors and audience, and audit your current ad accounts.</p></li>
-          <li><span class="step-n">02</span><h3>Strategy</h3><p>I set goals, budget and messaging, and prepare tracking and creatives.</p></li>
-          <li><span class="step-n">03</span><h3>Launch & test</h3><p>I launch campaigns and quickly test audiences and ads to find the top performers.</p></li>
-          <li><span class="step-n">04</span><h3>Optimize & scale</h3><p>Cut the losers, scale the winners, and raise budget carefully while protecting ROAS.</p></li>
+        <ol class="timeline">
+          <li><span class="tl-num">01</span><h3>Analyze</h3><p>Understand the business, audience and goal.</p></li>
+          <li><span class="tl-num">02</span><h3>Strategy</h3><p>Define channels, audiences and messaging.</p></li>
+          <li><span class="tl-num">03</span><h3>Launch</h3><p>Launch campaigns in an organized way.</p></li>
+          <li><span class="tl-num">04</span><h3>Optimize</h3><p>Analyze data and test ads and audiences.</p></li>
+          <li><span class="tl-num">05</span><h3>Scale</h3><p>Grow results and expand winning campaigns.</p></li>
         </ol>
       </div>
     </section>
 
-    <!-- 7. Testimonials -->
-{{testimonials}}
+    <!-- 6. Case studies -->
+{{case_studies}}
 
-    <!-- 8. Pricing -->
-    <section class="section" id="pricing">
+    <!-- 7. Sectors -->
+    <section class="section section-alt" id="sectors">
       <div class="container">
         <header class="section-head">
-          <p class="kicker">Pricing</p>
-          <h2>Pick the plan that fits your stage</h2>
-          <p class="section-sub">Each plan shows exactly what you get for your money. Prices exclude the ad spend paid to the platforms.</p>
+          <p class="eyebrow">Sectors</p>
+          <h2>I work across different sectors</h2>
+          <p class="section-sub">Each sector has a different goal, so every campaign is built around how its customers decide and buy.</p>
+        </header>
+        <ul class="sectors">
+          <li><span class="sec-ic">{{> i-building}}</span><b>Real estate</b><span>Qualified leads and viewing bookings</span></li>
+          <li><span class="sec-ic">{{> i-utensils}}</span><b>Restaurants</b><span>Delivery orders and reservations</span></li>
+          <li><span class="sec-ic">{{> i-bag}}</span><b>E-commerce</b><span>Sales with a clear return on spend</span></li>
+          <li><span class="sec-ic">{{> i-briefcase}}</span><b>Services</b><span>Qualified inquiries and messages</span></li>
+          <li><span class="sec-ic">{{> i-cap}}</span><b>Education</b><span>Course and program enrollments</span></li>
+          <li><span class="sec-ic">{{> i-pulse}}</span><b>Clinics</b><span>Steady appointments and bookings</span></li>
+          <li><span class="sec-ic">{{> i-store}}</span><b>Local businesses</b><span>Customers from your area</span></li>
+          <li><span class="sec-ic">{{> i-rocket}}</span><b>Startups</b><span>Launch and grow on a measured budget</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8. Calculator -->
+    <section class="section" id="calculator">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Ad calculator</p>
+          <h2>Estimate the return on your ads</h2>
+          <p class="section-sub">Move the values to see return on ad spend (ROAS), revenue, customer acquisition cost and estimated profit.</p>
+        </header>
+        <div class="calc-shell">
+          <form class="calc-inputs" id="calc" novalidate>
+            <div class="calc-live" aria-hidden="true"><span>ROAS<b id="liveRoas">—</b></span><span>Est. profit<b id="liveProfit">—</b></span></div>
+            <div class="rf">
+              <div class="rf-top"><label for="c-budget">Monthly ad budget</label><span class="rf-num"><em>$</em><input id="c-budget" name="budget" type="number" inputmode="decimal" min="0" step="50" value="1000"></span></div>
+              <input class="rf-range" type="range" min="100" max="20000" step="50" value="1000" data-for="c-budget" aria-label="Monthly ad budget">
+            </div>
+            <div class="rf">
+              <div class="rf-top"><label for="c-price">Average product / service price</label><span class="rf-num"><em>$</em><input id="c-price" name="price" type="number" inputmode="decimal" min="0" step="1" value="35"></span></div>
+              <input class="rf-range" type="range" min="1" max="1000" step="1" value="35" data-for="c-price" aria-label="Average product or service price">
+            </div>
+            <div class="rf">
+              <div class="rf-top"><label for="c-customers">Expected customers per month</label><span class="rf-num"><input id="c-customers" name="customers" type="number" inputmode="numeric" min="0" step="1" value="120"></span></div>
+              <input class="rf-range" type="range" min="0" max="2000" step="1" value="120" data-for="c-customers" aria-label="Expected customers per month">
+            </div>
+            <div class="rf">
+              <div class="rf-top"><label for="c-margin">Profit margin</label><span class="rf-num"><input id="c-margin" name="margin" type="number" inputmode="decimal" min="0" max="100" step="1" value="40"><em>%</em></span></div>
+              <input class="rf-range" type="range" min="0" max="100" step="1" value="40" data-for="c-margin" aria-label="Profit margin">
+            </div>
+          </form>
+          <div class="calc-results" aria-live="polite">
+            <div class="res res-main"><small>Return on ad spend (ROAS)</small><strong id="outRoas">—</strong><span class="res-state" id="roasState"></span></div>
+            <div class="res"><small>Revenue</small><strong id="outRevenue">—</strong></div>
+            <div class="res"><small>Cost per customer (CAC)</small><strong id="outCac">—</strong></div>
+            <div class="res"><small>Estimated profit</small><strong id="outProfit">—</strong></div>
+            <p class="calc-hint" id="calcHint"></p>
+            <p class="calc-note">{{> i-shield}}These results are estimates, not a performance guarantee.</p>
+          </div>
+        </div>
+        <div class="calc-lead" id="calcLead">
+          <div class="calc-lead-copy">
+            <p class="calc-lead-title">Want to know how we could improve this number?</p>
+            <p class="calc-lead-sub">Get a free analysis of your campaigns. I'll send my notes on WhatsApp.</p>
+          </div>
+          <div class="calc-lead-row">
+            <input type="text" id="cl-name" placeholder="Your name" maxlength="80" autocomplete="name" aria-label="Your name">
+            <input type="tel" id="cl-phone" placeholder="WhatsApp number" maxlength="20" autocomplete="tel" inputmode="tel" dir="ltr" aria-label="WhatsApp number">
+            <button type="button" class="btn btn-primary" id="cl-send">Get a free analysis</button>
+          </div>
+          <p class="calc-lead-err" id="cl-err" role="alert"></p>
+          <p class="calc-lead-ok" id="cl-ok" hidden>✓ Request sent. If WhatsApp didn't open, <a id="cl-wa" href="#" target="_blank" rel="noopener">tap here</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Pricing -->
+    <section class="section section-alt" id="pricing">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Pricing</p>
+          <h2>Clear plans for every stage</h2>
+          <p class="section-sub">Pick the right starting point. Prices exclude the ad spend paid to the platforms.</p>
         </header>
         {{entry_offer}}
         <div class="plans">{{pricing}}
         </div>
-        <div class="cta-band"><p>Not sure which fits? Let's figure it out in 20 minutes.</p><a class="btn btn-accent" href="#contact">Book your free consultation</a></div>
+        <p class="price-note">{{> i-spark}}Final pricing is set after analyzing your business and advertising goal.</p>
       </div>
     </section>
 
-    <!-- 9. ROAS calculator (lead generator) -->
-    <section class="section section-alt" id="calculator">
-      <div class="container calc-grid">
-        <div>
-          <p class="kicker">Free tool</p>
-          <h2>Estimate your ad return</h2>
-          <p class="section-sub">Change the numbers to estimate orders, revenue and return on ad spend (ROAS).</p>
-          <p class="note">Estimates for planning only. Actual results vary by product, market and creative.</p>
-        </div>
-        <div class="calc-wrap">
-          <form class="calc" id="calc" novalidate>
-            <label>Monthly budget ($)<input type="number" name="budget" min="0" step="50" value="1000" inputmode="decimal"></label>
-            <label>Cost per order, CPA ($)<input type="number" name="cpa" min="0.1" step="0.5" value="8" inputmode="decimal"></label>
-            <label>Average order value ($)<input type="number" name="aov" min="0" step="1" value="35" inputmode="decimal"></label>
-            <label>Profit margin (%)<input type="number" name="margin" min="0" max="100" step="1" value="40" inputmode="decimal"></label>
-            <div class="calc-out" aria-live="polite">
-              <div><small>Expected orders</small><strong id="outOrders">—</strong></div>
-              <div><small>Revenue</small><strong id="outRevenue">—</strong></div>
-              <div><small>ROAS</small><strong id="outRoas">—</strong></div>
-              <div><small>Profit after ad spend</small><strong id="outProfit">—</strong></div>
-            </div>
-            <p class="calc-hint" id="calcHint"></p>
-          </form>
-          <div class="calc-lead" id="calcLead">
-            <p class="calc-lead-title">Want to know how we could improve this number?</p>
-            <p class="calc-lead-sub">Get a free analysis of your campaigns. I'll send my notes on WhatsApp.</p>
-            <div class="calc-lead-row">
-              <input type="text" id="cl-name" placeholder="Your name" maxlength="80" autocomplete="name" aria-label="Your name">
-              <input type="tel" id="cl-phone" placeholder="WhatsApp number" maxlength="20" autocomplete="tel" inputmode="tel" dir="ltr" aria-label="WhatsApp number">
-              <button type="button" class="btn btn-accent" id="cl-send">Get a free analysis</button>
-            </div>
-            <p class="calc-lead-err" id="cl-err" role="alert"></p>
-            <p class="calc-lead-ok" id="cl-ok" hidden>✓ Request sent. If WhatsApp didn't open, <a id="cl-wa" href="#" target="_blank" rel="noopener">tap here</a>.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- 10. Testimonials -->
+{{testimonials}}
 
-    <!-- FAQ -->
+    <!-- 11. FAQ -->
     <section class="section" id="faq">
-      <div class="container faq-wrap">
+      <div class="container faq-layout">
         <header class="section-head">
-          <p class="kicker">FAQ</p>
+          <p class="eyebrow">FAQ</p>
           <h2>Common questions before we start</h2>
+          <p class="section-sub">Didn't find your answer? Ask the assistant or message me directly.</p>
+          <a class="btn btn-secondary" href="https://wa.me/{{whatsapp}}" target="_blank" rel="noopener">{{> i-chat}}Ask me on WhatsApp</a>
         </header>
         <div class="faq">{{faq}}
         </div>
       </div>
     </section>
 
-    <!-- 10. Book a consultation -->
+    <!-- 12. Insights -->
+{{insights}}
+
+    <!-- 13. CTA -->
+    <section class="cta-final" id="cta">
+      <div class="container">
+        <div class="cta-box">
+          <h2>Ready to make your ads work smarter?</h2>
+          <p>Let's review your business and find the best growth opportunity.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary btn-lg" href="#contact">Book a consultation</a>
+            <a class="btn btn-secondary btn-lg" href="https://wa.me/{{whatsapp}}" target="_blank" rel="noopener">Contact me</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. Contact -->
     <section class="section contact" id="contact">
       <div class="container contact-grid">
         <div class="contact-copy">
-          <p class="kicker">Get started</p>
-          <h2>Book your free 20-minute consultation</h2>
-          <p>I'll review where you are and give you a clear 30-day plan, even if we don't end up working together.</p>
+          <p class="eyebrow">Contact</p>
+          <h2>Book your consultation</h2>
+          <p class="contact-lead">A free 20-minute consultation: I'll review where you are and give you a clear plan for your first 30 days, even if we don't end up working together.</p>
           <ul class="contact-points">
-            <li>Reply within 24 hours</li>
-            <li>No commitment</li>
-            <li>Free initial plan</li>
+            <li>{{> i-clock}}Reply within 24 hours</li>
+            <li>{{> i-shield}}No commitment</li>
+            <li>{{> i-doc}}Free initial plan</li>
           </ul>
-          <div class="direct">
-            <p class="direct-title">Or reach me directly</p>
-            <a class="direct-link" href="https://wa.me/{{whatsapp}}" target="_blank" rel="noopener">{{> icon-wa}}<span><small>WhatsApp</small><b dir="ltr">+964 771 109 4000</b></span></a>
-            <a class="direct-link" href="{{instagram}}" target="_blank" rel="noopener">{{> icon-ig}}<span><small>Instagram</small><b dir="ltr">@ibrahim.media.iq</b></span></a>
-          </div>
+          <div class="channels">{{channels}}</div>
         </div>
 
         <form class="form" id="leadForm" novalidate>
           <div class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <p class="form-title">Consultation request</p>
           <div class="field">
             <label for="f-name">Name</label>
             <input id="f-name" name="name" type="text" required maxlength="80" autocomplete="name">
@@ -263,7 +298,7 @@
             <div class="field">
               <label for="f-type">Business type</label>
               <select id="f-type" name="type">
-                <option>E-commerce store</option><option>Restaurant or café</option><option>Clinic or services</option><option>Clothing brand</option><option>Other</option>
+                <option>E-commerce store</option><option>Restaurant or café</option><option>Real estate</option><option>Clinic or services</option><option>Education</option><option>Clothing brand</option><option>Other</option>
               </select>
             </div>
             <div class="field">
@@ -282,14 +317,14 @@
           </div>
           <div class="field">
             <label for="f-msg">What's your goal with ads?</label>
-            <textarea id="f-msg" name="message" rows="3" maxlength="600" placeholder="e.g. Get more store orders from Instagram"></textarea>
+            <textarea id="f-msg" name="message" rows="3" maxlength="600" placeholder="e.g. More store orders from Instagram"></textarea>
           </div>
-          <button class="btn btn-accent btn-block" type="submit">Book my free consultation</button>
+          <button class="btn btn-primary btn-block" type="submit">Book my consultation</button>
           <p class="form-note">Your message will be prepared and opened in WhatsApp.</p>
           <div class="form-success" id="formSuccess" hidden>
             <strong>Your message is ready ✓</strong>
             <p>If WhatsApp didn't open automatically, tap the link:</p>
-            <a id="waLink" class="btn btn-outline btn-block" href="#" target="_blank" rel="noopener">Open WhatsApp</a>
+            <a id="waLink" class="btn btn-secondary btn-block" href="#" target="_blank" rel="noopener">Open WhatsApp</a>
           </div>
         </form>
       </div>

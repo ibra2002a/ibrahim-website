@@ -1,5 +1,6 @@
 /**
- * main.js — القائمة، الحاسبة، نموذج التواصل (واتساب + قاعدة البيانات)، الأنيميشن
+ * main.js — الهيدر، القائمة، الحاسبة، دراسات الحالة، فلتر المقالات،
+ * نموذج التواصل (واتساب + قاعدة البيانات)، وأنيميشن الظهور.
  * كل وحدة تتحقق من وجود عناصرها، فتشتغل بأي صفحة بأمان.
  * النصوص بالعربي والإنكليزي حسب <html lang>.
  */
@@ -14,23 +15,27 @@
   const STR = {
     ar: {
       nameErr: "اكتب اسمك من فضلك.", phoneErr: "اكتب رقم واتساب صحيح.",
-      msgTitle: "طلب استشارة جديد 👋", name: "الاسم", phone: "الرقم", type: "نوع المشروع",
+      msgTitle: "طلب استشارة جديد 👋", name: "الاسم", phone: "الرقم", type: "نوع النشاط",
       budget: "الميزانية", plan: "الباقة", goal: "الهدف", source: "المصدر",
+      breakEven: (x) => `نقطة التعادل: ROAS ${x}x`,
       noMargin: "أدخل هامش ربح أكبر من صفر حتى نحسب نقطة التعادل.",
-      profitable: (x) => `✓ حملتك رابحة. نقطة التعادل عندك ROAS ${x}x.`,
-      loss: (x) => `تحتاج ROAS لا يقل عن ${x}x حتى تغطي تكلفة الإعلان. خفض تكلفة الطلب هو المفتاح.`,
+      noCustomers: "أدخل عدد العملاء المتوقع حتى نحسب الإيرادات وتكلفة العميل.",
+      profitable: "الأرقام فوق نقطة التعادل: الإيراد يغطي الإعلان ويترك ربحًا تقديريًا.",
+      loss: "الأرقام تحت نقطة التعادل: ارفع معدل التحويل أو متوسط السعر، أو خفّض تكلفة العميل.",
       calcTitle: "طلب تحليل مجاني من الحاسبة 📊", calcPlan: "تحليل مجاني (الحاسبة)",
-      calcLine: (b, c, a, m, r) => `أرقامي: ميزانية $${b}، تكلفة الطلب $${c}، متوسط الطلب $${a}، هامش ${m}% ← ROAS ${r}`,
+      calcLine: (v) => `أرقامي: ميزانية $${v.budget}، متوسط السعر $${v.price}، العملاء المتوقعون ${v.customers}، هامش ${v.margin}% ← ROAS ${v.roas}، تكلفة العميل ${v.cac}`,
     },
     en: {
       nameErr: "Please enter your name.", phoneErr: "Please enter a valid WhatsApp number.",
       msgTitle: "New consultation request 👋", name: "Name", phone: "Phone", type: "Business type",
       budget: "Budget", plan: "Plan", goal: "Goal", source: "Source",
+      breakEven: (x) => `Break-even: ${x}x ROAS`,
       noMargin: "Enter a profit margin above zero to calculate break-even.",
-      profitable: (x) => `✓ Profitable. Your break-even ROAS is ${x}x.`,
-      loss: (x) => `You need at least ${x}x ROAS to cover ad spend. Lowering your CPA is the key.`,
+      noCustomers: "Enter the expected number of customers to calculate revenue and CAC.",
+      profitable: "Above break-even: revenue covers ad spend and leaves an estimated profit.",
+      loss: "Below break-even: lift conversion rate or average price, or lower the cost per customer.",
       calcTitle: "Free analysis request from the calculator 📊", calcPlan: "Free analysis (calculator)",
-      calcLine: (b, c, a, m, r) => `My numbers: budget $${b}, CPA $${c}, AOV $${a}, margin ${m}% → ROAS ${r}`,
+      calcLine: (v) => `My numbers: budget $${v.budget}, avg price $${v.price}, expected customers ${v.customers}, margin ${v.margin}% → ROAS ${v.roas}, CAC ${v.cac}`,
     },
   }[LANG];
 
@@ -40,6 +45,18 @@
   const waUrl = (text) =>
     "https://wa.me/" + encodeURIComponent(CFG.whatsappNumber) + "?text=" + encodeURIComponent(text);
 
+  /* ---------- الهيدر: خلفية عند التمرير ---------- */
+  function initHeader() {
+    const header = $(".site-header");
+    if (!header) return;
+    let ticking = false;
+    const update = () => { header.classList.toggle("is-scrolled", window.scrollY > 8); ticking = false; };
+    window.addEventListener("scroll", () => {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+
   /* ---------- القائمة على الموبايل ---------- */
   function initNav() {
     const toggle = $("#navToggle");
@@ -47,41 +64,69 @@
     if (!toggle || !nav) return;
     const setOpen = (open) => {
       nav.classList.toggle("open", open);
+      document.body.classList.toggle("nav-open", open);
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? toggle.dataset.labelClose : toggle.dataset.labelOpen);
     };
     toggle.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
     $$("a", nav).forEach((a) => a.addEventListener("click", () => setOpen(false)));
-    document.addEventListener("keydown", (e) => e.key === "Escape" && setOpen(false));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && nav.classList.contains("open")) { setOpen(false); toggle.focus(); } });
+    window.matchMedia("(min-width: 961px)").addEventListener("change", (mq) => { if (mq.matches) setOpen(false); });
   }
 
-  /* ---------- حاسبة العائد ---------- */
+  /* ---------- حاسبة الإعلانات ---------- */
   function initCalculator() {
     const form = $("#calc");
     if (!form) return;
-    const fmt = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
+    const money = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
+    const money2 = new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const cur = CFG.currency || "$";
     const num = (name) => {
       const v = parseFloat(form.elements[name].value);
       return Number.isFinite(v) && v >= 0 ? v : 0;
     };
+
+    // ربط شريط السحب بخانة الرقم (بالاتجاهين) + تلوين الجزء المملوء
+    const paint = (range) => {
+      const min = parseFloat(range.min) || 0, max = parseFloat(range.max) || 100;
+      const p = Math.min(100, Math.max(0, ((parseFloat(range.value) - min) / (max - min)) * 100));
+      range.style.setProperty("--p", p + "%");
+    };
+    $$(".rf-range", form).forEach((range) => {
+      const input = document.getElementById(range.dataset.for);
+      if (!input) return;
+      range.value = input.value;
+      paint(range);
+      range.addEventListener("input", () => { input.value = range.value; paint(range); });
+      input.addEventListener("input", () => { if (input.value !== "") { range.value = input.value; paint(range); } });
+    });
+
+    const out = {
+      roas: $("#outRoas"), state: $("#roasState"), revenue: $("#outRevenue"),
+      cac: $("#outCac"), profit: $("#outProfit"), hint: $("#calcHint"),
+      liveRoas: $("#liveRoas"), liveProfit: $("#liveProfit"), // ملخص ثابت أعلى الحاسبة على الموبايل
+    };
     const update = () => {
-      const budget = num("budget"), cpa = num("cpa"), aov = num("aov");
+      const budget = num("budget"), price = num("price"), customers = Math.floor(num("customers"));
       const margin = Math.min(num("margin"), 100) / 100;
-      const orders = cpa > 0 ? Math.floor(budget / cpa) : 0;
-      const revenue = orders * aov;
-      const roas = budget > 0 ? revenue / budget : 0;
-      const profit = revenue * margin - budget;
+      const revenue = price * customers;                   // الإيرادات = متوسط السعر × عدد العملاء
+      const roas = budget > 0 ? revenue / budget : 0;      // ROAS = الإيرادات ÷ الميزانية
+      const cac = customers > 0 ? budget / customers : 0;  // CAC = الميزانية ÷ عدد العملاء
+      const profit = revenue * margin - budget;            // الربح = (الإيرادات × الهامش) − الميزانية
       const breakEven = margin > 0 ? 1 / margin : Infinity;
 
-      $("#outOrders").textContent = fmt.format(orders);
-      $("#outRevenue").textContent = CFG.currency + fmt.format(revenue);
-      $("#outRoas").textContent = roas.toFixed(2) + "x";
-      $("#outProfit").textContent = (profit < 0 ? "-" : "") + CFG.currency + fmt.format(Math.abs(profit));
-      $("#outProfit").classList.toggle("neg", profit < 0);
+      out.roas.textContent = roas.toFixed(2) + "x";
+      out.revenue.textContent = cur + money.format(revenue);
+      out.cac.textContent = customers > 0 ? cur + money2.format(cac) : "—";
+      out.profit.textContent = (profit < 0 ? "-" : "") + cur + money.format(Math.abs(profit));
+      out.profit.classList.toggle("neg", profit < 0);
+      out.state.textContent = Number.isFinite(breakEven) ? STR.breakEven(breakEven.toFixed(2)) : "";
+      if (out.liveRoas) out.liveRoas.textContent = out.roas.textContent;
+      if (out.liveProfit) { out.liveProfit.textContent = out.profit.textContent; out.liveProfit.classList.toggle("neg", profit < 0); }
 
-      const hint = $("#calcHint");
-      if (!Number.isFinite(breakEven)) hint.textContent = STR.noMargin;
-      else hint.textContent = roas >= breakEven ? STR.profitable(breakEven.toFixed(2)) : STR.loss(breakEven.toFixed(2));
+      if (customers === 0) out.hint.textContent = STR.noCustomers;
+      else if (!Number.isFinite(breakEven)) out.hint.textContent = STR.noMargin;
+      else out.hint.textContent = roas >= breakEven ? STR.profitable : STR.loss;
     };
     let used = false;
     form.addEventListener("input", () => {
@@ -92,14 +137,47 @@
     update();
   }
 
+  /* ---------- دراسات الحالة: نافذة التفاصيل ---------- */
+  function initCaseDialogs() {
+    $$(".case-open[data-dialog]").forEach((btn) => {
+      const dlg = document.getElementById(btn.dataset.dialog);
+      if (!dlg) return;
+      btn.addEventListener("click", () => {
+        if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
+        document.body.classList.add("dialog-open");
+        track("ViewCaseStudy", { content_name: btn.dataset.dialog });
+      });
+    });
+    $$(".case-dialog").forEach((dlg) => {
+      const close = () => { if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open"); document.body.classList.remove("dialog-open"); };
+      dlg.addEventListener("close", () => document.body.classList.remove("dialog-open"));
+      $$("[data-close]", dlg).forEach((el) => el.addEventListener("click", close));
+      dlg.addEventListener("click", (e) => { if (e.target === dlg) close(); }); // الضغط على الخلفية
+    });
+  }
+
+  /* ---------- فلتر تصنيفات المقالات ---------- */
+  function initBlogFilter() {
+    const chips = $$(".cat-filter .chip");
+    const posts = $$("#posts .post-card");
+    if (!chips.length || !posts.length) return;
+    chips.forEach((chip) => chip.addEventListener("click", () => {
+      const cat = chip.dataset.cat || "";
+      chips.forEach((c) => { const on = c === chip; c.classList.toggle("is-active", on); c.setAttribute("aria-pressed", String(on)); });
+      posts.forEach((p) => { p.hidden = Boolean(cat) && p.dataset.cat !== cat; });
+    }));
+  }
+
   /* ---------- اختيار الباقة يعبّي النموذج ---------- */
   function initPlanLinks() {
     const select = $("#f-plan");
     if (!select) return;
     $$("[data-plan]").forEach((btn) =>
       btn.addEventListener("click", () => {
-        select.value = btn.dataset.plan;
-        track("SelectPlan", { content_name: btn.dataset.plan });
+        const want = btn.dataset.plan;
+        const opt = Array.from(select.options).find((o) => o.value === want || o.textContent.trim() === want);
+        if (opt) select.value = opt.value;
+        track("SelectPlan", { content_name: want });
       })
     );
   }
@@ -146,7 +224,11 @@
       e.preventDefault();
       form.dataset.touched = "1";
       if (form.elements.website.value) return; // honeypot: بوت
-      if (!validate()) return;
+      if (!validate()) {
+        const bad = $(".field.invalid input", form);
+        if (bad) bad.focus();
+        return;
+      }
 
       const el = form.elements;
       const attr = (window.Track && window.Track.attribution()) || {};
@@ -169,9 +251,9 @@
         STR.msgTitle,
         `${STR.name}: ${lead.name}`,
         `${STR.phone}: ${lead.phone}`,
-        `${STR.type}: ${lead.business_type}`,
-        `${STR.budget}: ${lead.budget}`,
-        `${STR.plan}: ${lead.plan}`,
+        lead.business_type ? `${STR.type}: ${lead.business_type}` : "",
+        lead.budget ? `${STR.budget}: ${lead.budget}` : "",
+        lead.plan ? `${STR.plan}: ${lead.plan}` : "",
         lead.message ? `${STR.goal}: ${lead.message}` : "",
         attr.utm_source ? `${STR.source}: ${[attr.utm_source, attr.utm_campaign].filter(Boolean).join(" / ")}` : "",
       ].filter(Boolean).join("\n");
@@ -187,7 +269,7 @@
     );
   }
 
-  /* ---------- الحاسبة ← طلب تحليل مجاني (Lead generator) ---------- */
+  /* ---------- الحاسبة ← طلب تحليل مجاني ---------- */
   function initCalcLead() {
     const box = $("#calcLead"), calc = $("#calc");
     if (!box || !calc) return;
@@ -198,8 +280,11 @@
       err.textContent = "";
       if (name.length < 2) { err.textContent = STR.nameErr; return $("#cl-name").focus(); }
       if (!/^\+?\d{8,15}$/.test(phone.replace(/[^\d+]/g, ""))) { err.textContent = STR.phoneErr; return $("#cl-phone").focus(); }
-      const v = (n) => calc.elements[n].value;
-      const line = STR.calcLine(v("budget"), v("cpa"), v("aov"), v("margin"), $("#outRoas").textContent);
+      const v = (n) => calc.elements[n].value || "0";
+      const line = STR.calcLine({
+        budget: v("budget"), price: v("price"), customers: v("customers"), margin: v("margin"),
+        roas: $("#outRoas").textContent, cac: $("#outCac").textContent,
+      });
       const attr = (window.Track && window.Track.attribution()) || {};
       saveLead({ name, phone, business_type: null, budget: "$" + v("budget"), plan: STR.calcPlan, message: line, lang: LANG,
         source: attr.utm_source || "calculator", campaign: attr.utm_campaign || null, attribution: Object.keys(attr).length ? attr : null });
@@ -215,34 +300,45 @@
   function initMobileCta() {
     const bar = $("#mobileCta");
     if (!bar || !("IntersectionObserver" in window)) return;
-    const targets = [$("#contact"), $(".hero-actions")].filter(Boolean);
+    const targets = [$("#contact"), $(".hero-actions"), $(".cta-box")].filter(Boolean);
     const visible = new Set();
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)));
-      bar.classList.toggle("hide", visible.size > 0); // نخفيه إذا زر الحجز أو النموذج ظاهر أصلًا
+      bar.classList.toggle("hide", visible.size > 0); // نخفيه إذا أزرار الحجز ظاهرة أصلًا
     }, { threshold: 0.15 });
     targets.forEach((t) => io.observe(t));
   }
 
-  /* ---------- زر الواتساب العائم ---------- */
-  function initWhatsAppFloat() {
-    const btn = $("#waFloat");
-    if (!btn || !CFG.whatsappNumber) return;
-    btn.href = waUrl(LANG === "en" ? CFG.whatsappGreetingEn || CFG.whatsappGreeting : CFG.whatsappGreeting);
-    btn.target = "_blank";
-    btn.rel = "noopener";
+  /* ---------- روابط الواتساب العامة: رسالة ترحيب جاهزة ---------- */
+  function initWhatsAppLinks() {
+    if (!CFG.whatsappNumber) return;
+    const greet = LANG === "en" ? CFG.whatsappGreetingEn || CFG.whatsappGreeting : CFG.whatsappGreeting;
+    if (!greet) return;
+    $$('#waFloat, .mobile-cta a[href*="wa.me/"]').forEach((a) => { a.href = waUrl(greet); });
   }
 
   /* ---------- أنيميشن الظهور عند التمرير ---------- */
   function initReveal() {
     if (!("IntersectionObserver" in window)) return;
-    const els = $$(".section-head, .about-card, .about-qa > div, .why-grid li, .stat, .testi, .card, .steps li, .case, .plan, .faq details, .calc, .form, .post-card");
-    els.forEach((el) => el.classList.add("reveal"));
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const sel = [
+      ".section-head", ".stats", ".about-media", ".about-body", ".why-grid li", ".svc-card", ".svc-more",
+      ".timeline li", ".case", ".sectors li", ".calc-inputs", ".calc-results", ".calc-lead", ".offer", ".plan",
+      ".testi", ".faq details", ".post-card", ".cta-box", ".contact-copy", ".form",
+      ".svc-tile", ".svc-benefits li", ".svc-fit li", ".svc-steps li", ".post-cta",
+    ].join(",");
+    const els = $$(sel).filter((el) => !el.closest(".hero, .case-dialog, .ai-panel"));
+    els.forEach((el) => {
+      const sibs = el.parentElement ? Array.from(el.parentElement.children).filter((c) => c.matches(sel)) : [];
+      const i = sibs.indexOf(el) % 4;
+      el.classList.add("reveal");
+      if (i > 0) el.classList.add("d" + i);
+    });
     const io = new IntersectionObserver(
       (entries) => entries.forEach((en) => {
         if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
       }),
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -30px 0px" }
     );
     els.forEach((el) => io.observe(el));
   }
@@ -250,11 +346,14 @@
   document.addEventListener("DOMContentLoaded", () => {
     const y = $("#year");
     if (y) y.textContent = new Date().getFullYear();
+    initHeader();
     initNav();
     initCalculator();
+    initCaseDialogs();
+    initBlogFilter();
     initPlanLinks();
     initLeadForm();
-    initWhatsAppFloat();
+    initWhatsAppLinks();
     initCalcLead();
     initMobileCta();
     initReveal();

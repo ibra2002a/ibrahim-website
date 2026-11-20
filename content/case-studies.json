@@ -1,107 +1,112 @@
 [
   {
-    "draft": true,
+    "placeholder": true,
     "platforms": [
       "Meta",
       "Instagram"
     ],
     "ar": {
-      "client": "متجر ملابس أونلاين",
-      "industry": "تجارة إلكترونية",
-      "period": "60 يوم",
-      "challenge": "مثال: إعلانات تجيب تفاعل عالي بس الطلبات قليلة، وتكلفة الطلب أعلى من هامش الربح.",
-      "solution": "مثال: إعداد Conversions API، إعادة هيكلة الحملات على هدف المبيعات، واختبار 12 كريتيف بأسلوب UGC.",
+      "client": "اسم المشروع",
+      "industry": "نوع النشاط",
+      "goal": "هدف الحملة",
+      "budget": "$X / شهريًا",
+      "period": "X أسابيع",
+      "result": "ملخّص النتيجة الحقيقية بجملة واحدة.",
       "results": [
         {
-          "value": "3.1x",
+          "value": "X.Xx",
           "label": "ROAS"
         },
         {
-          "value": "-41%",
-          "label": "تكلفة الطلب"
+          "value": "$X",
+          "label": "CPL / CPA"
         },
         {
-          "value": "+180%",
-          "label": "الطلبات الشهرية"
+          "value": "XXX",
+          "label": "التحويلات"
         }
       ],
-      "goal": "مثال: زيادة الطلبات من Instagram بتكلفة أقل",
-      "budget": "$1,500 / شهر"
+      "challenge": "وصف التحدي قبل بدء الحملة.",
+      "solution": "الاستراتيجية: المنصات، الجمهور، الإعلانات، والتتبع."
     },
     "en": {
-      "client": "Online clothing store",
-      "industry": "E-commerce",
-      "period": "60 days",
-      "challenge": "Example: ads got lots of engagement but few orders, and cost per order exceeded the profit margin.",
-      "solution": "Example: set up Conversions API, restructured campaigns around the sales objective, and tested 12 UGC-style creatives.",
+      "client": "Project name",
+      "industry": "Business type",
+      "goal": "Campaign goal",
+      "budget": "$X / month",
+      "period": "X weeks",
+      "result": "A one-line summary of the real result.",
       "results": [
         {
-          "value": "3.1x",
+          "value": "X.Xx",
           "label": "ROAS"
         },
         {
-          "value": "-41%",
-          "label": "Cost per order"
+          "value": "$X",
+          "label": "CPL / CPA"
         },
         {
-          "value": "+180%",
-          "label": "Monthly orders"
+          "value": "XXX",
+          "label": "Conversions"
         }
       ],
-      "goal": "Example: more Instagram orders at a lower cost",
-      "budget": "$1,500 / month"
+      "challenge": "The challenge before the campaign.",
+      "solution": "The strategy: platforms, audience, creative and tracking."
     }
   },
   {
-    "draft": true,
+    "placeholder": true,
     "platforms": [
-      "TikTok"
+      "TikTok",
+      "Snapchat"
     ],
     "ar": {
-      "client": "مطعم وجبات سريعة",
-      "industry": "مطاعم",
-      "period": "30 يوم",
-      "challenge": "مثال: الاعتماد الكامل على الزبائن المتكررين، وصعوبة الوصول لجمهور جديد بالمنطقة.",
-      "solution": "مثال: حملات TikTok محلية بفيديوهات قصيرة من المطبخ، مع عرض خاص يتتبع عبر رسائل الواتساب.",
+      "client": "اسم المشروع",
+      "industry": "نوع النشاط",
+      "goal": "هدف الحملة",
+      "budget": "$X / شهريًا",
+      "period": "X أسابيع",
+      "result": "ملخّص النتيجة الحقيقية بجملة واحدة.",
       "results": [
         {
-          "value": "+2,400",
-          "label": "محادثة واتساب"
+          "value": "X.Xx",
+          "label": "ROAS"
         },
         {
-          "value": "$0.42",
-          "label": "تكلفة المحادثة"
+          "value": "$X",
+          "label": "CPL / CPA"
         },
         {
-          "value": "+35%",
-          "label": "طلبات التوصيل"
+          "value": "XXX",
+          "label": "التحويلات"
         }
       ],
-      "goal": "مثال: جلب زبائن جدد من المنطقة عبر الواتساب",
-      "budget": "$600 / شهر"
+      "challenge": "وصف التحدي قبل بدء الحملة.",
+      "solution": "الاستراتيجية: المنصات، الجمهور، الإعلانات، والتتبع."
     },
     "en": {
-      "client": "Fast-food restaurant",
-      "industry": "Restaurants",
-      "period": "30 days",
-      "challenge": "Example: fully reliant on repeat customers and struggling to reach new people nearby.",
-      "solution": "Example: local TikTok campaigns with short kitchen videos, plus an offer tracked through WhatsApp messages.",
+      "client": "Project name",
+      "industry": "Business type",
+      "goal": "Campaign goal",
+      "budget": "$X / month",
+      "period": "X weeks",
+      "result": "A one-line summary of the real result.",
       "results": [
         {
-          "value": "+2,400",
-          "label": "WhatsApp chats"
+          "value": "X.Xx",
+          "label": "ROAS"
         },
         {
-          "value": "$0.42",
-          "label": "Cost per chat"
+          "value": "$X",
+          "label": "CPL / CPA"
         },
         {
-          "value": "+35%",
-          "label": "Delivery orders"
+          "value": "XXX",
+          "label": "Conversions"
         }
       ],
-      "goal": "Example: bring new local customers via WhatsApp",
-      "budget": "$600 / month"
+      "challenge": "The challenge before the campaign.",
+      "solution": "The strategy: platforms, audience, creative and tracking."
     }
   }
 ]

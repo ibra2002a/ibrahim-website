@@ -1,6 +1,26 @@
 [
-  { "draft": true, "value": "$—", "ar": "إنفاق إعلاني أدرته", "en": "Ad spend managed" },
-  { "draft": true, "value": "$—", "ar": "مبيعات حققتها للعملاء", "en": "Sales generated for clients" },
-  { "draft": true, "value": "—x", "ar": "متوسط ROAS", "en": "Average ROAS" },
-  { "draft": true, "value": "—", "ar": "عميل محتمل (Leads)", "en": "Leads generated" }
+  {
+    "placeholder": true,
+    "value": "+XX",
+    "ar": "حملة إعلانية",
+    "en": "Ad campaigns"
+  },
+  {
+    "placeholder": true,
+    "value": "+XX",
+    "ar": "عميل / مشروع",
+    "en": "Clients / projects"
+  },
+  {
+    "placeholder": true,
+    "value": "XX%",
+    "ar": "تحسن في الأداء",
+    "en": "Performance improvement"
+  },
+  {
+    "placeholder": true,
+    "value": "X.Xx",
+    "ar": "متوسط ROAS",
+    "en": "Average ROAS"
+  }
 ]

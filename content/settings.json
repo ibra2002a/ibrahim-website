@@ -27,5 +27,12 @@
     "googleVerification": "",
     "bingVerification": ""
   },
-  "aiEndpoint": ""
+  "aiEndpoint": "",
+  "showPlaceholders": true,
+  "social": {
+    "facebook": "",
+    "tiktok": "",
+    "linkedin": "",
+    "email": ""
+  }
 }

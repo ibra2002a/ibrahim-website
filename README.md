@@ -1,156 +1,131 @@
-# إبراهيم المهاوش — الموقع الشخصي (v2)
+# إبراهيم مهاوش — الموقع الشخصي (Dark Premium)
 
-## 💬 المساعد الذكي
+موقع شخصي عربي/إنكليزي لمسوّق رقمي متخصص بالإعلانات وPerformance Marketing:
+واجهة داكنة بلون مميز واحد (`#C8F23C`)، RTL كامل، Mobile first، مدونة، دراسات حالة، حاسبة إعلانات، مساعد محادثة، ولوحة تحكم.
+بدون أي مكتبات أو `npm install`: يحتاج بس **Node.js 18+**.
 
-زر "اسأل المساعد" بكل الصفحات: يعرّف بالخدمات، يختار الباقة المناسبة بثلاث أسئلة، يجاوب من الأسئلة الشائعة، ويحوّل للحجز أو الواتساب.
-يشتغل مجانًا بوضع موجّه، ويتحول لذكاء اصطناعي حقيقي بعد تركيب الـ Worker — الشرح في [`ai-worker/README.md`](ai-worker/README.md).
+## التشغيل محليًا
+
+```bash
+node build.mjs                          # بناء الإنتاج → dist/ (مضغوط)
+node build.mjs --no-minify              # بناء بدون ضغط (أسهل للقراءة)
+node build.mjs --drafts                 # يُظهر المسودات للمراجعة
+node build.mjs --preview                # روابط index.html للفتح بدون سيرفر
+python3 -m http.server -d dist 8000     # معاينة على http://localhost:8000
+```
+
+## النشر (GitHub Pages — تلقائي)
+
+1. أي تعديل يوصل لفرع **`website-v2`** (من الكود أو من لوحة التحكم) يشغّل `.github/workflows/deploy.yml`.
+2. الـ workflow يبني الموقع وينشر `dist/` على فرع **`gh-pages`** خلال دقيقتين تقريبًا.
+3. بإعدادات المستودع: **Settings ← Pages ← Source: Deploy from a branch ← `gh-pages` / root**.
+4. الرابط الحالي: `https://ibra2002a.github.io/ibrahim-website/`.
+
+**الدومين الخاص (ibrahimiq.tech):**
+- **على GitHub Pages:** Settings ← Pages ← Custom domain ← اكتب الدومين، وبـ Namecheap ← Advanced DNS أضف سجلات `A` لـ `@` تشير إلى `185.199.108.153` و`185.199.109.153` و`185.199.110.153` و`185.199.111.153`، و`CNAME` لـ `www` يشير إلى `ibra2002a.github.io`. بعدها فعّل **Enforce HTTPS**.
+- **أو على استضافة Namecheap:** أضف أسرار المستودع `FTP_SERVER` و`FTP_USERNAME` و`FTP_PASSWORD` (Settings ← Secrets and variables ← Actions)، والـ workflow يرفع الموقع لـ `public_html` تلقائيًا بعد كل تعديل.
+- بالحالتين: خلّي "رابط الموقع" بلوحة التحكم ← الإعدادات = الدومين الفعلي (يُستخدم بالـ canonical وsitemap وOpen Graph).
 
 ## 🎛 لوحة التحكم
 
-افتح **`/admin/`** على موقعك ← سجّل دخول برمز GitHub (الخطوات داخل صفحة الدخول).
-من اللوحة تعدّل بدون كود: **صفحات الخدمات، النتائج والأرقام، دراسات الحالة، آراء العملاء (مع رفع صورة)، الباقات والأسعار، المقالات، الأسئلة الشائعة، الإعدادات** (واتساب، Pixels، Supabase)، وتتابع **الطلبات**.
-كل حفظ ← يتسجل بالمستودع ← GitHub Actions يبني وينشر تلقائيًا خلال دقيقتين (`.github/workflows/deploy.yml`).
+افتح **`/admin/`** ← سجّل دخول برمز GitHub (الخطوات داخل صفحة الدخول). من اللوحة تعدّل بدون كود:
+الأرقام، دراسات الحالة، آراء العملاء، الباقات (لمن تناسب، الخدمات، عدد الحملات، التقارير، التحسين، الدعم)، المقالات (مع التصنيف)، الأسئلة الشائعة، صفحات الخدمات، والإعدادات (واتساب، إنستغرام، فيسبوك، تيك توك، لينكدإن، البريد، Pixels، Supabase، المساعد).
+كل حفظ ← يتسجل بالمستودع ← GitHub Actions يبني وينشر تلقائيًا.
 
+## الأماكن المؤقتة (Placeholders) — لا أرقام مخترعة
 
-موقع تسويقي عربي/إنكليزي لخدمات إدارة حملات Meta وTikTok، مع مدونة، دراسات حالة، تتبع إعلاني، ولوحة تحكم لإدارة الطلبات.
-بدون أي مكتبات أو `npm install`: يحتاج بس **Node.js 18+**.
+الموقع ما يعرض أي رقم أو عميل أو رأي غير حقيقي. لحد ما تضيف بياناتك، تظهر أماكن مؤقتة واضحة:
+
+| العنصر | الملف | كيف تبدله |
+|---|---|---|
+| الأرقام (+XX حملة، X.Xx ROAS…) | `content/stats.json` | اكتب الرقم الحقيقي وطفي "مكان مؤقت" |
+| دراسات الحالة | `content/case-studies.json` | عدّل البيانات وطفي "مكان مؤقت" |
+| آراء العملاء | `content/testimonials.json` | أضف رأي حقيقي واحذف المثال |
+
+- `"placeholder": true` ← يظهر بشارة "مكان مخصص…" إذا كان `showPlaceholders` مفعّل بالإعدادات.
+- `"draft": true` ← مخفي تمامًا (يظهر فقط مع `--drafts`).
+- لإخفاء كل الأماكن المؤقتة مرة وحدة: لوحة التحكم ← الإعدادات ← طفي "إظهار الأماكن المؤقتة".
+- المساعد الذكي ما يتعلم من الأماكن المؤقتة ولا من المسودات.
 
 ## هيكل المشروع
 
 ```
-site/
-├── build.mjs               ← مولّد الموقع (يقرأ src + content ← يطلّع dist)
+├── build.mjs               ← مولّد الموقع (src + content → dist)
 ├── src/
-│   ├── layouts/base.html   ← القالب العام (head, SEO, hreflang)
-│   ├── partials/           ← header.html, footer.html (مشتركة لكل الصفحات)
+│   ├── layouts/base.html   ← القالب العام (SEO, OG, Schema, الأزرار العائمة, المساعد)
+│   ├── partials/           ← header, footer, وأيقونات i-*.html (SVG خطية)
 │   ├── pages/              ← home.ar.html, home.en.html, 404
 │   └── i18n/               ← ar.json, en.json (نصوص الواجهة)
-├── content/
-│   ├── blog/ar/*.md        ← مقالات عربي
-│   ├── blog/en/*.md        ← مقالات إنكليزي
-│   ├── case-studies.json   ← دراسات الحالة
-│   ├── pricing.json        ← الباقات والأسعار
-│   ├── faq.json            ← الأسئلة الشائعة
+├── content/                ← كل المحتوى القابل للتعديل من اللوحة
+│   ├── blog/ar|en/*.md     ← المقالات ("أفكار من السوق")
+│   ├── stats.json  case-studies.json  testimonials.json
+│   ├── pricing.json  faq.json  services.json
 │   └── settings.json       ← الإعدادات (يولّد assets/js/config.js)
 ├── public/                 ← يُنسخ كما هو
-│   ├── assets/css          ← main.css, admin.css
-│   ├── assets/js           ← main.js, tracking.js, admin.js
-│   ├── assets/img
-│   ├── admin/              ← لوحة التحكم
-│   └── _headers            ← هيدرز الأمان
-├── supabase/schema.sql     ← قاعدة البيانات + الحماية
-└── dist/                   ← الناتج النهائي (هذا اللي ينرفع)
+│   ├── assets/css          ← main.css (نظام التصميم), admin.css
+│   ├── assets/js           ← main.js, assistant.js, tracking.js, admin.js
+│   ├── assets/fonts        ← Readex Pro (مستضاف محليًا، رخصة OFL)
+│   ├── assets/img          ← الصور (AVIF/WebP/JPG) والأيقونات وصورة المشاركة
+│   └── admin/              ← لوحة التحكم
+├── ai-worker/              ← المساعد بالذكاء الاصطناعي (اختياري)
+├── supabase/schema.sql     ← قاعدة بيانات الطلبات + الحماية
+└── dist/                   ← الناتج النهائي
 ```
 
-## الأوامر
+## نظام التصميم
 
-```bash
-node build.mjs              # بناء الإنتاج → dist/
-node build.mjs --drafts     # يُظهر المسودات (للمراجعة)
-node build.mjs --preview    # روابط index.html للفتح بدون سيرفر
-python3 -m http.server -d dist 8000   # معاينة على http://localhost:8000
-```
+- كل الألوان والمسافات متغيرات بأول `main.css` (`:root`). لتغيير الهوية عدّل المتغيرات فقط.
+- لون مميز واحد: `--accent: #C8F23C` على خلفية `--bg: #0A0B0E`.
+- الخط: Readex Pro (عربي + لاتيني) مستضاف داخل الموقع، بدون طلبات لـ Google Fonts.
+- الحركة: ظهور ناعم عند التمرير وhover فقط، بدون حركة مستمرة، وتتوقف مع `prefers-reduced-motion`.
 
-## النشر على Netlify
-
-**الطريقة الأفضل (تحديث تلقائي):** ارفع المجلد على GitHub ← في Netlify اختار Import from Git. الإعدادات جاهزة بـ `netlify.toml` (يشغّل `node build.mjs` وينشر `dist`). كل ما تعدّل وترفع، الموقع يتحدث وحده.
-
-**الطريقة السريعة:** شغّل `node build.mjs` واسحب مجلد `dist` إلى app.netlify.com/drop.
-
-بعد ما تاخذ الدومين: غيّر "رابط الموقع" من لوحة التحكم ← الإعدادات.
-
----
-
-## 1) لوحة تحكم الطلبات (Supabase — مجاني)
-
-1. سوّي حساب على supabase.com ← **New project**.
-2. **SQL Editor** ← New query ← الصق محتوى `supabase/schema.sql` ← **Run**.
-3. **Authentication ← Users ← Add user**: سوّي حسابك (إيميل + كلمة مرور).
-4. ارجع لـ SQL Editor وشغّل (بإيميلك):
-   ```sql
-   insert into public.admins (user_id) select id from auth.users where email = 'you@example.com';
-   ```
-5. **Authentication ← Sign In / Providers**: طفّي **Allow new users to sign up** (حتى محد غيرك يسوي حساب).
-6. **Project Settings ← API**: انسخ `Project URL` و`anon public key` وحطهم في **لوحة التحكم ← الإعدادات** ← حفظ ونشر.
-7. بعد دقيقتين افتح **الطلبات** باللوحة وسجّل بحساب Supabase.
-
-**ليش آمن؟** المفتاح `anon` عام بطبيعته. الحماية بقاعدة البيانات (Row Level Security): الزائر يكدر **يضيف** طلب بس، وما يكدر يقرأ أو يعدّل أي شي. القراءة والتعديل فقط للحسابات الموجودة بجدول `admins`.
-
-**مزايا اللوحة:** إحصائيات (الإجمالي، الجديد، آخر 7 أيام، نسبة الإغلاق)، توزيع حسب المصدر ومرحلة البيع، فلترة وبحث، تغيير حالة العميل (جديد ← تم التواصل ← مؤهل ← تم البيع / خسارة)، ملاحظات، زر واتساب مباشر برسالة جاهزة، وتصدير CSV.
-
-قبل الربط، اللوحة تشتغل **بوضع تجريبي** ببيانات وهمية واضحة حتى تشوف شكلها.
-
-## 2) دراسات الحالة
-
-عدّل `content/case-studies.json`. كل دراسة فيها نسخة `ar` و`en`:
-
-```json
-{
-  "draft": false,
-  "platforms": ["Meta", "Instagram"],
-  "ar": { "client": "...", "industry": "...", "period": "60 يوم",
-          "challenge": "...", "solution": "...",
-          "results": [{ "value": "3.1x", "label": "ROAS" }] },
-  "en": { ... }
-}
-```
-
-- `"draft": true` ← تظهر فقط بالمعاينة (`--drafts`) بعلامة "مثال توضيحي"، وما تنشر.
-- الأمثلة الموجودة حاليًا كلها `draft` — بدّلها بنتائجك الحقيقية وخلّي `draft: false`.
-- إذا ماكو أي دراسة منشورة، القسم يختفي من الموقع تلقائيًا.
-
-## 3) المدونة
-
-سوّي ملف `.md` جديد في `content/blog/ar/` أو `content/blog/en/`:
+## المدونة
 
 ```markdown
 ---
 title: عنوان المقال
 description: وصف قصير يظهر بنتائج Google (150 حرف تقريبًا)
-date: 2026-11-15
-translation: slug-of-english-version   # اختياري: يربط النسختين
+date: 2026-11-20
+category: Meta Ads            # يظهر بالبطاقة وبفلتر التصنيفات
+translation: english-slug     # اختياري: يربط النسختين
 draft: false
 ---
-
-## عنوان فرعي
-
-نص عادي، **عريض**، [رابط](/#contact)، قوائم بـ - أو 1.
-
-> اقتباس أو معادلة مهمة
 ```
 
-اسم الملف = رابط المقال (`content/blog/ar/my-post.md` ← `/blog/my-post/`). الروابط اللي تبدأ بـ `/` تتحول تلقائيًا لروابط صحيحة.
-كل مقال ياخذ تلقائيًا: صفحة خاصة، Schema (BlogPosting)، وقت القراءة، زر حجز استشارة، ويندرج بـ sitemap.
+اسم الملف = رابط المقال. الروابط اللي تبدأ بـ `/` تتحول تلقائيًا لروابط صحيحة. آخر 3 مقالات تظهر بالرئيسية.
 
-## 4) اللغات
+## الحاسبة
 
-- العربي على `/` والإنكليزي على `/en/`، مع `hreflang` وزر تبديل اللغة.
-- نصوص الهيدر والفوتر والمدونة: `src/i18n/*.json`.
-- محتوى الصفحة الرئيسية: `src/pages/home.ar.html` و`home.en.html`.
-- رسائل النموذج والحاسبة بالـ JS تتبدل حسب اللغة تلقائيًا.
+المدخلات: الميزانية، متوسط السعر، عدد العملاء المتوقع، هامش الربح.
+- الإيرادات = متوسط السعر × عدد العملاء
+- ROAS = الإيرادات ÷ الميزانية
+- تكلفة العميل (CAC) = الميزانية ÷ عدد العملاء
+- الربح التقديري = (الإيرادات × هامش الربح) − الميزانية، ونقطة التعادل = 1 ÷ الهامش
 
-## 5) التتبع (Pixels + UTM)
+## قاعدة بيانات الطلبات (Supabase — اختياري ومجاني)
 
-ضع الـ IDs من **لوحة التحكم ← الإعدادات** (أو `content/settings.json`):
+1. supabase.com ← New project ← SQL Editor ← الصق `supabase/schema.sql` ← Run.
+2. Authentication ← Users ← Add user، ثم: `insert into public.admins (user_id) select id from auth.users where email = 'you@example.com';`
+3. طفّي **Allow new users to sign up**.
+4. انسخ `Project URL` و`anon public key` إلى لوحة التحكم ← الإعدادات. **لا تستخدم `service_role` أبدًا.**
 
-| الحدث بالموقع | Meta | TikTok | GA4 |
+بدون Supabase: النموذج يشتغل ويفتح الواتساب برسالة جاهزة.
+
+## التتبع (Pixels + UTM)
+
+| الحدث | Meta | TikTok | GA4 |
 |---|---|---|---|
 | إرسال نموذج الاستشارة | `Lead` | `SubmitForm` | `generate_lead` |
-| ضغط أي رابط واتساب | `Contact` | `Contact` | `contact` |
+| ضغط رابط واتساب | `Contact` | `Contact` | `contact` |
 | اختيار باقة | `SelectPlan` | `ClickButton` | `select_item` |
 | استخدام الحاسبة | `UseCalculator` | `ClickButton` | `use_calculator` |
+| فتح دراسة حالة | `ViewCaseStudy` | `ViewContent` | `view_case_study` |
 
-**مصدر العميل:** روابط فيها UTM (مثل `?utm_source=instagram&utm_campaign=nov-offer`) يُحفظ مصدرها ويظهر برسالة الواتساب، ويتسجل بقاعدة البيانات، وتشوفه باللوحة.
-بإعلانات Meta حط بـ URL parameters:
-`utm_source={{site_source_name}}&utm_campaign={{campaign.name}}&utm_content={{ad.name}}`
+بإعلانات Meta حط بـ URL parameters: `utm_source={{site_source_name}}&utm_campaign={{campaign.name}}&utm_content={{ad.name}}`
 
-## الأمان
+## الأمان والأداء
 
-- CSP صارمة بدون سكربتات inline، HSTS، منع iframe، nosniff (`public/_headers`).
-- RLS بقاعدة البيانات + قيود طول على كل الحقول + honeypot ضد البوتات.
-- `/admin/` مستثنى من محركات البحث (robots + X-Robots-Tag) وبدون كاش.
-
-## الأداء وSEO
-
-- HTML ثابت جاهز (بدون framework)، CSS وJS خفيفين، صور WebP بأحجام متعددة، خط واحد.
-- Canonical، hreflang، Open Graph، Schema (Person, Blog, BlogPosting)، sitemap مع اللغات.
+- CSP صارمة بدون سكربتات أو ستايلات inline، HSTS، nosniff، منع iframe (`public/_headers` و`.htaccess`).
+- RLS بقاعدة البيانات + honeypot ضد البوتات + قيود طول على الحقول.
+- HTML ثابت مضغوط، CSS وJS بدون مكتبات، صور AVIF/WebP، تحميل كسول للصور، خط محلي مع preload.
+- Canonical، hreflang، Open Graph (1200×630)، Schema (Person, WebSite, Service, FAQPage, BreadcrumbList, Blog, BlogPosting)، sitemap باللغتين.

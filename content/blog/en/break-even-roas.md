@@ -3,6 +3,7 @@ title: Is your ad actually profitable? A guide to break-even ROAS
 description: A high ROAS doesn't always mean profit. Learn to calculate your break-even point with one formula, and how much you can pay per order without losing money.
 date: 2026-11-10
 translation: break-even-roas
+category: Growing Sales
 ---
 
 The question I hear most from business owners: **"My ROAS is 2x, is that good?"** The honest answer: it depends on your profit margin. The same number can be great for one business and a loss for another.
@@ -45,6 +46,6 @@ With a $40 average order and a 40% margin, the most you can pay per order is **$
 
 ## Try it with your numbers
 
-I built a [free calculator](/en/#calculator) that shows orders, revenue, profit and break-even instantly. Plug in your numbers and see where you stand.
+I built a [free calculator](/en/#calculator) that shows revenue, ROAS, cost per customer, estimated profit and break-even instantly. Plug in your numbers and see where you stand.
 
 If your ROAS is below break-even, the fix usually isn't a bigger budget. It's better creative, targeting and landing pages to bring the cost per order down.

@@ -12,8 +12,8 @@
       "features": [
         "مراجعة كاملة لحساباتك على Meta أو TikTok أو Snapchat",
         "فحص البكسل والتتبع وهيكلة الحملات",
-        "أهم الأخطاء اللي تضيّع ميزانيتك",
-        "خطة تحسين واضحة بنقاط تطبقها فورًا",
+        "أهم الأخطاء التي تستنزف ميزانيتك",
+        "خطة تحسين واضحة بنقاط تطبّقها فورًا",
         "جلسة شرح 30 دقيقة على الواتساب"
       ]
     },
@@ -38,23 +38,26 @@
     "featured": false,
     "ar": {
       "name": "Starter",
-      "for": "للمشاريع الناشئة اللي تريد تبدي صح",
+      "for": "للمشاريع الناشئة والشركات الصغيرة التي تريد بداية صحيحة",
       "price": "$250",
       "period": "/ شهريًا",
       "cta": "ابدأ بـ Starter",
       "features": [
-        "إدارة حملاتك على منصة وحدة (Meta أو TikTok أو Snapchat)",
-        "خطة إعلانية واضحة لأول 30 يوم",
+        "إدارة حملاتك على منصة واحدة (Meta أو TikTok أو Snapchat)",
+        "خطة إعلانية واضحة لأول 30 يومًا",
         "إعداد البكسل وتتبع الطلبات بشكل صحيح",
-        "سكربت UGC جاهز كل شهر تصوّره بنفسك",
-        "أفكار ونصوص إعلانية جديدة كل شهر",
-        "تقرير شهري: شكد صرفت وشنو رجعلك"
+        "سكربت UGC جاهز كل شهر لتصويره بنفسك",
+        "أفكار ونصوص إعلانية جديدة كل شهر"
       ],
-      "badge": ""
+      "badge": "",
+      "campaigns": "حتى 3 حملات نشطة على منصة واحدة",
+      "reports": "تقرير شهري واضح بالإنفاق والنتائج",
+      "optimization": "مراجعة وتحسين أسبوعي للإعلانات والميزانية",
+      "support": "واتساب خلال أيام العمل"
     },
     "en": {
       "name": "Starter",
-      "for": "For new businesses that want to start right",
+      "for": "New businesses and small companies that want to start right",
       "price": "$250",
       "period": "/ month",
       "cta": "Start with Starter",
@@ -63,9 +66,13 @@
         "A clear ad plan for your first 30 days",
         "Pixel and order tracking set up correctly",
         "A ready UGC script every month for you to film",
-        "Fresh ad ideas and copy every month",
-        "Monthly report: what you spent and what came back"
-      ]
+        "Fresh ad ideas and copy every month"
+      ],
+      "campaigns": "Up to 3 active campaigns on one platform",
+      "reports": "A clear monthly report on spend and results",
+      "optimization": "Weekly review and optimization of ads and budget",
+      "support": "WhatsApp on business days",
+      "badge": ""
     },
     "entry": false
   },
@@ -73,39 +80,43 @@
     "featured": true,
     "ar": {
       "name": "Growth",
-      "for": "للشركات اللي تريد مبيعات أكثر",
+      "for": "للشركات التي تبيع وتريد مبيعات أكثر",
       "price": "$500",
       "period": "/ شهريًا",
       "cta": "ابدأ بـ Growth",
-      "badge": "⭐ الأكثر طلبًا",
+      "badge": "الأكثر طلبًا",
       "features": [
-        "إدارة كاملة لـ Meta + TikTok + Snapchat",
-        "Pixel + Conversions API: كل طلب يتسجل بدقة",
-        "اختبار كريتيف أسبوعي حتى نلقى الإعلان الرابح",
+        "إدارة كاملة لـ Meta وTikTok وSnapchat",
+        "Pixel وConversions API لتسجيل كل طلب بدقة",
+        "اختبار كريتيف أسبوعي للوصول إلى الإعلان الرابح",
         "فيديو UGC شهريًا مع اختبار أكثر من Hook",
         "إعلانات Click-to-WhatsApp مع ردود تلقائية أساسية",
-        "إعادة استهداف الزوار اللي ما اشتروا",
-        "تقرير أسبوعي + اجتماع شهري لتحسين النتائج",
-        "تواصل مباشر وياي على الواتساب"
-      ]
+        "إعادة استهداف الزوار الذين لم يشتروا"
+      ],
+      "campaigns": "حملات غير محدودة على 3 منصات",
+      "reports": "تقرير أسبوعي + اجتماع شهري لتحسين النتائج",
+      "optimization": "اختبار مستمر للإعلانات والجمهور والميزانية",
+      "support": "تواصل مباشر معي على الواتساب"
     },
     "en": {
       "name": "Growth",
-      "for": "For businesses that want more sales",
+      "for": "Businesses already selling that want more sales",
       "price": "$500",
       "period": "/ month",
       "cta": "Start with Growth",
-      "badge": "⭐ Most popular",
+      "badge": "Most popular",
       "features": [
-        "Full management of Meta + TikTok + Snapchat",
-        "Pixel + Conversions API: every order tracked accurately",
+        "Full management of Meta, TikTok and Snapchat",
+        "Pixel and Conversions API so every order is tracked",
         "Weekly creative testing to find the winning ad",
         "One UGC video monthly with multiple hooks tested",
         "Click-to-WhatsApp ads with basic auto-replies",
-        "Retargeting visitors who didn't buy",
-        "Weekly report + monthly call to improve results",
-        "Direct WhatsApp access to me"
-      ]
+        "Retargeting visitors who didn't buy"
+      ],
+      "campaigns": "Unlimited campaigns across 3 platforms",
+      "reports": "Weekly report + monthly call to improve results",
+      "optimization": "Continuous testing of ads, audiences and budget",
+      "support": "Direct WhatsApp access to me"
     },
     "entry": false
   },
@@ -113,36 +124,43 @@
     "featured": false,
     "ar": {
       "name": "Scale",
-      "for": "للشركات اللي تريد تتوسع",
+      "for": "للشركات الجاهزة للتوسّع بميزانيات أكبر",
       "price": "حسب الطلب",
       "period": "",
-      "cta": "خلّينا نحجي",
+      "cta": "لنتحدث عن خطتك",
       "features": [
-        "كل مزايا Growth",
-        "استراتيجية توسع لميزانيات كبيرة بدون ما يطيح العائد",
-        "بوت واتساب كامل يأهّل العملاء ويجمع بياناتهم",
+        "كل ما في باقة Growth",
+        "استراتيجية توسّع لميزانيات كبيرة دون خسارة العائد",
+        "بوت واتساب كامل يؤهّل العملاء ويجمع بياناتهم",
         "صفحات هبوط مخصصة ترفع نسبة التحويل",
         "إنتاج UGC منتظم: عدة فيديوهات شهريًا مع صنّاع محتوى",
-        "خطة كريتيف كاملة مع توجيه التصوير",
-        "لوحة تقارير مباشرة تشوف أرقامك بأي وقت"
+        "خطة كريتيف كاملة مع توجيه التصوير"
       ],
-      "badge": ""
+      "badge": "",
+      "campaigns": "حسب خطة التوسّع والميزانية",
+      "reports": "لوحة تقارير مباشرة + تقرير أسبوعي مفصّل",
+      "optimization": "تحسين يومي واختبارات متقدمة للتوسّع",
+      "support": "أولوية في الرد ومتابعة مستمرة"
     },
     "en": {
       "name": "Scale",
-      "for": "For businesses ready to expand",
+      "for": "Businesses ready to scale with bigger budgets",
       "price": "Custom",
       "period": "",
       "cta": "Let's talk",
       "features": [
         "Everything in Growth",
-        "A scaling strategy for big budgets without killing ROAS",
-        "A full WhatsApp bot that qualifies leads and captures their details",
+        "A scaling strategy for big budgets without losing ROAS",
+        "A full WhatsApp bot that qualifies leads and captures details",
         "Custom landing pages that lift conversion",
         "Ongoing UGC production: several videos monthly with creators",
-        "A full creative plan with shoot direction",
-        "A live reporting dashboard you can check anytime"
-      ]
+        "A full creative plan with shoot direction"
+      ],
+      "campaigns": "Based on your scaling plan and budget",
+      "reports": "Live reporting dashboard + detailed weekly report",
+      "optimization": "Daily optimization and advanced scaling tests",
+      "support": "Priority replies and ongoing follow-up",
+      "badge": ""
     },
     "entry": false
   }
