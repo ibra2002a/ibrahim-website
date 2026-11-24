@@ -20,6 +20,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import crypto from "node:crypto";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(ROOT, "dist");
@@ -848,6 +849,23 @@ if (MINIFY) {
     const before = fs.readFileSync(f, "utf8"), after = fn(before);
     saved += Buffer.byteLength(before) - Buffer.byteLength(after);
     fs.writeFileSync(f, after);
+  }
+}
+
+// Cache busting: كل ملف CSS/JS ياخذ ?v=بصمة محتواه، حتى الزوار يشوفون النسخة الجديدة فورًا بعد أي تحديث
+// (الاستضافة تخزّن هذي الملفات لفترة طويلة، فبدون البصمة ممكن يظهر تصميم قديم)
+{
+  const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)]));
+  const hash = {};
+  for (const sub of ["css", "js"]) {
+    const dir = path.join(OUT, "assets", sub);
+    if (!fs.existsSync(dir)) continue;
+    for (const f of fs.readdirSync(dir)) hash[`${sub}/${f}`] = crypto.createHash("sha256").update(fs.readFileSync(path.join(dir, f))).digest("hex").slice(0, 10);
+  }
+  for (const f of walk(OUT).filter((x) => x.endsWith(".html"))) {
+    const html = fs.readFileSync(f, "utf8");
+    const out = html.replace(/(assets\/((?:css|js)\/[\w.-]+\.(?:css|js)))(?=["'])/g, (m, full, key) => (hash[key] ? `${full}?v=${hash[key]}` : m));
+    if (out !== html) fs.writeFileSync(f, out);
   }
 }
 

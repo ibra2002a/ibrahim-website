@@ -5,6 +5,12 @@ Options -Indexes
 DirectoryIndex index.html
 ErrorDocument 404 /404.html
 
+<IfModule mod_mime.c>
+  AddType image/avif .avif
+  AddType font/woff2 .woff2
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   # HTTPS دائمًا
@@ -23,7 +29,8 @@ ErrorDocument 404 /404.html
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
   Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://connect.facebook.net https://analytics.tiktok.com https://www.googletagmanager.com; style-src 'self'; font-src 'self'; img-src 'self' data: https://www.facebook.com https://*.tiktok.com https://*.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://api.github.com https://*.supabase.co https://*.workers.dev https://www.facebook.com https://connect.facebook.net https://*.tiktok.com https://*.tiktokw.us https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
-  <FilesMatch "\.(css|js|webp|jpg|jpeg|png|svg|woff2)$">
+  # CSS/JS روابطها فيها ?v=بصمة، فالتخزين الطويل آمن
+  <FilesMatch "\.(css|js|webp|avif|jpg|jpeg|png|svg|woff2)$">
     Header set Cache-Control "public, max-age=2592000"
   </FilesMatch>
   <FilesMatch "\.(html|json)$">
@@ -32,7 +39,7 @@ ErrorDocument 404 /404.html
 </IfModule>
 
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml application/manifest+json text/xml application/xml text/plain
 </IfModule>
 
 # لوحة التحكم ما تنفهرس
