@@ -100,8 +100,11 @@ const publishedStats = (lang) => readContent("stats.json", []).filter((x) => vis
 const publishedTestimonials = (lang) => readContent("testimonials.json", []).filter((x) => visible(x) && x[lang] && x[lang].quote);
 const publishedServices = (lang) => readContent("services.json", []).filter((x) => (DRAFTS || !x.draft) && x[lang] && x.slug);
 const allPlans = () => readContent("pricing.json", []);
-const SVC_ICON = { "meta-ads": "target", "tiktok-ads": "note", "snapchat-ads": "phone", "ugc-ads": "video", "whatsapp-automation": "chat", "ad-account-audit": "audit" };
+const SVC_ICON = { "meta-ads": "target", "tiktok-ads": "note", "snapchat-ads": "phone", "ugc-ads": "video", "whatsapp-automation": "chat", "ad-account-audit": "audit",
+  "web-app-development": "code", "cybersecurity": "shield" };
 const svcIcon = (slug) => icon(SVC_ICON[slug] || "spark");
+// group: "tech" ← خدمات تقنية (برمجة، أمن سيبراني) تظهر بقسم "حلول تقنية" بدل شريط المنصات
+const isTech = (x) => x.group === "tech";
 
 /* ---------------- قنوات التواصل ---------------- */
 function channels(lang) {
@@ -382,7 +385,12 @@ function entryOfferHTML(lang, pre = "") {
   }).join("");
 }
 
-const planOptions = (lang) => allPlans().filter((p) => p[lang]).map((p) => `<option>${esc(p[lang].name)}</option>`).join("");
+const planOptions = (lang) => {
+  const t = I18N[lang];
+  const plans = allPlans().filter((p) => p[lang]).map((p) => `<option>${esc(p[lang].name)}</option>`).join("");
+  const tech = publishedServices(lang).filter(isTech).map((x) => `<option data-slug="${esc(x.slug)}">${esc(x[lang].title)}</option>`).join("");
+  return tech ? `<optgroup label="${esc(t.opt_plans)}">${plans}</optgroup><optgroup label="${esc(t.opt_tech)}">${tech}</optgroup>` : plans;
+};
 
 function faqHTML(lang) {
   const items = (readContent("faq.json", {})[lang] || []).filter((f) => f.q);
@@ -427,13 +435,41 @@ function insightsHTML(lang, pre) {
     </section>`;
 }
 
+function techHTML(lang, pre) {
+  const t = I18N[lang];
+  const file = `${pre}index.html`;
+  const items = publishedServices(lang).filter(isTech);
+  if (!items.length) return "";
+  return `
+        <div class="tech">
+          <div class="tech-head">
+            <p class="tech-title">${icon("code")}${esc(t.tech_title)}</p>
+            <p class="tech-sub">${esc(t.tech_sub)}</p>
+          </div>
+          <div class="tech-grid">${items.map((x) => {
+            const d = x[lang];
+            return `
+            <a class="tech-card" href="${link(file, `${pre}services/${x.slug}/`)}">
+              <span class="svc-ic">${svcIcon(x.slug)}</span>
+              <div class="tech-body">
+                <h3>${esc(d.title)}</h3>
+                <p>${esc(d.card || d.description)}</p>
+                ${(d.tags || []).length ? `<ul class="tech-tags">${d.tags.map((g) => `<li>${esc(g)}</li>`).join("")}</ul>` : ""}
+                <span class="svc-link">${esc(t.svc_more)}${icon("arrow")}</span>
+              </div>
+            </a>`;
+          }).join("")}
+          </div>
+        </div>`;
+}
+
 function svcLinksHTML(lang, pre) {
   const file = `${pre}index.html`;
-  return publishedServices(lang).map((x) => `<a class="svc-chip" href="${link(file, `${pre}services/${x.slug}/`)}"><span class="svc-chip-ic">${svcIcon(x.slug)}</span><span>${esc(x[lang].title)}</span>${icon("arrow")}</a>`).join("");
+  return publishedServices(lang).filter((x) => !isTech(x)).map((x) => `<a class="svc-chip" href="${link(file, `${pre}services/${x.slug}/`)}"><span class="svc-chip-ic">${svcIcon(x.slug)}</span><span>${esc(x[lang].title)}</span>${icon("arrow")}</a>`).join("");
 }
 
 /* ---------------- Schema ---------------- */
-const KNOWS = ["Digital Marketing", "Performance Marketing", "Meta Ads", "Facebook Ads", "Instagram Ads", "TikTok Ads", "Snapchat Ads", "UGC Ads", "Lead Generation", "Conversion Optimization", "Campaign Strategy", "Conversions API"];
+const KNOWS = ["Digital Marketing", "Performance Marketing", "Meta Ads", "Facebook Ads", "Instagram Ads", "TikTok Ads", "Snapchat Ads", "UGC Ads", "Lead Generation", "Conversion Optimization", "Campaign Strategy", "Conversions API", "Web Development", "Mobile App Development", "Cybersecurity"];
 function homeServices(lang) {
   const strip = (h) => String(h).replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
   const tpl = read(`src/pages/home.${lang}.html`);
@@ -483,6 +519,7 @@ for (const lang of LANGS) {
     .replace("{{entry_offer}}", () => entryOfferHTML(lang, pre))
     .replace("{{pricing}}", () => pricingHTML(lang))
     .replace("{{svc_links}}", () => svcLinksHTML(lang, pre))
+    .replace("{{tech_services}}", () => techHTML(lang, pre))
     .replace("{{channels}}", () => channelsHTML(lang))
     .replace(/\{\{svc:([\w-]+)\}\}/g, (_, slug) => link(`${pre}index.html`, `${pre}services/${slug}/`))
     .replace("{{faq}}", () => faqHTML(lang))
@@ -567,11 +604,11 @@ for (const lang of LANGS) {
   if (!all.length) continue;
   const idxFile = `${pre}services/index.html`;
   const idxAlts = Object.fromEntries(LANGS.map((l) => [l, `${langPrefix(l)}services/`]));
-  const tile = (x, from, tag) => `
+  const tile = (x, from, tag, withDesc = tag === "h2") => `
         <a class="svc-tile" href="${link(from, `${pre}services/${x.slug}/`)}">
           <span class="svc-ic">${svcIcon(x.slug)}</span>
           <${tag}>${esc(x[lang].title)}</${tag}>
-          ${tag === "h2" ? `<p>${esc(x[lang].description)}</p>` : ""}
+          ${withDesc ? `<p>${esc(x[lang].description)}</p>` : ""}
           <span class="svc-link">${esc(t.svc_more)}${icon("arrow")}</span>
         </a>`;
   page({ file: idxFile, lang, title: t.svc_index_title, description: t.svc_index_sub, bodyClass: "page-services", alternates: idxAlts,
@@ -586,7 +623,13 @@ for (const lang of LANGS) {
       </div>
     </section>
     <section class="section section-tight">
-      <div class="container svc-index">${all.map((x) => tile(x, idxFile, "h2")).join("")}
+      <div class="container">${(() => {
+        const groups = [[t.svc_group_marketing, all.filter((x) => !isTech(x))], [t.svc_group_tech, all.filter(isTech)]].filter(([, xs]) => xs.length);
+        if (groups.length < 2) return `<div class="svc-index">${all.map((x) => tile(x, idxFile, "h2")).join("")}</div>`;
+        return groups.map(([title, xs]) => `
+        <h2 class="svc-group-title">${esc(title)}</h2>
+        <div class="svc-index">${xs.map((x) => tile(x, idxFile, "h3", true)).join("")}</div>`).join("");
+      })()}
       </div>
     </section>
   </main>` });
@@ -597,8 +640,9 @@ for (const lang of LANGS) {
     const file = `${pre}services/${x.slug}/index.html`;
     const alts = Object.fromEntries(LANGS.filter((l) => x[l]).map((l) => [l, `${langPrefix(l)}services/${x.slug}/`]));
     const wa = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(`${t.svc_wa_msg} ${d.title}`)}`;
-    const related = all.filter((r) => r.slug !== x.slug).slice(0, 3);
+    const related = [...all.filter((r) => r.slug !== x.slug && isTech(r) === isTech(x)), ...all.filter((r) => r.slug !== x.slug && isTech(r) !== isTech(x))].slice(0, 3);
     const homeUrl = link(file, pre);
+    const bookUrl = `${homeUrl}?service=${encodeURIComponent(x.slug)}#contact`; // يختار الخدمة تلقائيًا بنموذج الحجز
     page({ file, lang, title: d.seoTitle || `${d.title} | ${t.name}`, description: d.description, bodyClass: "page-service",
       alternates: alts, altUrlFile: alts[other] || `${langPrefix(other)}services/`, robots: x.draft ? "noindex" : "index, follow",
       jsonld: [
@@ -624,7 +668,7 @@ for (const lang of LANGS) {
         </div>
         <p class="lead">${esc(d.intro)}</p>
         <div class="hero-actions">
-          <a class="btn btn-primary btn-lg" href="${homeUrl}#contact">${esc(t.cta)}</a>
+          <a class="btn btn-primary btn-lg" href="${bookUrl}">${esc(t.cta)}</a>
           <a class="btn btn-secondary btn-lg" href="${wa}" target="_blank" rel="noopener">${icon("chat")}${esc(t.svc_wa)}</a>
         </div>
       </div>
@@ -665,8 +709,10 @@ for (const lang of LANGS) {
           <h2>${esc(t.svc_cta_title)}</h2>
           <p>${esc(t.svc_cta_text)}</p>
           <div class="cta-actions">
-            <a class="btn btn-primary btn-lg" href="${homeUrl}#contact">${esc(t.cta)}</a>
-            <a class="btn btn-secondary btn-lg" href="${homeUrl}#pricing">${esc(t.svc_pricing)}</a>
+            <a class="btn btn-primary btn-lg" href="${bookUrl}">${esc(t.cta)}</a>
+            ${isTech(x)
+              ? `<a class="btn btn-secondary btn-lg" href="${wa}" target="_blank" rel="noopener">${icon("chat")}${esc(t.svc_wa)}</a>`
+              : `<a class="btn btn-secondary btn-lg" href="${homeUrl}#pricing">${esc(t.svc_pricing)}</a>`}
           </div>
         </div>
         ${related.length ? `<h2 class="related-title">${esc(t.svc_related)}</h2>

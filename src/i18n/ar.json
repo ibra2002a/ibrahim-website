@@ -95,5 +95,11 @@
   "channel_facebook": "فيسبوك",
   "channel_tiktok": "تيك توك",
   "channel_linkedin": "لينكدإن",
-  "channel_email": "البريد الإلكتروني"
+  "channel_email": "البريد الإلكتروني",
+  "tech_title": "حلول تقنية",
+  "tech_sub": "مواقع وتطبيقات تخدم نشاطك وإعلاناتك، وحماية لموقعك وحساباتك.",
+  "opt_plans": "الباقات",
+  "opt_tech": "خدمات تقنية",
+  "svc_group_marketing": "التسويق والإعلانات",
+  "svc_group_tech": "الحلول التقنية"
 }

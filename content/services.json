@@ -508,5 +508,213 @@
         }
       ]
     }
+  },
+  {
+    "slug": "web-app-development",
+    "icon": "</>",
+    "group": "tech",
+    "draft": false,
+    "ar": {
+      "title": "برمجة المواقع والتطبيقات",
+      "seoTitle": "برمجة وتصميم المواقع والتطبيقات في العراق | إبراهيم مهاوش",
+      "description": "تصميم وبرمجة مواقع سريعة ومتاجر إلكترونية وصفحات هبوط وتطبيقات ويب وموبايل، مجهزة للتتبع والإعلانات ومحركات البحث من أول يوم.",
+      "card": "مواقع ومتاجر وتطبيقات سريعة، مجهزة للإعلانات والتتبع من أول يوم.",
+      "tags": [
+        "مواقع تعريفية",
+        "متاجر إلكترونية",
+        "صفحات هبوط",
+        "تطبيقات ويب وموبايل"
+      ],
+      "intro": "الإعلان الناجح يحتاج مكان يستقبل العميل صح. أبني لك موقع أو متجر أو تطبيق سريع وواضح، يشتغل ممتاز على الموبايل، ومجهز للتتبع والإعلانات من أول يوم، حتى ما تخسر زبون دفعت ثمن وصوله.",
+      "benefits": [
+        "مواقع تعريفية ومتاجر إلكترونية بتصميم احترافي يناسب هويتك",
+        "صفحات هبوط مخصصة للحملات الإعلانية ترفع نسبة التحويل",
+        "تطبيقات ويب وموبايل ولوحات تحكم حسب احتياج نشاطك",
+        "سرعة عالية وتجربة ممتازة على الموبايل",
+        "إعداد Pixel وConversions API وGoogle Analytics من البداية",
+        "أساس تقني صحيح لمحركات البحث (SEO)"
+      ],
+      "fit": [
+        "مشاريع جديدة تحتاج موقع احترافي يعرّف بيها",
+        "متاجر تبيع من انستغرام وتريد متجر إلكتروني خاص بيها",
+        "شركات تحتاج نظام أو لوحة تحكم لإدارة الطلبات والعملاء",
+        "أصحاب أفكار يحتاجون تطبيق ويب أو موبايل"
+      ],
+      "steps": [
+        "نفهم نشاطك وهدف الموقع أو التطبيق والجمهور",
+        "نخطط الصفحات والوظائف ونتفق على التصميم",
+        "نبرمج ونختبر على الموبايل والكمبيوتر",
+        "نطلق المشروع ونجهز التتبع، ونبقى وياك للدعم والتطوير"
+      ],
+      "faq": [
+        {
+          "q": "شكد يكلف الموقع أو التطبيق؟",
+          "a": "يعتمد على حجم المشروع وعدد الصفحات والوظائف المطلوبة. نحدد السعر بعد ما نفهم احتياجك بالاستشارة، ويكون مكتوب وواضح قبل البدء."
+        },
+        {
+          "q": "شكد يحتاج وقت؟",
+          "a": "صفحة الهبوط أو الموقع التعريفي ياخذ وقت أقل من المتجر أو التطبيق. نتفق على جدول زمني واضح قبل البدء حسب حجم المشروع."
+        },
+        {
+          "q": "الموقع يكون باسمي؟",
+          "a": "نعم. الدومين والاستضافة والملفات تكون باسمك وملكك بالكامل."
+        },
+        {
+          "q": "تقدم دعم بعد التسليم؟",
+          "a": "نعم. نتفق على فترة دعم بعد الإطلاق، ونكدر نكمل بالتحديثات والإضافات حسب احتياجك."
+        }
+      ]
+    },
+    "en": {
+      "title": "Website & App Development",
+      "seoTitle": "Website & App Development in Iraq | Ibrahim Mahaoush",
+      "description": "Design and development of fast websites, online stores, landing pages, and web and mobile apps, ready for tracking, ads and search engines from day one.",
+      "card": "Fast websites, stores and apps, ready for ads and tracking from day one.",
+      "tags": [
+        "Business websites",
+        "Online stores",
+        "Landing pages",
+        "Web & mobile apps"
+      ],
+      "intro": "A successful ad needs the right place to land the customer. I build fast, clear websites, stores and apps that work perfectly on mobile and are ready for tracking and ads from day one, so you don't lose customers you paid to reach.",
+      "benefits": [
+        "Business websites and online stores with a professional design that fits your brand",
+        "Campaign landing pages built to lift conversion rates",
+        "Web and mobile apps and dashboards tailored to your business",
+        "Fast loading and an excellent mobile experience",
+        "Pixel, Conversions API and Google Analytics set up from the start",
+        "A solid technical SEO foundation"
+      ],
+      "fit": [
+        "New businesses that need a professional website",
+        "Stores selling on Instagram that want their own online store",
+        "Companies that need a system or dashboard to manage orders and customers",
+        "Founders with an idea that needs a web or mobile app"
+      ],
+      "steps": [
+        "Understand your business, the goal of the site or app, and the audience",
+        "Plan the pages and features and agree on the design",
+        "Build and test on mobile and desktop",
+        "Launch, set up tracking, and stay with you for support and improvements"
+      ],
+      "faq": [
+        {
+          "q": "How much does a website or app cost?",
+          "a": "It depends on the size of the project and the pages and features you need. We set the price after understanding your needs in the consultation, and it's written and clear before we start."
+        },
+        {
+          "q": "How long does it take?",
+          "a": "A landing page or business website takes less time than a store or an app. We agree on a clear timeline before starting, based on the project's size."
+        },
+        {
+          "q": "Will the website be in my name?",
+          "a": "Yes. The domain, hosting and files are in your name and fully yours."
+        },
+        {
+          "q": "Do you offer support after delivery?",
+          "a": "Yes. We agree on a support period after launch, and we can continue with updates and new features as you need."
+        }
+      ]
+    }
+  },
+  {
+    "slug": "cybersecurity",
+    "icon": "🛡",
+    "group": "tech",
+    "draft": false,
+    "ar": {
+      "title": "الأمن السيبراني",
+      "seoTitle": "الأمن السيبراني وحماية المواقع والحسابات في العراق | إبراهيم مهاوش",
+      "description": "فحص أمان المواقع والتطبيقات، حماية حسابات التواصل ومدير الأعمال، وإعداد الحماية الأساسية لنشاطك: SSL ونسخ احتياطي وتحديثات منتظمة.",
+      "card": "فحص أمان المواقع والتطبيقات، وحماية حساباتك الإعلانية وبيانات عملائك.",
+      "tags": [
+        "فحص الثغرات",
+        "حماية الحسابات",
+        "SSL ونسخ احتياطي",
+        "توعية ضد التصيّد"
+      ],
+      "intro": "اختراق حساب إعلاني أو توقف موقع ليوم واحد ممكن يكلفك أكثر من سنة حماية. أساعدك تكتشف نقاط الضعف بنشاطك الرقمي قبل غيرك، وتأمّن موقعك وحساباتك وبيانات عملائك بخطوات واضحة وعملية.",
+      "benefits": [
+        "فحص أمان الموقع أو التطبيق واكتشاف الثغرات الشائعة",
+        "حماية حسابات التواصل ومدير الأعمال بالتحقق بخطوتين والصلاحيات الصحيحة",
+        "إعداد شهادة SSL والنسخ الاحتياطي التلقائي والتحديثات",
+        "مراجعة صلاحيات الموظفين والوكالات على حساباتك",
+        "توعية فريقك ضد رسائل التصيّد والاحتيال",
+        "تقرير واضح بالمخاطر وخطة إصلاح مرتبة حسب الأولوية"
+      ],
+      "fit": [
+        "أصحاب المتاجر والمواقع اللي فيها بيانات عملاء أو مدفوعات",
+        "شركات تعتمد على حسابات انستغرام وفيسبوك بالمبيعات",
+        "نشاط تعرّض لمحاولة اختراق ويريد يأمّن نفسه",
+        "فرق تشتغل على حسابات مشتركة وتحتاج تنظيم الصلاحيات"
+      ],
+      "steps": [
+        "نحدد الأنظمة والحسابات اللي تملكها ونتفق على نطاق الفحص كتابيًا",
+        "نراجع الإعدادات والصلاحيات ونقاط الضعف",
+        "نسلّمك تقرير بالمخاطر مرتب حسب الأولوية",
+        "نطبق الإصلاحات ونجهز خطة متابعة واستجابة سريعة"
+      ],
+      "faq": [
+        {
+          "q": "هل تخترقون حسابات أو تسترجعون حساب شخص ثاني؟",
+          "a": "لا. نشتغل بس على حماية الأنظمة والحسابات اللي تملكها أو مخوّل بيها، وبموافقة واضحة. أي طلب لاختراق حسابات الآخرين مرفوض."
+        },
+        {
+          "q": "انخترق حسابي، شسوي؟",
+          "a": "غيّر كلمة المرور فورًا إذا تكدر، فعّل التحقق بخطوتين، واتبع خطوات الاسترجاع الرسمية للمنصة. نكدر نساعدك بالخطوات ونأمّن الحساب بعد ما يرجع."
+        },
+        {
+          "q": "هل الحماية تكون 100%؟",
+          "a": "ماكو نظام محمي 100%. الهدف نقلل المخاطر بشكل كبير، ونكتشف المشاكل بسرعة، ونجهز خطة واضحة للتعامل مع أي حادث."
+        }
+      ]
+    },
+    "en": {
+      "title": "Cybersecurity",
+      "seoTitle": "Cybersecurity, Website & Account Protection in Iraq | Ibrahim Mahaoush",
+      "description": "Security reviews for websites and apps, protection for social media and Business Manager accounts, and essential safeguards: SSL, backups and regular updates.",
+      "card": "Security reviews for websites and apps, and protection for your ad accounts and customer data.",
+      "tags": [
+        "Vulnerability checks",
+        "Account protection",
+        "SSL & backups",
+        "Phishing awareness"
+      ],
+      "intro": "A hacked ad account or a website that's down for a single day can cost more than a year of protection. I help you find the weak points in your digital business before someone else does, and secure your website, accounts and customer data with clear, practical steps.",
+      "benefits": [
+        "Security review of your website or app to uncover common vulnerabilities",
+        "Protection for social media and Business Manager accounts with two-factor authentication and the right permissions",
+        "SSL certificate, automatic backups and updates set up",
+        "Review of staff and agency access to your accounts",
+        "Training your team to spot phishing and scam messages",
+        "A clear risk report and a fix plan ordered by priority"
+      ],
+      "fit": [
+        "Store and website owners handling customer data or payments",
+        "Businesses that rely on Instagram and Facebook accounts for sales",
+        "Businesses that faced a hacking attempt and want to secure themselves",
+        "Teams working on shared accounts that need organized permissions"
+      ],
+      "steps": [
+        "Identify the systems and accounts you own and agree on the scope in writing",
+        "Review settings, permissions and weak points",
+        "Deliver a risk report ordered by priority",
+        "Apply the fixes and prepare a monitoring and rapid-response plan"
+      ],
+      "faq": [
+        {
+          "q": "Do you hack accounts or recover someone else's account?",
+          "a": "No. We only work on protecting systems and accounts you own or are authorized to manage, with clear permission. Any request to break into other people's accounts is refused."
+        },
+        {
+          "q": "My account was hacked. What should I do?",
+          "a": "Change your password right away if you can, turn on two-factor authentication, and follow the platform's official recovery steps. We can guide you through them and secure the account once it's back."
+        },
+        {
+          "q": "Is protection ever 100%?",
+          "a": "No system is 100% secure. The goal is to reduce risk significantly, detect problems quickly, and have a clear plan for handling any incident."
+        }
+      ]
+    }
   }
 ]

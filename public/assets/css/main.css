@@ -312,6 +312,35 @@ html[dir="rtl"] .svc-link:hover .ic-arrow { transform: scaleX(-1) translateX(3px
 .svc-chip:hover { border-color: var(--accent-line); transform: translateY(-2px); }
 .svc-chip:hover > .ic { color: var(--accent); }
 
+/* Tech solutions (برمجة + أمن سيبراني) */
+.tech { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+.tech-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: .4rem 1.5rem; margin-bottom: 1.1rem; }
+.tech-title { display: inline-flex; align-items: center; gap: .5rem; margin: 0; font-size: 1.1rem; font-weight: 650; color: var(--text); }
+.tech-title .ic { color: var(--accent); }
+.tech-sub { margin: 0; color: var(--text-2); font-size: .93rem; }
+.tech-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; }
+.tech-card {
+  position: relative; overflow: hidden; display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; padding: 1.8rem;
+  border-radius: var(--r-xl); background: linear-gradient(160deg, var(--surface-2), var(--surface)); border: 1px solid var(--border-2);
+  transition: transform .35s var(--ease), border-color .35s;
+}
+.tech-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .35s; background: radial-gradient(340px 200px at 100% 0%, rgba(200, 242, 60, .12), transparent 70%); }
+html[dir="rtl"] .tech-card::before { background: radial-gradient(340px 200px at 0% 0%, rgba(200, 242, 60, .12), transparent 70%); }
+.tech-card:hover { transform: translateY(-4px); border-color: var(--accent-line); }
+.tech-card:hover::before { opacity: 1; }
+.tech-card .svc-ic { position: relative; margin: 0; }
+.tech-card:hover .svc-ic { background: var(--accent); color: var(--accent-ink); border-color: transparent; transform: scale(1.05); }
+.tech-body { position: relative; min-width: 0; }
+.tech-body h3 { margin: .15rem 0 .4rem; font-size: 1.2rem; }
+.tech-body p { margin: 0; color: var(--text-2); font-size: .95rem; }
+.tech-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
+.tech-tags li { padding: .22rem .65rem; border-radius: 8px; border: 1px solid var(--border); background: rgba(255, 255, 255, .04); color: var(--text-2); font-size: .78rem; }
+.tech-card .svc-link { margin-top: .35rem; }
+.tech-card:hover .svc-link .ic-arrow { transform: translateX(3px); }
+html[dir="rtl"] .tech-card:hover .svc-link .ic-arrow { transform: scaleX(-1) translateX(3px); }
+.svc-group-title { margin: 0 0 1.25rem; font-size: clamp(1.3rem, 3vw, 1.7rem); }
+.svc-group-title:not(:first-child) { margin-top: 3rem; }
+
 /* Process timeline */
 .timeline { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
 .timeline::before { content: ""; position: absolute; top: 23px; inset-inline: 23px; height: 1px; background: linear-gradient(90deg, var(--border-2), var(--accent-line), var(--border-2)); }
@@ -744,7 +773,7 @@ html[dir="rtl"] .ai-form button svg { transform: scaleX(-1); }
 }
 
 @media (max-width: 680px) {
-  .svc-grid, .why-grid, .testis, .posts, .posts-more, .svc-index, .svc-benefits { grid-template-columns: 1fr; }
+  .svc-grid, .why-grid, .testis, .posts, .posts-more, .svc-index, .svc-benefits, .tech-grid { grid-template-columns: 1fr; }
   /* شرائح أفقية بدل قائمة طويلة: الآراء ومقالات الرئيسية */
   .testis:has(> :nth-child(2)), .posts:not(.posts-page):not(.posts-more):has(> :nth-child(2)) {
     grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 84%;
@@ -771,6 +800,9 @@ html[dir="rtl"] .ai-form button svg { transform: scaleX(-1); }
   .sectors li > span:last-child { font-size: .8rem; }
   .sec-ic { width: 40px; height: 40px; margin-bottom: .55rem; }
   .svc-card { display: grid; grid-template-columns: auto 1fr; align-content: start; gap: .25rem 1rem; padding: 1.25rem; }
+  .tech-card { gap: 1rem; padding: 1.3rem; }
+  .tech-card .svc-ic { width: 46px; height: 46px; }
+  .tech-body h3 { font-size: 1.08rem; }
   .svc-card .svc-ic { grid-row: span 3; width: 46px; height: 46px; margin: 0; }
   .svc-card .svc-ic .ic { width: 22px; height: 22px; }
   .svc-card h3 { margin: .1rem 0 .2rem; font-size: 1.05rem; }
