@@ -151,6 +151,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ibrahimiq.tech/services/web-app-development/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/services/web-app-development/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/services/web-app-development/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibrahimiq.tech/services/cybersecurity/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/services/cybersecurity/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/services/cybersecurity/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ibrahimiq.tech/en/services/</loc>
     <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/services/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/services/"/>
@@ -190,6 +202,18 @@
     <loc>https://ibrahimiq.tech/en/services/ad-account-audit/</loc>
     <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/services/ad-account-audit/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/services/ad-account-audit/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibrahimiq.tech/en/services/web-app-development/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/services/web-app-development/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/services/web-app-development/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ibrahimiq.tech/en/services/cybersecurity/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://ibrahimiq.tech/services/cybersecurity/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ibrahimiq.tech/en/services/cybersecurity/"/>
     <priority>0.8</priority>
   </url>
 </urlset>

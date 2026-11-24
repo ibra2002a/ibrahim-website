@@ -658,7 +658,7 @@ el.innerHTML = `
 <div class="toolbar"><span class="muted small">${items.filter((x) => !x.draft).length} صفحة منشورة</span><button type="button" class="btn btn-accent btn-sm" id="addSvc">+ صفحة خدمة</button></div>
 <div class="list">${items.map((x, i) => `
 <button type="button" class="list-item" data-i="${i}">
-<span class="li-main"><b>${esc(x.icon || "")} ${esc((x.ar && x.ar.title) || x.slug)}</b><small>/services/${esc(x.slug)}/</small></span>
+<span class="li-main"><b>${esc(x.icon || "")} ${esc((x.ar && x.ar.title) || x.slug)}</b><small>/services/${esc(x.slug)}/${x.group === "tech" ? " · تقنية" : ""}</small></span>
 <span class="badge-st ${x.draft ? "draft" : "live"}">${x.draft ? "مسودة" : "منشورة"}</span>
 </button>`).join("")}</div>`;
 $$(".list-item", el).forEach((b) => b.addEventListener("click", () => edit(+b.dataset.i)));
@@ -674,6 +674,7 @@ const body = () => {
 const d = x[L] || {};
 return `
 ${toggle("مسودة (ما تظهر بالموقع)", "draft", x.draft)}
+${toggle("خدمة تقنية (تظهر بقسم \"حلول تقنية\" بالرئيسية وبنموذج الحجز)", "tech", x.group === "tech")}
 <div class="field-row">
 ${field("رابط الصفحة (slug)", "slug", x.slug, { dir: "ltr", placeholder: "google-ads", hint: i < 0 ? "حروف إنكليزية وشرطات فقط" : "تغييره يغيّر رابط الصفحة" })}
 ${field("أيقونة (رمز واحد)", "icon", x.icon, { placeholder: "◎" })}
@@ -684,6 +685,8 @@ ${field("عنوان الخدمة", "title", d.title)}
 ${field("عنوان Google (SEO)", "seoTitle", d.seoTitle, { hint: "حوالي 60 حرف، فيه الكلمة اللي يبحث عنها العميل" })}
 ${field("وصف Google", "description", d.description, { type: "textarea", rows: 2, hint: "حوالي 150 حرف" })}
 ${field("المقدمة", "intro", d.intro, { type: "textarea", rows: 4 })}
+${field("وصف البطاقة (جملة قصيرة للخدمات التقنية)", "card", d.card, { type: "textarea", rows: 2 })}
+${field("وسوم البطاقة (كل سطر وسم)", "tags", (d.tags || []).join("\n"), { type: "textarea", rows: 3, hint: "مثال: متاجر إلكترونية" })}
 ${field("شنو تحصل (كل سطر نقطة)", "benefits", (d.benefits || []).join("\n"), { type: "textarea", rows: 6 })}
 ${field("لمن تناسب (كل سطر نقطة)", "fit", (d.fit || []).join("\n"), { type: "textarea", rows: 4 })}
 ${field("طريقة الشغل (كل سطر خطوة)", "steps", (d.steps || []).join("\n"), { type: "textarea", rows: 4 })}
@@ -691,8 +694,9 @@ ${field("أسئلة الخدمة", "faq", faqToText(d.faq), { type: "textarea", 
 };
 const collect = () => {
 const v = formData($("#sheetBody"));
-x.draft = v.draft; x.slug = slugify(v.slug); x.icon = (v.icon || "◎").slice(0, 2);
-x[L] = { title: v.title, seoTitle: v.seoTitle, description: v.description, intro: v.intro,
+x.draft = v.draft; x.slug = slugify(v.slug); x.icon = (v.icon || "◎").slice(0, 3);
+if (v.tech) x.group = "tech"; else delete x.group;
+x[L] = { ...(x[L] || {}), title: v.title, seoTitle: v.seoTitle, description: v.description, intro: v.intro, card: v.card, tags: lines(v.tags),
 benefits: lines(v.benefits), fit: lines(v.fit), steps: lines(v.steps), faq: textToFaq(v.faq) };
 };
 const repaint = () => { $("#sheetBody").innerHTML = body(); $$("#sheetBody [data-lang]").forEach((b) => b.addEventListener("click", () => { collect(); L = b.dataset.lang; repaint(); })); };

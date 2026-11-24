@@ -9,7 +9,7 @@ const STR = {
 ar: {
 nameErr: "اكتب اسمك من فضلك.", phoneErr: "اكتب رقم واتساب صحيح.",
 msgTitle: "طلب استشارة جديد 👋", name: "الاسم", phone: "الرقم", type: "نوع النشاط",
-budget: "الميزانية", plan: "الباقة", goal: "الهدف", source: "المصدر",
+budget: "الميزانية", plan: "الخدمة / الباقة", goal: "الهدف", source: "المصدر",
 breakEven: (x) => `نقطة التعادل: ROAS ${x}x`,
 noMargin: "أدخل هامش ربح أكبر من صفر حتى نحسب نقطة التعادل.",
 noCustomers: "أدخل عدد العملاء المتوقع حتى نحسب الإيرادات وتكلفة العميل.",
@@ -21,7 +21,7 @@ calcLine: (v) => `أرقامي: ميزانية $${v.budget}، متوسط الس�
 en: {
 nameErr: "Please enter your name.", phoneErr: "Please enter a valid WhatsApp number.",
 msgTitle: "New consultation request 👋", name: "Name", phone: "Phone", type: "Business type",
-budget: "Budget", plan: "Plan", goal: "Goal", source: "Source",
+budget: "Budget", plan: "Service / plan", goal: "Goal", source: "Source",
 breakEven: (x) => `Break-even: ${x}x ROAS`,
 noMargin: "Enter a profit margin above zero to calculate break-even.",
 noCustomers: "Enter the expected number of customers to calculate revenue and CAC.",
@@ -147,6 +147,11 @@ posts.forEach((p) => { p.hidden = Boolean(cat) && p.dataset.cat !== cat; });
 function initPlanLinks() {
 const select = $("#f-plan");
 if (!select) return;
+try {
+const slug = new URLSearchParams(location.search).get("service");
+const opt = slug && Array.from(select.options).find((o) => o.dataset.slug === slug);
+if (opt) select.value = opt.value;
+} catch (_) {}
 $$("[data-plan]").forEach((btn) =>
 btn.addEventListener("click", () => {
 const want = btn.dataset.plan;
@@ -280,7 +285,7 @@ function initReveal() {
 if (!("IntersectionObserver" in window)) return;
 if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 const sel = [
-".section-head", ".stats", ".about-media", ".about-body", ".why-grid li", ".svc-card", ".svc-more",
+".section-head", ".stats", ".about-media", ".about-body", ".why-grid li", ".svc-card", ".svc-more", ".tech-card",
 ".timeline li", ".case", ".sectors li", ".calc-inputs", ".calc-results", ".calc-lead", ".offer", ".plan",
 ".testi", ".faq details", ".post-card", ".cta-box", ".contact-copy", ".form",
 ".svc-tile", ".svc-benefits li", ".svc-fit li", ".svc-steps li", ".post-cta",
