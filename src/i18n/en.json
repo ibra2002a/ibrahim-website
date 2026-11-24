@@ -1,7 +1,7 @@
 {
   "name": "Ibrahim Mahaoush",
-  "role": "Digital Marketer",
-  "tagline": "Digital Marketing & Performance Marketing",
+  "role": "Marketing · Development · Security",
+  "tagline": "Digital Marketing · Web & App Development · Cybersecurity",
   "og_locale": "en_US",
   "date_locale": "en-US",
   "skip": "Skip to content",
@@ -27,8 +27,8 @@
   "footer_services": "Specialized services",
   "copyright": "Ibrahim Mahaoush. All Rights Reserved.",
   "wa_label": "Chat on WhatsApp",
-  "home_title": "Ibrahim Mahaoush | Digital Marketer & Ads Specialist",
-  "home_description": "Ibrahim Mahaoush is a digital marketer specializing in digital advertising, performance marketing, and campaigns that deliver measurable results.",
+  "home_title": "Ibrahim Mahaoush | Digital Marketing, Development & Cybersecurity",
+  "home_description": "Ibrahim Mahaoush: performance ads with measurable results, website and app development, and cybersecurity that protects your business.",
   "home": "Home",
   "blog_title": "Market Insights | Ibrahim Mahaoush",
   "blog_heading": "Market insights",
@@ -101,5 +101,6 @@
   "opt_plans": "Plans",
   "opt_tech": "Tech services",
   "svc_group_marketing": "Marketing & ads",
-  "svc_group_tech": "Tech solutions"
+  "svc_group_tech": "Tech solutions",
+  "job_title": "Digital Marketing & Tech Solutions Specialist"
 }

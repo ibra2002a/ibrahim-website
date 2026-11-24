@@ -108,5 +108,116 @@
       "challenge": "The challenge before the campaign.",
       "solution": "The strategy: platforms, audience, creative and tracking."
     }
+  },
+  {
+    "placeholder": true,
+    "platforms": [
+      "Web",
+      "iOS",
+      "Android"
+    ],
+    "ar": {
+      "client": "اسم المشروع",
+      "industry": "موقع / تطبيق",
+      "goal": "هدف المشروع",
+      "budget": "$X",
+      "period": "X أسابيع",
+      "result": "ملخّص النتيجة الحقيقية بجملة واحدة.",
+      "results": [
+        {
+          "value": "X.Xs",
+          "label": "سرعة التحميل"
+        },
+        {
+          "value": "XX%",
+          "label": "نسبة التحويل"
+        },
+        {
+          "value": "XXX",
+          "label": "الطلبات"
+        }
+      ],
+      "challenge": "وصف التحدي قبل بدء المشروع.",
+      "solution": "ما تم بناؤه: الصفحات، الوظائف، والتقنيات."
+    },
+    "en": {
+      "client": "Project name",
+      "industry": "Website / app",
+      "goal": "Project goal",
+      "budget": "$X",
+      "period": "X weeks",
+      "result": "A one-line summary of the real result.",
+      "results": [
+        {
+          "value": "X.Xs",
+          "label": "Load time"
+        },
+        {
+          "value": "XX%",
+          "label": "Conversion rate"
+        },
+        {
+          "value": "XXX",
+          "label": "Orders"
+        }
+      ],
+      "challenge": "Describe the challenge before the project started.",
+      "solution": "What was built: pages, features and technology."
+    }
+  },
+  {
+    "placeholder": true,
+    "platforms": [
+      "Website",
+      "Business Manager"
+    ],
+    "ar": {
+      "client": "اسم المشروع",
+      "industry": "أمن سيبراني",
+      "goal": "هدف الحماية",
+      "budget": "$X",
+      "period": "X أسابيع",
+      "result": "ملخّص النتيجة الحقيقية بجملة واحدة.",
+      "results": [
+        {
+          "value": "XX",
+          "label": "ثغرات تم إصلاحها"
+        },
+        {
+          "value": "XX",
+          "label": "حسابات تم تأمينها"
+        },
+        {
+          "value": "XX%",
+          "label": "حسابات بالتحقق بخطوتين"
+        }
+      ],
+      "challenge": "وصف وضع الحماية قبل البدء.",
+      "solution": "ما تم تنفيذه: الفحص، الإصلاحات، وخطة المتابعة."
+    },
+    "en": {
+      "client": "Project name",
+      "industry": "Cybersecurity",
+      "goal": "Protection goal",
+      "budget": "$X",
+      "period": "X weeks",
+      "result": "A one-line summary of the real result.",
+      "results": [
+        {
+          "value": "XX",
+          "label": "Vulnerabilities fixed"
+        },
+        {
+          "value": "XX",
+          "label": "Accounts secured"
+        },
+        {
+          "value": "XX%",
+          "label": "Accounts with 2FA"
+        }
+      ],
+      "challenge": "Describe the security situation before starting.",
+      "solution": "What was done: review, fixes and follow-up plan."
+    }
   }
 ]

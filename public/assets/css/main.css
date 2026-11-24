@@ -196,7 +196,10 @@ html[dir="rtl"] .field select { background-position: left .85rem center; }
 html[dir="rtl"] .hero::before { background: radial-gradient(620px 420px at 18% 18%, rgba(200, 242, 60, .10), transparent 70%); }
 .hero-grid { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: .6rem; margin: 0; padding: .3rem .95rem .3rem .3rem; padding-inline-start: .3rem; padding-inline-end: .95rem; border: 1px solid var(--border-2); border-radius: 999px; background: rgba(255, 255, 255, .03); color: var(--text-2); font-size: .86rem; }
-.hero-eyebrow img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--accent-line); }
+.hero-eyebrow img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--accent-line); }
+.hero-id { display: grid; line-height: 1.35; }
+.hero-id b { color: var(--text); font-weight: 600; font-size: .9rem; }
+.hero-id small { color: var(--text-3); font-size: .76rem; }
 .hero h1 { font-size: clamp(2.3rem, 5.2vw, 3.8rem); line-height: 1.16; font-weight: 700; letter-spacing: -.02em; margin: 1.4rem 0 1.25rem; }
 .hero h1 mark { background: none; color: var(--accent); }
 .lead { font-size: clamp(1.05rem, 2.1vw, 1.24rem); color: var(--text-2); line-height: 1.85; max-width: 34rem; margin: 0; }
@@ -475,6 +478,7 @@ html[dir="rtl"] .offer-featured { background: linear-gradient(225deg, rgba(200, 
 .plan-price bdi { color: var(--text); font-size: 1.35rem; font-weight: 700; }
 .price-note { display: flex; align-items: center; justify-content: center; gap: .5rem; margin: 1.6rem 0 0; color: var(--text-2); font-size: .92rem; text-align: center; }
 .price-note .ic { width: 16px; height: 16px; color: var(--accent); }
+.price-note-sub { margin-top: .5rem; color: var(--text-3); font-size: .86rem; }
 
 /* Testimonials */
 .testis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
@@ -780,8 +784,13 @@ html[dir="rtl"] .ai-form button svg { transform: scaleX(-1); }
     overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
     margin-inline: -1.25rem; padding: .25rem 1.25rem 1rem; scroll-padding-inline: 1.25rem;
   }
-  .testis::-webkit-scrollbar, .posts::-webkit-scrollbar { display: none; }
-  .testis > *, .posts > * { scroll-snap-align: start; }
+  .cases:has(> :nth-child(3)) {
+    grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 88%;
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-inline: -1.25rem; padding: .25rem 1.25rem 1rem; scroll-padding-inline: 1.25rem;
+  }
+  .testis::-webkit-scrollbar, .posts::-webkit-scrollbar, .cases::-webkit-scrollbar { display: none; }
+  .testis > *, .posts > *, .cases > * { scroll-snap-align: start; }
 }
 
 @media (max-width: 560px) {

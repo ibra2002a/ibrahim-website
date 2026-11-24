@@ -482,7 +482,7 @@ function personSchema(lang) {
     ...publishedServices(lang).filter((x) => !x.draft).map((x) => ({ name: x[lang].title, description: x[lang].description, url: absUrl(`${langPrefix(lang)}services/${x.slug}/`) }))];
   return {
     "@context": "https://schema.org", "@type": "Person", "@id": `${SITE}/#person`,
-    name: t.name, alternateName: other ? I18N[other].name : undefined, jobTitle: t.role, description: t.home_description,
+    name: t.name, alternateName: other ? I18N[other].name : undefined, jobTitle: t.job_title || t.role, description: t.home_description,
     url: absUrl(langPrefix(lang)), image: `${SITE}/assets/img/ibrahim-640.jpg`, telephone: "+" + CONFIG.whatsapp,
     sameAs: [CONFIG.instagram, SOCIAL.facebook, SOCIAL.tiktok, SOCIAL.linkedin].filter(Boolean),
     knowsAbout: KNOWS, areaServed: { "@type": "Country", name: "Iraq" },
@@ -748,7 +748,7 @@ for (const lang of LANGS) {
 {
   const strip = (h) => String(h).replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
   const know = {
-    person: { ar: I18N.ar.name, en: I18N.en.name, role: { ar: I18N.ar.role, en: I18N.en.role } },
+    person: { ar: I18N.ar.name, en: I18N.en.name, role: { ar: I18N.ar.job_title || I18N.ar.role, en: I18N.en.job_title || I18N.en.role } },
     contact: { whatsapp: CONFIG.whatsapp, instagram: CONFIG.instagram, site: SITE },
     langs: {},
   };

@@ -1,7 +1,7 @@
 {
   "name": "إبراهيم مهاوش",
-  "role": "مسوّق رقمي",
-  "tagline": "Digital Marketing & Performance Marketing",
+  "role": "تسويق · برمجة · أمن سيبراني",
+  "tagline": "Digital Marketing · Web & App Development · Cybersecurity",
   "og_locale": "ar_IQ",
   "date_locale": "ar-IQ-u-nu-latn",
   "skip": "تخطَّ إلى المحتوى",
@@ -27,8 +27,8 @@
   "footer_services": "الخدمات المتخصصة",
   "copyright": "Ibrahim Mahaoush. All Rights Reserved.",
   "wa_label": "تواصل عبر واتساب",
-  "home_title": "إبراهيم مهاوش | مسوّق رقمي وخبير إعلانات",
-  "home_description": "إبراهيم مهاوش، مسوّق رقمي متخصص في الإعلانات الرقمية وPerformance Marketing وبناء الحملات التي تحقق نتائج قابلة للقياس.",
+  "home_title": "إبراهيم مهاوش | تسويق رقمي وبرمجة وأمن سيبراني",
+  "home_description": "إبراهيم مهاوش، خبير تسويق رقمي وحلول تقنية: إعلانات وPerformance Marketing بنتائج قابلة للقياس، برمجة مواقع وتطبيقات، وأمن سيبراني يحمي نشاطك.",
   "home": "الرئيسية",
   "blog_title": "أفكار من السوق | إبراهيم مهاوش",
   "blog_heading": "أفكار من السوق",
@@ -101,5 +101,6 @@
   "opt_plans": "الباقات",
   "opt_tech": "خدمات تقنية",
   "svc_group_marketing": "التسويق والإعلانات",
-  "svc_group_tech": "الحلول التقنية"
+  "svc_group_tech": "الحلول التقنية",
+  "job_title": "خبير تسويق رقمي وحلول تقنية"
 }
